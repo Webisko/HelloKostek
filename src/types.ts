@@ -1,4 +1,4 @@
-export type PageId = "home" | "portraits" | "shop" | "about" | "contact";
+export type PageId = "home" | "portraits" | "shop" | "about" | "contact" | "product-detail" | "success";
 
 export interface Product {
   id: string;

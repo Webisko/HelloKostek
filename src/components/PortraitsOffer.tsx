@@ -50,7 +50,7 @@ export default function PortraitsOffer() {
   const mailToUrl = `mailto:kontakt@hellokostek.pl?subject=Zamówienie portretu ze zdjęcia - HelloKostek.pl&body=Dzień dobry,%0D%0A%0D%0AChciałabym zapytać o możliwość namalowania portretu olejnego ze zdjęcia.%0D%0A%0D%0AOto wybrane parametry mojego zamówienia:%0D%0A- Kształt płótna: ${canvasShape === "rectangle" ? "Prostokątne" : "Owalne"}%0D%0A- Rozmiar: ${dimensions === "30x40" ? "30 x 40 cm" : dimensions === "40x55" ? "40 x 55 cm" : "50 x 70 cm"}%0D%0A- Liczba postaci ludzi na obrazie: ${peopleCount}%0D%0A- Dodatkowo zwierzę: ${wantsPets ? "Tak" : "Nie"}%0D%0A%0D%0A[Załączam wstępne zdjęcia w tej wiadomości email]%0D%0A%0D%0AProszę o informację o dostępnych terminach i procesie.%0D%0A%0D%0APozdrawiam serdecznie`;
 
   return (
-    <div className="animate-fadeIn py-12 px-6 max-w-7xl mx-auto space-y-20">
+    <div className="animate-fadeIn py-12 px-6 max-w-[1600px] mx-auto space-y-20">
       {/* Introduction Banner header */}
       <section className="text-center space-y-6 max-w-4xl mx-auto">
         <span className="font-mono text-xs text-magenta-accent uppercase tracking-widest block font-bold">Zrób wyjątkowy podarunek</span>
@@ -332,10 +332,17 @@ export default function PortraitsOffer() {
           <div className="space-y-3 pt-2">
             <a
               href={mailToUrl}
-              className="w-full py-4 bg-off-black text-white hover:bg-magenta-accent text-center font-bold font-sans text-sm tracking-wide rounded-xl flex items-center justify-center gap-2 transition-all cursor-pointer"
+              className="button button--full"
             >
-              <Mail className="w-4 h-4" />
-              Wyślij zgłoszenie mailowe
+              <div className="button__blobs">
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <div className="button__text">
+                <Mail className="w-4 h-4" />
+                Wyślij zgłoszenie mailowe
+              </div>
             </a>
             <p className="text-xs text-stone-500 font-sans text-center leading-normal">
               Po kliknięciu otworzy się Twój program pocztowy. Proszę załącz zdjęcia, a ja odpowiem w przeciągu 24 godzin na adres <strong>kontakt@hellokostek.pl</strong>.
@@ -408,10 +415,17 @@ export default function PortraitsOffer() {
         </div>
         <a
           href="mailto:kontakt@hellokostek.pl?subject=Indywidualne zamówienie dużego portretu&body=Dzień dobry,%0D%0A%0D%0ACHciałabym zapytać o indywidualną wycenę dużego formatu portretu..."
-          className="px-8 py-4 bg-off-black text-white hover:bg-magenta-accent hover:text-white transition-all duration-300 rounded-xl font-bold font-sans text-sm tracking-wide shrink-0 inline-flex items-center gap-2 cursor-pointer"
+          className="button shrink-0"
         >
-          Napisz do mnie po wycenę
-          <ArrowRight className="w-4 h-4" />
+          <div className="button__blobs">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div className="button__text">
+            Napisz do mnie po wycenę
+            <ArrowRight className="w-4 h-4" />
+          </div>
         </a>
       </section>
     </div>

@@ -81,7 +81,7 @@ export default function Checkout({
                 <p className="font-sans text-sm">Twój koszyk jest pusty.</p>
                 <button
                   onClick={onClose}
-                  className="px-6 py-2.5 bg-off-black text-white hover:bg-magenta-accent transition-all text-xs font-semibold rounded-lg uppercase tracking-wide"
+                  className="px-6 py-2.5 bg-off-black text-white hover:bg-lime-accent hover:text-off-black active:bg-magenta-accent active:text-white transition-all text-xs font-semibold rounded-lg uppercase tracking-wide cursor-pointer"
                 >
                   Kontynuuj zakupy
                 </button>
@@ -154,7 +154,7 @@ export default function Checkout({
               <div className="space-y-2 pt-2">
                 <button
                   onClick={() => setShowStripeModal(true)}
-                  className="w-full py-4 bg-off-black text-white hover:bg-magenta-accent transition-colors font-bold text-sm tracking-wide rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+                  className="w-full py-4 bg-off-black text-white hover:bg-lime-accent hover:text-off-black active:bg-magenta-accent active:text-white transition-all duration-300 font-bold text-sm tracking-wide rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-sm"
                 >
                   <CreditCard className="w-4 h-4" />
                   Przejdź do płatności Stripe
@@ -300,10 +300,17 @@ export default function Checkout({
                 <div className="space-y-3 pt-2">
                   <button
                     type="submit"
-                    className="w-full py-4 bg-[#635BFF] hover:bg-[#4A43D1] text-white font-bold text-sm tracking-wide rounded-xl flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                    className="button button--full"
                   >
-                    <ShieldCheck className="w-4 h-4" />
-                    Zapłać bezpiecznie {grandTotal} zł
+                    <div className="button__blobs">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>
+                    <div className="button__text">
+                      <ShieldCheck className="w-4 h-4" />
+                      Zapłać bezpiecznie {grandTotal} zł
+                    </div>
                   </button>
                   <p className="text-xs text-stone-400 font-sans text-center leading-normal">
                     Płatności są przetwarzane przez Stripe Inc. zgodnie z normami bezpieczeństwa PCI-DSS Level 1. Żadne poufne dane płatnicze nie są zapisywane na naszych serwerach.

@@ -1,6 +1,6 @@
 import { PageId, CartItem } from "../types";
 import { Menu, X } from "lucide-react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 interface NavbarProps {
   currentPage: PageId;
@@ -16,6 +16,20 @@ export default function Navbar({
   setIsCartOpen,
 }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleJakZamowic = () => {
     setIsMobileMenuOpen(false);
@@ -36,23 +50,25 @@ export default function Navbar({
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-neutral-100 px-6 py-4 md:py-6">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-neutral-100 transition-all duration-500 ease-in-out">
+      <div className={`max-w-[1600px] mx-auto flex items-center justify-between px-6 transition-all duration-500 ease-in-out ${
+        isScrolled ? "py-1.5 md:py-2" : "py-3 md:py-5"
+      }`}>
         
         {/* Left Side Navigation (Desktop) - Symmetrical side A */}
         <div className="hidden md:flex items-center space-x-12 w-1/3">
           <button
             onClick={() => {
-              setCurrentPage("portraits");
+              setCurrentPage("home");
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
-            className={`font-sans text-[13px] uppercase tracking-widest transition-all duration-300 hover:text-magenta-accent relative py-1 group ${
-              currentPage === "portraits" ? "text-off-black font-semibold text-magenta-accent" : "text-off-black/60"
+            className={`font-sans text-[13px] uppercase tracking-widest transition-all duration-300 hover:text-lime-accent relative py-1 group ${
+              currentPage === "home" ? "text-magenta-accent font-semibold" : "text-off-black/60"
             }`}
           >
-            Oferta portretów
-            <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-magenta-accent transition-transform duration-300 origin-left ${
-              currentPage === "portraits" ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+            Portrety
+            <span className={`absolute bottom-0 left-0 w-full h-[1px] transition-transform duration-300 origin-left ${
+              currentPage === "home" ? "bg-magenta-accent scale-x-100" : "bg-lime-accent scale-x-0 group-hover:scale-x-100"
             }`} />
           </button>
           
@@ -61,18 +77,18 @@ export default function Navbar({
               setCurrentPage("shop");
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
-            className={`font-sans text-[13px] uppercase tracking-widest transition-all duration-300 hover:text-magenta-accent relative py-1 group ${
-              currentPage === "shop" ? "text-off-black font-semibold text-magenta-accent" : "text-off-black/60"
+            className={`font-sans text-[13px] uppercase tracking-widest transition-all duration-300 hover:text-lime-accent relative py-1 group ${
+              currentPage === "shop" ? "text-magenta-accent font-semibold" : "text-off-black/60"
             }`}
           >
-            Oryginalne prace (Sklep)
-            <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-magenta-accent transition-transform duration-300 origin-left ${
-              currentPage === "shop" ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+            Sklep
+            <span className={`absolute bottom-0 left-0 w-full h-[1px] transition-transform duration-300 origin-left ${
+              currentPage === "shop" ? "bg-magenta-accent scale-x-100" : "bg-lime-accent scale-x-0 group-hover:scale-x-100"
             }`} />
           </button>
         </div>
 
-        {/* Centered Logo (Daniel Arthury inspired) */}
+        {/* Centered Logo (Daniel Arthury inspired) - Magnified and animated */}
         <div className="flex justify-center items-center w-1/3 text-center">
           <button
             onClick={() => {
@@ -82,12 +98,16 @@ export default function Navbar({
             className="flex flex-col items-center group focus:outline-none"
             aria-label="Strona główna HelloKostek"
           >
-            <div className="w-28 h-12 md:w-36 md:h-16 flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105 p-1">
+            <div className={`flex items-center justify-center overflow-hidden transition-all duration-500 ease-in-out p-1 ${
+              isScrolled 
+                ? "w-[160px] h-[48px] md:w-[240px] md:h-[72px]" 
+                : "w-[200px] h-[60px] md:w-[360px] md:h-[108px]"
+            }`}>
               <img
                 src="https://hellokostek.pl/wp-content/uploads/2021/05/logo-animation-30fps-v-2.gif"
                 alt="HelloKostek Logo"
                 referrerPolicy="no-referrer"
-                className="max-w-full max-h-full object-contain mix-blend-multiply"
+                className="max-w-full max-h-full object-contain mix-blend-multiply transition-all duration-500"
               />
             </div>
           </button>
@@ -96,11 +116,18 @@ export default function Navbar({
         {/* Right Side Navigation (Desktop) - Symmetrical side B */}
         <div className="hidden md:flex items-center justify-end space-x-12 w-1/3">
           <button
-            onClick={handleJakZamowic}
-            className="font-sans text-[13px] uppercase tracking-widest transition-all duration-300 hover:text-magenta-accent relative py-1 group text-off-black/60"
+            onClick={() => {
+              setCurrentPage("about");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            className={`font-sans text-[13px] uppercase tracking-widest transition-all duration-300 hover:text-lime-accent relative py-1 group ${
+              currentPage === "about" ? "text-magenta-accent font-semibold" : "text-off-black/60"
+            }`}
           >
-            Jak zamówić
-            <span className="absolute bottom-0 left-0 w-full h-[1px] bg-magenta-accent transition-transform duration-300 origin-left scale-x-0 group-hover:scale-x-100" />
+            O mnie
+            <span className={`absolute bottom-0 left-0 w-full h-[1px] transition-transform duration-300 origin-left ${
+              currentPage === "about" ? "bg-magenta-accent scale-x-100" : "bg-lime-accent scale-x-0 group-hover:scale-x-100"
+            }`} />
           </button>
           
           <button
@@ -108,13 +135,13 @@ export default function Navbar({
               setCurrentPage("contact");
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
-            className={`font-sans text-[13px] uppercase tracking-widest transition-all duration-300 hover:text-magenta-accent relative py-1 group ${
-              currentPage === "contact" ? "text-off-black font-semibold text-magenta-accent" : "text-off-black/60"
+            className={`font-sans text-[13px] uppercase tracking-widest transition-all duration-300 hover:text-lime-accent relative py-1 group ${
+              currentPage === "contact" ? "text-magenta-accent font-semibold" : "text-off-black/60"
             }`}
           >
             Kontakt
-            <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-magenta-accent transition-transform duration-300 origin-left ${
-              currentPage === "contact" ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+            <span className={`absolute bottom-0 left-0 w-full h-[1px] transition-transform duration-300 origin-left ${
+              currentPage === "contact" ? "bg-magenta-accent scale-x-100" : "bg-lime-accent scale-x-0 group-hover:scale-x-100"
             }`} />
           </button>
         </div>
@@ -133,18 +160,18 @@ export default function Navbar({
 
       {/* Mobile Menu panel */}
       {isMobileMenuOpen && (
-        <div className="md:hidden mt-4 pt-4 border-t border-neutral-100 flex flex-col space-y-4 pb-4 animate-fadeIn">
+        <div className="md:hidden mt-4 pt-4 border-t border-neutral-100 flex flex-col space-y-4 pb-4 animate-fadeIn px-6">
           <button
             onClick={() => {
-              setCurrentPage("portraits");
+              setCurrentPage("home");
               setIsMobileMenuOpen(false);
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
             className={`text-left text-xs uppercase tracking-widest font-sans py-2 border-l-2 pl-3 transition-colors ${
-              currentPage === "portraits" ? "border-magenta-accent text-magenta-accent font-semibold" : "border-transparent text-off-black/60"
+              currentPage === "home" ? "border-[#E0115F] text-[#E0115F] font-semibold" : "border-transparent text-off-black/60"
             }`}
           >
-            Oferta portretów
+            Portrety
           </button>
           
           <button
@@ -154,17 +181,23 @@ export default function Navbar({
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
             className={`text-left text-xs uppercase tracking-widest font-sans py-2 border-l-2 pl-3 transition-colors ${
-              currentPage === "shop" ? "border-magenta-accent text-magenta-accent font-semibold" : "border-transparent text-off-black/60"
+              currentPage === "shop" ? "border-[#E0115F] text-[#E0115F] font-semibold" : "border-transparent text-off-black/60"
             }`}
           >
-            Oryginalne prace (Sklep)
+            Sklep
           </button>
 
           <button
-            onClick={handleJakZamowic}
-            className="text-left text-xs uppercase tracking-widest font-sans py-2 border-l-2 pl-3 border-transparent text-off-black/60"
+            onClick={() => {
+              setCurrentPage("about");
+              setIsMobileMenuOpen(false);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            className={`text-left text-xs uppercase tracking-widest font-sans py-2 border-l-2 pl-3 transition-colors ${
+              currentPage === "about" ? "border-[#E0115F] text-[#E0115F] font-semibold" : "border-transparent text-off-black/60"
+            }`}
           >
-            Jak zamówić
+            O mnie
           </button>
 
           <button
@@ -174,21 +207,10 @@ export default function Navbar({
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
             className={`text-left text-xs uppercase tracking-widest font-sans py-2 border-l-2 pl-3 transition-colors ${
-              currentPage === "contact" ? "border-magenta-accent text-magenta-accent font-semibold" : "border-transparent text-off-black/60"
+              currentPage === "contact" ? "border-[#E0115F] text-[#E0115F] font-semibold" : "border-transparent text-off-black/60"
             }`}
           >
             Kontakt
-          </button>
-
-          <button
-            onClick={() => {
-              setCurrentPage("home");
-              setIsMobileMenuOpen(false);
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-            className="text-left text-xs uppercase tracking-widest font-sans py-2 border-l-2 pl-3 border-transparent text-off-black/40"
-          >
-            Strona główna
           </button>
         </div>
       )}

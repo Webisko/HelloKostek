@@ -7,11 +7,14 @@ import Shop from "./components/Shop";
 import AboutMe from "./components/AboutMe";
 import Contact from "./components/Contact";
 import Checkout from "./components/Checkout";
+import ProductDetail from "./components/ProductDetail";
+import Success from "./components/Success";
 import { Heart, Mail, Info, ArrowRight, ShieldCheck, Sparkles, X, ShoppingBag } from "lucide-react";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<PageId>("home");
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [showCookies, setShowCookies] = useState(true);
 
@@ -102,22 +105,76 @@ export default function App() {
   const renderPage = () => {
     switch (currentPage) {
       case "home":
-        return <Home setCurrentPage={setCurrentPage} />;
+        return (
+          <Home 
+            setCurrentPage={setCurrentPage} 
+            onSelectProduct={(product) => {
+              setSelectedProduct(product);
+              setCurrentPage("product-detail");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }} 
+          />
+        );
       case "portraits":
         return <PortraitsOffer />;
       case "shop":
-        return <Shop addToCart={addToCart} cart={cart} />;
+        return (
+          <Shop 
+            addToCart={addToCart} 
+            cart={cart} 
+            onSelectProduct={(product) => {
+              setSelectedProduct(product);
+              setCurrentPage("product-detail");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+          />
+        );
       case "about":
         return <AboutMe />;
       case "contact":
         return <Contact />;
+      case "product-detail":
+        return selectedProduct ? (
+          <ProductDetail
+            product={selectedProduct}
+            addToCart={addToCart}
+            cart={cart}
+            setCurrentPage={setCurrentPage}
+            setIsCartOpen={setIsCartOpen}
+          />
+        ) : (
+          <Shop 
+            addToCart={addToCart} 
+            cart={cart} 
+            onSelectProduct={(product) => {
+              setSelectedProduct(product);
+              setCurrentPage("product-detail");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+          />
+        );
+      case "success":
+        return (
+          <Success 
+            setCurrentPage={setCurrentPage} 
+            clearCart={clearCart} 
+          />
+        );
       default:
-        return <Home setCurrentPage={setCurrentPage} />;
+        return (
+          <Home 
+            setCurrentPage={setCurrentPage} 
+            onSelectProduct={(product) => {
+              setSelectedProduct(product);
+              setCurrentPage("product-detail");
+            }} 
+          />
+        );
     }
   };
 
   return (
-    <div className="min-h-screen bg-off-white text-off-black selection:bg-lime-accent selection:text-off-black flex flex-col justify-between">
+    <div className="min-h-screen bg-white text-off-black selection:bg-lime-accent selection:text-off-black flex flex-col justify-between">
       
       {/* Centered Navigation */}
       <Navbar
@@ -134,10 +191,10 @@ export default function App() {
 
       {/* FOOTER - Minimal, elegant and respectful */}
       <footer className="bg-neutral-50 border-t border-neutral-200 pb-16 pt-20 px-6">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12">
+        <div className="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-12">
           {/* Column 1 - Brand Summary */}
           <div className="md:col-span-4 space-y-6">
-            <div className="w-20 h-10 overflow-hidden rounded-lg bg-off-black/5 p-1">
+            <div className="w-full max-w-[420px] h-28 md:h-36 overflow-hidden flex items-center justify-start py-1">
               <img
                 src="https://hellokostek.pl/wp-content/uploads/2021/05/logo-animation-30fps-v-2.gif"
                 alt="HelloKostek"
@@ -156,7 +213,7 @@ export default function App() {
             <ul className="space-y-2 text-stone-600">
               <li>
                 <button 
-                  onClick={() => { setCurrentPage("portraits"); window.scrollTo({ top: 0, behavior: "smooth" }); }} 
+                  onClick={() => { setCurrentPage("home"); window.scrollTo({ top: 0, behavior: "smooth" }); }} 
                   className="hover:text-magenta-accent transition-colors cursor-pointer"
                 >
                   Portret ze zdjęcia na płótnie prostokątnym
@@ -164,7 +221,7 @@ export default function App() {
               </li>
               <li>
                 <button 
-                  onClick={() => { setCurrentPage("portraits"); window.scrollTo({ top: 0, behavior: "smooth" }); }} 
+                  onClick={() => { setCurrentPage("home"); window.scrollTo({ top: 0, behavior: "smooth" }); }} 
                   className="hover:text-magenta-accent transition-colors cursor-pointer"
                 >
                   Portret ze zdjęcia na płótnie owalnym
@@ -196,7 +253,7 @@ export default function App() {
               <li>
                 <button 
                   onClick={() => { setCurrentPage("about"); window.scrollTo({ top: 0, behavior: "smooth" }); }} 
-                  className="hover:text-magenta-accent transition-colors cursor-pointer"
+                  className="hover:text-lime-accent transition-colors cursor-pointer text-left"
                 >
                   O autorze (Kostek)
                 </button>
@@ -204,7 +261,7 @@ export default function App() {
               <li>
                 <button 
                   onClick={() => { setCurrentPage("contact"); window.scrollTo({ top: 0, behavior: "smooth" }); }} 
-                  className="hover:text-magenta-accent transition-colors cursor-pointer"
+                  className="hover:text-lime-accent transition-colors cursor-pointer text-left"
                 >
                   Jak złożyć zamówienie?
                 </button>
@@ -212,7 +269,7 @@ export default function App() {
               <li>
                 <button 
                   onClick={() => { setCurrentPage("contact"); window.scrollTo({ top: 0, behavior: "smooth" }); }} 
-                  className="hover:text-magenta-accent transition-colors cursor-pointer"
+                  className="hover:text-lime-accent transition-colors cursor-pointer text-left"
                 >
                   FAQ / Pytania
                 </button>
@@ -225,7 +282,7 @@ export default function App() {
             <span className="font-mono text-xs uppercase text-stone-400 tracking-wider block font-bold">Kontakt</span>
             <p className="text-stone-600 leading-normal">
               Masz pytania? Chcesz skonsultować kompozycję?<br />
-              <a href="mailto:kontakt@hellokostek.pl" className="font-bold text-off-black hover:text-magenta-accent transition-colors block mt-2">
+              <a href="mailto:kontakt@hellokostek.pl" className="font-bold text-off-black hover:text-lime-accent transition-colors block mt-2">
                 kontakt@hellokostek.pl
               </a>
             </p>
@@ -236,12 +293,12 @@ export default function App() {
         </div>
 
         {/* Bottom Rights Bar */}
-        <div className="max-w-7xl mx-auto border-t border-stone-150 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-400 font-sans">
+        <div className="max-w-[1600px] mx-auto border-t border-stone-150 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-400 font-sans">
           <p>© {new Date().getFullYear()} HelloKostek.pl. Wszelkie prawa zastrzeżone. Rękodzieło i malarstwo artystyczne.</p>
           <div className="flex gap-4">
-            <a href="#" className="hover:text-[#E0115F] transition-colors">Polityka prywatności</a>
+            <a href="#" className="hover:text-lime-accent transition-colors">Polityka prywatności</a>
             <span>•</span>
-            <a href="#" className="hover:text-[#E0115F] transition-colors">Regulamin sklepu</a>
+            <a href="#" className="hover:text-lime-accent transition-colors">Regulamin sklepu</a>
           </div>
         </div>
       </footer>
@@ -250,7 +307,7 @@ export default function App() {
       {cart.reduce((total, item) => total + item.quantity, 0) > 0 && (
         <button
           onClick={() => setIsCartOpen(true)}
-          className="fixed bottom-6 right-6 bg-magenta-accent text-white p-4 rounded-full shadow-2xl hover:bg-off-black hover:scale-105 active:scale-95 transition-all duration-300 z-40 group flex items-center justify-center cursor-pointer border border-magenta-accent/20"
+          className="fixed bottom-6 right-6 bg-magenta-accent text-white p-4 rounded-full shadow-2xl hover:bg-lime-accent hover:text-off-black hover:scale-105 active:scale-95 transition-all duration-300 z-40 group flex items-center justify-center cursor-pointer border border-magenta-accent/20"
           aria-label="Koszyk"
           id="floating-cart-btn"
         >
@@ -283,13 +340,13 @@ export default function App() {
           </div>
           
           <div className="flex justify-between items-center gap-3">
-            <a href="#" className="text-xs text-stone-400 hover:text-off-black hover:underline">
+            <a href="#" className="text-xs text-stone-400 hover:text-lime-accent hover:underline">
               Więcej w polityce prywatności
             </a>
             <div className="flex gap-2">
               <button
                 onClick={acceptCookies}
-                className="px-4 py-2.5 bg-off-black text-white hover:bg-magenta-accent transition-all duration-300 rounded-lg text-xs font-mono uppercase tracking-wider leading-none cursor-pointer"
+                className="px-4 py-2.5 bg-off-black text-white hover:bg-lime-accent hover:text-off-black active:bg-magenta-accent active:text-white transition-all duration-300 rounded-lg text-xs font-mono uppercase tracking-wider leading-none cursor-pointer"
               >
                 Zgadzam się
               </button>
@@ -297,6 +354,16 @@ export default function App() {
           </div>
         </div>
       )}
+      {/* SVG Goo Filters */}
+      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style={{ display: "none" }}>
+        <defs>
+          <filter id="goo">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"></feGaussianBlur>
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo"></feColorMatrix>
+            <feBlend in="SourceGraphic" in2="goo"></feBlend>
+          </filter>
+        </defs>
+      </svg>
     </div>
   );
 }

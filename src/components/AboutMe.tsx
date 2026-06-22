@@ -1,126 +1,155 @@
-import { Palette, Landmark, ShieldCheck, Heart } from "lucide-react";
+import { Palette, Landmark, ShieldCheck, Heart, Camera, Brush } from "lucide-react";
 
 export default function AboutMe() {
   return (
-    <div className="animate-fadeIn py-12 px-6 max-w-7xl mx-auto space-y-16">
-      {/* Bio Columns */}
-      <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        {/* Left column - Elegant Avatar with rounded corners */}
-        <div className="lg:col-span-5 relative">
-          <div className="absolute inset-0 bg-lime-accent rounded-3xl blur-xl opacity-30 -z-10 transform translate-x-3 translate-y-3" />
-          <div className="border border-off-black/10 p-3 bg-white rounded-3xl shadow-md">
-            <div className="zoom-container aspect-[3/4] rounded-2xl overflow-hidden">
+    <div className="animate-fadeIn py-16 px-6 max-w-[1600px] mx-auto space-y-24">
+      {/* Editorial Magazine Hero Header */}
+      <header className="border-b border-gray-100 pb-12 max-w-4xl">
+        <span className="font-mono text-xs uppercase tracking-widest text-[#E0115F] font-semibold block mb-4">
+          Esencja Malarstwa Olejnego • Łódź
+        </span>
+        <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl text-gray-900 tracking-tight leading-[1.05] font-normal mb-8">
+          Maciej Kostek <span className="font-sans italic font-light text-gray-400">artysta malarz Łódź</span>
+        </h1>
+        <p className="font-display italic text-gray-600 text-lg sm:text-xl pl-6 border-l-4 border-gray-900 max-w-2xl leading-relaxed">
+          „Prawdziwy portret nie powstaje na ekranie komputera. Tworzy się go z wolna, warstwa po warstwie, szanując czas, fizyczny opór płótna oraz tradycyjny zapach terpentyny.”
+        </p>
+      </header>
+
+      {/* Asymmetric Section 1: Biography vs Workspace Photography */}
+      <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        {/* Left Column: Storytelling Text (Asymmetric span) */}
+        <div className="lg:col-span-7 space-y-8 font-sans text-base text-gray-750 leading-relaxed">
+          <p className="text-lg font-medium text-gray-950 leading-relaxed">
+            Malarstwo to proces intymny i niepospieszny. Prace sygnowane marką <strong>HelloKostek</strong> powstają z chęci zachowania tradycyjnego, czystego rzemiosła artystycznego. Jako niezależny malarz tworzę w zaciszu łódzkiej pracowni portrety olejne, rysunki oraz akwarele, które stają się świadkami najważniejszych życiowych emocji moich klientów.
+          </p>
+          
+          <p>
+            Miejscem moich codziennych poszukiwań twórczych jest Łódź – miasto o surowej, postindustrialnej architekturze, niesamowitym filmowym dziedzictwie i nastrojowej, nieco melancholijnej aurze. Ta unikalna tożsamość przestrzeni bezpośrednio wpływa na moją paletę barw: od głębokich umbr i ugorów, po mocne, nasycone akcenty świetlne wyłaniające się z mroku.
+          </p>
+
+          <p>
+            Specjalizuję się w malowaniu portretów ze zdjęcia na zamówienie. Każde dzieło to osobna opowieść. Kiedy powierzasz mi wizerunek męża, dziecka, rodziców lub ukochanego pupila, nie oddajesz go w ręce algorytmów czy bezdusznych maszyn drukarskich. Uzyskujesz bezpośredni, stały kontakt z autorem obrazu. Rozmawiamy o charakterze portretowanej osoby, o jej wzroku, uśmiechu czy ułożeniu dłoni, by praca emanowała prawdą, a nie tylko suchym podobieństwem.
+          </p>
+
+          <p>
+            Mój warsztat wywodzi się z klasycznych tradycji akademickich. Korzystam wyłącznie z najwyższej klasy materiałów: naturalnych lnianych lub bawełnianych płócien naciąganych na krosna sosnowe, pędzli z włosia naturalnego oraz wyselekcjonowanych pigmentów olejnych uznanych europejskich marek. Wszystko po to, by obraz zachwycał intensywnością i fakturą przez pokolenia.
+          </p>
+        </div>
+
+        {/* Right Column: Dynamic Workspace Image Framing (Asymmetric span) */}
+        <div className="lg:col-span-5 space-y-6">
+          <div className="border border-gray-100 p-4 bg-gray-50/50 rounded-3xl">
+            <div className="zoom-container aspect-[3/4] rounded-2xl overflow-hidden shadow-sm">
               <img
                 src="https://hellokostek.pl/wp-content/uploads/2023/07/Wiecej-o-obiekcie-2-2022-edited-768x768.jpg"
-                alt="Kostek - Artysta malarz HelloKostek.pl"
+                alt="Maciej Kostek przy sztalugach, pracownia malarska Łódź"
                 referrerPolicy="no-referrer"
-                className="w-full h-full object-cover rounded-xl"
+                className="w-full h-full object-cover rounded-xl grayscale hover:grayscale-0 transition-all duration-700"
               />
             </div>
-          </div>
-        </div>
-
-        {/* Right column - Story and narrative */}
-        <div className="lg:col-span-7 space-y-8 font-sans">
-          <div className="space-y-3">
-            <span className="font-mono text-xs text-stone-500 uppercase tracking-widest block font-bold">Poznaj moją historię</span>
-            <h1 className="font-display text-4xl sm:text-5xl text-off-black tracking-tight leading-tight">
-              Nazywam się Kostek. <br />
-              <span className="italic font-normal text-magenta-accent">Przelewam emocje na płótno.</span>
-            </h1>
-          </div>
-
-          <div className="text-stone-700 space-y-4 text-sm sm:text-base leading-relaxed">
-            <p>
-              Malarstwo towarzyszy mi odkąd pamiętam. Moja pracownia <strong>HelloKostek</strong> powstała z miłości do tradycyjnego, powolnego rzemiosła, które nie poddaje się dyktatowi cyfrowego pośpiechu. Wierzę, że najcenniejsze dary to te, w które ktoś włożył kawałek swojej duszy, czas i fizyczną energię rąk.
-            </p>
-            <p>
-              Specjalizuję się w tradycyjnym malarstwie portretowym farbami olejnymi ze zdjęcia oraz ekspresyjnych pracach na papierze – akwarelach i rysunkach ołówkiem. Moje podejście łączy precyzję rzemiosła z subtelną melancholią i szacunkiem do portretowanej osoby.
-            </p>
-            <p>
-              Każde zlecenie traktuję w sposób wysoce indywidualny. Rozmawiając ze mną, nie rozmawiasz z masową drukarnią – rozmawiasz bezpośrednio z twórcą. Słucham Twoich sugestii na temat charakteru portretowanej osoby, bo wiem, jak ważne są detale takie jak spojrzenie, kącik ust czy drobne cienie na policzku.
-            </p>
-          </div>
-
-          {/* Core values block */}
-          <div className="grid grid-cols-2 gap-4 border-t border-off-black/10 pt-6">
-            <div className="flex gap-3">
-              <div className="w-5 h-5 rounded-full bg-lime-accent/30 text-magenta-accent flex items-center justify-center shrink-0 mt-1">
-                <Heart className="w-3 h-3" />
-              </div>
-              <div>
-                <strong className="text-xs font-semibold text-off-black uppercase font-sans">Czyste Rzemiosło</strong>
-                <p className="text-xs text-stone-500 mt-0.5 leading-normal">Prawdziwe farby olejne, pędzle z naturalnego włosia, krosna sosnowe.</p>
-              </div>
+            <div className="mt-4 flex items-center justify-between text-xs font-mono text-gray-500 px-1">
+              <span>PRZSTRZEŃ TWÓRCZA</span>
+              <span>ŁÓDŹ ŚRÓDMIEŚCIE</span>
             </div>
+          </div>
 
-            <div className="flex gap-3">
-              <div className="w-5 h-5 rounded-full bg-lime-accent/30 text-magenta-accent flex items-center justify-center shrink-0 mt-1">
-                <Palette className="w-3 h-3" />
-              </div>
-              <div>
-                <strong className="text-xs font-semibold text-off-black uppercase font-sans">Unikalny Styl</strong>
-                <p className="text-xs text-stone-500 mt-0.5 leading-normal">Minimalistyczne tła, gra głębokich kontrastów oraz nastrojowa aura.</p>
-              </div>
-            </div>
+          <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100 space-y-4">
+            <h4 className="font-display text-lg text-gray-900 font-semibold">Dlaczego malarstwo tradycyjne?</h4>
+            <p className="text-sm text-gray-600 leading-relaxed">
+              Dzisiejszy świat jest przepełniony cyfrowym szumem i natychmiastowym zaspokajaniem potrzeb. Ręcznie malowany obraz olejny to luksus posiadania czegoś trwałego i niepowtarzalnego. Gra światła na fakturowej powierzchni farby zmienia się w zależności od pory dnia, tworząc spektakl, którego nie da się skopiować na żadnym wyświetlaczu.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Narrative block - Lodz origin and studio workflow */}
-      <section className="bg-stone-100/50 rounded-3xl p-8 sm:p-12 border border-off-black/5 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-        <div className="space-y-4">
-          <div className="inline-flex items-center gap-2 bg-white/85 px-3 py-1.5 rounded-full border text-xs font-mono font-bold text-stone-600">
-            <Landmark className="w-3.5 h-3.5 text-magenta-accent" />
-            <span>Studio w Sercu Łodzi</span>
+      {/* Symmetrical Core Values & Workflow Focus */}
+      <section className="bg-gray-50 rounded-[32px] p-8 sm:p-12 border border-blue-50/10 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="space-y-3 font-sans">
+          <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-gray-900 border border-gray-100">
+            <Brush className="w-5 h-5 text-[#E0115F]" />
           </div>
-          <h2 className="font-display text-2xl sm:text-3.5xl text-off-black leading-tight">Łódzka Wrażliwość i Krajowa Bezpieczna Wysyłka</h2>
-          <p className="font-sans text-sm sm:text-base text-stone-600 leading-relaxed">
-            Moje studio mieści się w Łodzi – mieście o niesamowitej tradycji filmowej i włókienniczej, która codziennie inspiruje moją kreskę. Na terenie Łodzi wyjątkowo chętnie dostarczam ukończone obrazy osobiście.
-          </p>
-          <p className="font-sans text-sm sm:text-base text-stone-600 leading-relaxed">
-            Dla klientów z całej Polski (i spoza jej granic) oferuję bezpłatną, pancernie zabezpieczoną przesyłkę kurierską. Każde płótno owijam w bezkwasowy papier i potrójną warstwę amortyzującą, gwarantując, że dzieło dotrze do Ciebie w nienaruszonym stanie.
+          <h3 className="font-display text-lg font-semibold text-gray-900 uppercase tracking-tight">Tradycyjna Technologia</h3>
+          <p className="text-sm text-gray-600 leading-relaxed">
+            Nie chodzę na skróty. Stosuję klasyczną metodę laserunku oraz impastu, malując warstwowo na solidnych gruntowanych podobraziach sosnowych.
           </p>
         </div>
 
-        {/* Artistic details illustration / photo grids */}
-        <div className="grid grid-cols-2 gap-4">
-          <div className="aspect-square rounded-2xl bg-stone-200 overflow-hidden shadow-xs relative border border-stone-300">
-            <img
-              src="https://hellokostek.pl/wp-content/uploads/2023/07/Wiecej-o-obiekcie-9-2022-scaled.jpg"
-              alt="Akwarele detale"
-              referrerPolicy="no-referrer"
-              className="w-full h-full object-cover"
-            />
+        <div className="space-y-3 font-sans">
+          <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-gray-900 border border-gray-100">
+            <Palette className="w-5 h-5 text-[#E0115F]" />
           </div>
-          <div className="aspect-square rounded-2xl bg-stone-200 overflow-hidden shadow-xs relative border border-stone-300">
-            <img
-              src="https://hellokostek.pl/wp-content/uploads/2023/07/Wiecej-o-obiekcie-13-2022-scaled.jpg"
-              alt="Artystyczne rysunki ołówkiem"
-              referrerPolicy="no-referrer"
-              className="w-full h-full object-cover"
-            />
+          <h3 className="font-display text-lg font-semibold text-gray-900 uppercase tracking-tight">Osobisty Dialog</h3>
+          <p className="text-sm text-gray-600 leading-relaxed">
+            Wspólnie z klientem opracowuję układ kompozycji drogą cyfrową. Ty zatwierdzasz szkic i gamę barwną przed fizycznym przyłożeniem pędzla do płótna.
+          </p>
+        </div>
+
+        <div className="space-y-3 font-sans">
+          <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-gray-900 border border-gray-100">
+            <ShieldCheck className="w-5 h-5 text-[#E0115F]" />
+          </div>
+          <h3 className="font-display text-lg font-semibold text-gray-900 uppercase tracking-tight">Bezpieczeństwo i Trwałość</h3>
+          <p className="text-sm text-gray-600 leading-relaxed">
+            Ukończony obraz pokrywam satynowym werniksem chroniącym przed promieniami UV i kurzem. Paczki pakuję osobiście w pancerną konstrukcję z tektury i pianki.
+          </p>
+        </div>
+      </section>
+
+      {/* Editorial Magazine Photo Gallery (Two columns, asymmetric aspect ratios) */}
+      <section className="space-y-8">
+        <div className="max-w-2xl">
+          <span className="font-mono text-xs uppercase tracking-widest text-[#E0115F] font-semibold block mb-2">Workspace & Tools</span>
+          <h2 className="font-display text-3xl sm:text-4.5xl text-gray-900">Moja Pracownia: Gdzie schną sekrety</h2>
+          <p className="text-gray-600 text-base leading-relaxed mt-2">
+            Zajrzyj za kulisy powstawania obrazów. Każda akwarela, każdy rysunek ołówkiem i portret powstaje w unikalnym klimacie skupienia i przy nastrojowej muzyce sferycznej.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch pt-4">
+          <div className="space-y-4">
+            <div className="aspect-[4/3] rounded-2xl bg-gray-100 overflow-hidden border border-gray-100">
+              <img
+                src="https://hellokostek.pl/wp-content/uploads/2023/07/Wiecej-o-obiekcie-9-2022-scaled.jpg"
+                alt="Detale farb i pędzli w pracowni artysty w Łodzi"
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+              />
+            </div>
+            <p className="text-xs font-mono text-gray-500 tracking-wider">AKTUALNE NARZĘDZIA PRACY: OLEJE, SYPANE PIGMENTY I ROZPUSZCZALNIKI</p>
+          </div>
+
+          <div className="space-y-4">
+            <div className="aspect-[4/3] rounded-2xl bg-gray-100 overflow-hidden border border-gray-100">
+              <img
+                src="https://hellokostek.pl/wp-content/uploads/2023/07/Wiecej-o-obiekcie-13-2022-scaled.jpg"
+                alt="Proces rysowania i fakturowania portretów ze zdjęcia"
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+              />
+            </div>
+            <p className="text-xs font-mono text-gray-500 tracking-wider">DETAL I TEKSTURA PAPIERU – SYGNOWANE KOLEKCJE</p>
           </div>
         </div>
       </section>
 
-      {/* Satisfied Clients Quote blocks */}
-      <section className="space-y-6 max-w-4xl mx-auto border-t border-off-black/10 pt-16">
-        <h3 className="font-display text-2xl text-center text-off-black mb-8">Opinie moim pędzlem urzeczonych</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <blockquote className="bg-white p-6 rounded-2xl border border-off-black/5 relative space-y-4">
-            <p className="font-sans italic text-xs sm:text-sm text-stone-600 leading-relaxed">
-              „Zamówiłam owalny portret moich rodziców na ich 40. rocznicę ślubu. Rodzice byli wzruszeni do łez. Farba olejna ma tak cudowną fakturę i głębię, że patrzenie na obraz to codzienna radość. Kostek cudownie doradził nam z tłem!”
+      {/* Verified Client Quotes with premium layout */}
+      <section className="space-y-8 border-t border-gray-100 pt-16 max-w-4xl mx-auto text-center">
+        <h3 className="font-display text-2xl sm:text-3xl text-gray-900">Uczucia uwiecznione w opiniach</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 text-left mt-10">
+          <div className="p-8 rounded-2xl bg-gray-50/50 border border-gray-100 space-y-4">
+            <p className="font-sans italic text-base text-gray-700 leading-relaxed">
+              „Zamówiłam owalny portret rodziców na czterdziestolecie ich ślubu. Rodzice płakali ze wzruszenia. Faktura farby olejnej, blask wosku i głębia cieni sprawiają, że obraz żyje na ścianie. Pan Maciej to cudowny artysta o niezwykłej empatii!”
             </p>
-            <cite className="font-sans text-xs font-semibold text-off-black not-italic block">— Maria (46l.), Poznań</cite>
-          </blockquote>
+            <cite className="font-mono text-xs uppercase tracking-wider text-gray-500 not-italic block">— Maria (46l.), Poznań</cite>
+          </div>
 
-          <blockquote className="bg-white p-6 rounded-2xl border border-off-black/5 relative space-y-4 font-sans">
-            <p className="italic text-xs sm:text-sm text-stone-600 leading-relaxed">
-              „Mój ukochany piesek odszedł kilka miesięcy temu. Pan Kostek namalował go z niesamowitą empatią i uchwycił to mądre spojrzenie, za którym tak tęskniłam. Proces poprawek cyfrowych dał mi ogromny spokój wewnętrzny.”
+          <div className="p-8 rounded-2xl bg-gray-50/50 border border-gray-100 space-y-4">
+            <p className="font-sans italic text-base text-gray-700 leading-relaxed">
+              „Portret mojego ukochanego pieska wyszedł niesamowicie wiernie. Pan Kostek uchwycił ten mądry, spokojny wyraz oczu, za którym tak tęskniłam. Cały proces akceptacji projektu i poprawek był profesjonalny i pełen taktu.”
             </p>
-            <cite className="text-xs font-semibold text-off-black not-italic block">— Elżbieta (52l.), Łódź</cite>
-          </blockquote>
+            <cite className="font-mono text-xs uppercase tracking-wider text-gray-500 not-italic block">— Elżbieta (52l.), Łódź</cite>
+          </div>
         </div>
       </section>
     </div>
