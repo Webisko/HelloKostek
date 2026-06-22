@@ -21,12 +21,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    
-    # Informujemy GitHub, że domyślnie ma odpalać komendy w podfolderze projektu
-    defaults:
-      run:
-        working-directory: ./HelloKostek
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -35,12 +29,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "npm"
-          # Wskazujemy ścieżkę do pliku lock dla poprawnego działania cache
-          cache-dependency-path: "./HelloKostek/package-lock.json"
+          # Wyłączamy cache, ponieważ nie wypychasz pliku package-lock.json do repozytorium
 
       - name: Install dependencies
-        run: npm ci
+        # Zmieniamy z 'npm ci' na 'npm install', ponieważ 'npm ci' wymaga obecności pliku package-lock.json
+        run: npm install
 
       - name: Build
         run: npm run build
@@ -51,8 +44,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Artefakt do wdrożenia też powstanie wewnątrz podfolderu
-          path: './HelloKostek/dist'
+          # Folder dist powstaje bezpośrednio w głównym katalogu repozytorium
+          path: './dist'
 
       - name: Deploy to GitHub Pages
         id: deployment
