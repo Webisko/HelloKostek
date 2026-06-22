@@ -1,0 +1,6 @@
+{
+  "name": "HelloKostek",
+  "description": "Minimalistyczne portrety olejone na zamówienie oraz sklep z autorskimi rysunkami, akwarelami i wydrukami.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
