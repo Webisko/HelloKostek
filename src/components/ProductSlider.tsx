@@ -66,9 +66,9 @@ export default function ProductSlider({ setCurrentPage, onSelectProduct }: Produ
     <section className="py-20 md:py-28 lg:py-24 xl:py-20 2xl:py-32">
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0 space-y-12">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-        <div className="max-w-2xl space-y-4">
+        <div className="max-w-3xl space-y-4">
           <span className="font-mono text-xs text-[#E0115F] uppercase tracking-widest block font-bold">KOLEKCJA MOICH DZIEŁ</span>
-          <h2 className="font-display text-5xl text-gray-950 font-normal leading-[1.1]">
+          <h2 className="font-display text-4xl sm:text-5xl text-gray-950 font-normal leading-[1.1]">
             Oryginalne dzieła z duszą <br className="hidden sm:inline" /> i charakterem
           </h2>
           <p className="font-sans text-gray-600 text-base leading-relaxed">

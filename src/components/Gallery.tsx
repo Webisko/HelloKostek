@@ -153,7 +153,7 @@ export default function Gallery({ setCurrentPage, handleNavigateToContact }: Gal
               setSelectedImageIndex(null);
             }}
             placeholder="Szukaj portretu..."
-            className="w-full py-3 pl-10 pr-4 bg-gray-50 border border-gray-200 rounded-xl text-xs text-gray-800 placeholder:text-gray-400 focus:bg-white focus:border-gray-900 focus:ring-1 focus:ring-gray-900 transition-all outline-none"
+            className="w-full py-3 pl-10 pr-4 bg-gray-50 border border-gray-200 rounded-xl text-xs text-gray-800 placeholder:text-gray-400 focus:bg-white focus:border-lime-accent focus:ring-1 focus:ring-lime-accent transition-all outline-none"
           />
           <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-gray-400" />
         </div>

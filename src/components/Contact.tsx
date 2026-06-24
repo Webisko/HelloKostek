@@ -14,8 +14,8 @@ export default function Contact({ initialSubject = "", setCurrentPage }: Contact
     email: "",
     subject: initialSubject,
     message: "",
-    shape: "rectangle",
-    size: "30x40"
+    shape: "",
+    size: ""
   });
 
   const [files, setFiles] = useState<File[]>([]);
@@ -65,6 +65,16 @@ export default function Contact({ initialSubject = "", setCurrentPage }: Contact
     if (!formData.subject) {
       setIsDropdownOpen(true);
       return;
+    }
+    if (formData.subject === "portrait_commission") {
+      if (!formData.shape) {
+        alert("Proszę wybrać kształt podobrazia.");
+        return;
+      }
+      if (!formData.size) {
+        alert("Proszę wybrać rozmiar portretu.");
+        return;
+      }
     }
     
     if (setCurrentPage) {
@@ -238,7 +248,7 @@ export default function Contact({ initialSubject = "", setCurrentPage }: Contact
             {formData.subject === "portrait_commission" && (
               <div className="animate-scaleIn space-y-6">
                 <div className="space-y-1">
-                  <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Kształt podobrazia</label>
+                  <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Kształt podobrazia *</label>
                   <div className="flex gap-3">
                     <label className={`flex-1 flex items-center justify-center p-3 border rounded-xl cursor-pointer hover:border-[#C4F013] text-sm font-sans transition-all text-center ${
                       formData.shape === "rectangle" ? "border-[#C4F013] ring-1 ring-[#C4F013] bg-white shadow-xs font-semibold text-gray-950" : "border-gray-200 bg-gray-50 text-gray-500 hover:bg-white"
@@ -270,7 +280,7 @@ export default function Contact({ initialSubject = "", setCurrentPage }: Contact
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Wybierz wstępny rozmiar</label>
+                  <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Wybierz wstępny rozmiar *</label>
                   <div className="grid grid-cols-2 gap-3">
                     <label className={`flex items-center justify-center p-3 border rounded-xl cursor-pointer hover:border-[#C4F013] text-sm font-sans transition-all text-center ${
                       formData.size === "30x40" ? "border-[#C4F013] ring-1 ring-[#C4F013] bg-white shadow-xs font-semibold text-gray-950" : "border-gray-200 bg-gray-50 text-gray-500 hover:bg-white"

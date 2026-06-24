@@ -66,13 +66,6 @@ export default function AboutMe({ setCurrentPage, onSelectProduct }: AboutMeProp
               Dzisiejszy świat jest przepełniony cyfrowym szumem i natychmiastowym zaspokajaniem potrzeb. Ręcznie malowany obraz olejny to luksus posiadania czegoś trwałego i niepowtarzalnego. Gra światła na fakturowej powierzchni farby zmienia się w zależności od pory dnia, tworząc spektakl, którego nie da się skopiować na żadnym wyświetlaczu.
             </p>
           </div>
-
-          <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100 space-y-4">
-            <h4 className="font-display text-lg text-gray-900 font-semibold">Certyfikaty autentyczności</h4>
-            <p className="text-sm text-gray-600 leading-relaxed">
-              Każdy obraz – czy to rysunek, akwarela, czy portret olejny – otrzymuje ode mnie ręcznie wypisany i opieczętowany certyfikat, potwierdzający jego unikalność.
-            </p>
-          </div>
         </div>
       </section>
 

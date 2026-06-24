@@ -57,7 +57,7 @@ export default function Testimonials() {
   const extendedTestimonials = [...TESTIMONIALS, ...TESTIMONIALS, ...TESTIMONIALS];
 
   return (
-    <section className="bg-stone-50/40 border-b border-gray-100 py-24">
+    <section className="bg-stone-50 border-y border-gray-100 py-24">
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0 space-y-12">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="max-w-2xl space-y-3">

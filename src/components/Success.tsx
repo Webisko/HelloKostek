@@ -10,6 +10,8 @@ interface SuccessProps {
     productTitle: string;
     purchaseType: "original" | "print";
     price: number;
+    shippingMethod?: string;
+    shippingPrice?: number;
   } | null;
 }
 
@@ -17,7 +19,7 @@ export default function Success({ mode, setCurrentPage, clearCart, orderDetails 
   const isPurchase = mode === "purchase";
 
   return (
-    <div className="min-h-[85vh] flex flex-col justify-center items-center">
+    <div className="min-h-screen flex flex-col justify-center items-center">
       <div className="animate-fadeIn py-12 px-6 max-w-xl w-full text-center space-y-10">
       {/* Premium Visual Celebration Icon */}
       <div className="flex justify-center">
@@ -60,8 +62,22 @@ export default function Success({ mode, setCurrentPage, clearCart, orderDetails 
                 {orderDetails.purchaseType === "original" ? "Oryginał" : "Reprodukcja (Wydruk)"}
               </strong>
 
-              <span className="text-gray-500">Kwota płatności:</span>
-              <strong className="text-magenta-accent font-bold font-mono text-right">{orderDetails.price} zł</strong>
+              <span className="text-gray-500">Cena pracy:</span>
+              <strong className="text-gray-900 font-mono text-right">{orderDetails.price} zł</strong>
+
+              {orderDetails.shippingMethod && (
+                <>
+                  <span className="text-gray-500">Opcja dostawy:</span>
+                  <strong className="text-gray-900 text-right text-xs">
+                    {orderDetails.shippingMethod} ({orderDetails.shippingPrice === 0 ? "Bezpłatnie" : `${orderDetails.shippingPrice} zł`})
+                  </strong>
+                </>
+              )}
+
+              <span className="text-gray-900 border-t border-gray-200/60 pt-2 font-semibold flex items-center">Razem (z dostawą):</span>
+              <strong className="text-magenta-accent font-bold font-mono text-right border-t border-gray-200/60 pt-2 text-base">
+                {orderDetails.price + (orderDetails.shippingPrice || 0)} zł
+              </strong>
             </div>
           </div>
         )}

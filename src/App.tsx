@@ -26,6 +26,8 @@ export default function App() {
     productTitle: string;
     purchaseType: "original" | "print";
     price: number;
+    shippingMethod?: string;
+    shippingPrice?: number;
   } | null>(null);
 
   useEffect(() => {

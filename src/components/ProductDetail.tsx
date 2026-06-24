@@ -19,6 +19,8 @@ interface ProductDetailProps {
     productTitle: string;
     purchaseType: "original" | "print";
     price: number;
+    shippingMethod?: string;
+    shippingPrice?: number;
   }) => void;
 }
 
@@ -73,11 +75,14 @@ export default function ProductDetail({
   const handleKupTeraz = () => {
     if (onPurchaseSuccess) {
       const orderNum = "HK-" + Math.floor(10000 + Math.random() * 90000);
+      const deliveryOpt = deliveryOptions.find(opt => opt.id === selectedDelivery) || deliveryOptions[0];
       onPurchaseSuccess({
         orderNumber: orderNum,
         productTitle: product.title,
         purchaseType: selectedType,
-        price: currentPrice
+        price: currentPrice,
+        shippingMethod: deliveryOpt.name,
+        shippingPrice: deliveryOpt.price
       });
     } else {
       setCurrentPage("success-purchase");
@@ -374,6 +379,17 @@ export default function ProductDetail({
               </tr>
             </tbody>
           </table>
+
+          {/* Certificate of Authenticity Card */}
+          <div className="bg-stone-50 rounded-2xl p-5 border border-gray-100 space-y-2 mt-6">
+            <h4 className="font-display text-sm text-gray-950 font-semibold flex items-center gap-2">
+              <Shield className="w-4 h-4 text-[#E0115F]" />
+              Certyfikat Autentyczności
+            </h4>
+            <p className="text-xs text-gray-650 leading-relaxed font-sans">
+              Każdy obraz – czy to rysunek, akwarela, czy portret olejny – otrzymuje ręcznie wypisany i opieczętowany certyfikat, potwierdzający jego autentyczność oraz unikalność.
+            </p>
+          </div>
         </div>
       </section>
 

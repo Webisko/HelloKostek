@@ -134,12 +134,11 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
     email: "",
     subject: "portrait_commission",
     message: "",
-    shape: "rectangle",
-    size: "30x40"
+    shape: "",
+    size: ""
   });
   const [emailFiles, setEmailFiles] = useState<File[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   // Lightbox state
   const [lightbox, setLightbox] = useState({
@@ -193,24 +192,21 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
   }, [lightbox.isOpen]);
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!emailForm.shape) {
+      alert("Proszę wybrać kształt podobrazia.");
+      return;
+    }
+    if (!emailForm.size) {
+      alert("Proszę wybrać rozmiar portretu.");
+      return;
+    }
     setIsSubmitting(true);
-    let bodyText = `Dzień dobry,\n\nNazywam się ${emailForm.name}. Piszę w sprawie kontaktu ze strony hellokostek.pl.\n\n`;
-    let sizeLabel = emailForm.size;
-    if (emailForm.size === "30x40") sizeLabel = "Standardowy (30 x 40 cm)";
-    else if (emailForm.size === "40x55") sizeLabel = "Średni (40 x 55 cm)";
-    else if (emailForm.size === "50x70") sizeLabel = "Wielki (50 x 70 cm)";
-    else if (emailForm.size === "custom") sizeLabel = "Niestandardowy (własny format)";
-    bodyText += `Chciałabym zamówić portret ze zdjęcia o poniższych parametrach:\n- Format: ${emailForm.shape === "rectangle" ? "Prostokątne" : "Owalne"}\n- Rozmiar: ${sizeLabel}\n\n`;
-    bodyText += `Moja wiadomość:\n${emailForm.message}\n\nProszę o kontakt zwrotny pod adresem mailowym: ${emailForm.email}`;
-    const mailtoUrl = `mailto:kontakt@hellokostek.pl?subject=${
-      encodeURIComponent("Zamówienie portretu ze zdjęcia")
-    }&body=${encodeURIComponent(bodyText)}`;
     setTimeout(() => {
-      window.open(mailtoUrl, "_blank");
       setIsSubmitting(false);
-      setSubmitSuccess(true);
-      setEmailForm({ name: "", email: "", subject: "portrait_commission", message: "", shape: "rectangle", size: "30x40" });
+      setEmailForm({ name: "", email: "", subject: "portrait_commission", message: "", shape: "", size: "" });
       setEmailFiles([]);
+      setCurrentPage("success-contact");
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }, 1000);
   };
   // Slider states and logic (infinite loop)
@@ -277,7 +273,7 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
             Twój <br className="hidden sm:inline" />
             <span className="font-display italic font-light text-[#E0115F]">ulubiony kadr</span> <br className="hidden sm:inline" />
             uwieczniony <br className="hidden sm:inline" />
-            na płótnie.
+            na płótnie
           </h1>
           <p className="font-sans text-gray-700 text-base sm:text-lg leading-relaxed max-w-xl">
             Ręcznie malowane, klasyczne portrety olejne na krosnach sosnowych ze zdjęcia. Przenieś wyjątkowe chwile w ponadczasowy wymiar szlachetnego rzemiosła.
@@ -316,7 +312,7 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
         </div>
       </section>
       {/* 2. PORTFOLIO GRID: ART-GALLERY STYLE ASYMMETRIC GRID WITH TRANSITIONS */}
-      <section className="bg-gray-55/40 border-y border-gray-100 py-20 md:py-28 lg:py-24 xl:py-20 2xl:py-32">
+      <section className="bg-white border-y border-gray-100 py-20 md:py-28 lg:py-24 xl:py-20 2xl:py-32">
         <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0 space-y-16">
           <header className="space-y-3 max-w-2xl">
             <span className="font-mono text-xs text-[#E0115F] uppercase tracking-widest block font-bold">PORTFOLIO PRAC</span>
@@ -520,7 +516,7 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
         </div>
       </section>
       {/* 4. PRICING: TWO BORDERLESS, CLEAN COLUMNS */}
-      <section className="bg-stone-50/60 border-y border-gray-100 py-20 md:py-28 lg:py-24 xl:py-20 2xl:py-32">
+      <section className="bg-stone-50 border-y border-gray-100 py-20 md:py-28 lg:py-24 xl:py-20 2xl:py-32">
         <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0 space-y-24">
           <header className="text-center max-w-4xl mx-auto space-y-3">
             <span className="font-mono text-xs text-[#E0115F] uppercase tracking-widest block font-bold">PROSTE WARUNKI</span>
@@ -598,7 +594,7 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
         </div>
       </section>
             {/* 6. CONTACT SECTION: FORM */}
-      <section id="kontakt-sekcja" className="border-b border-gray-100 bg-gray-50/50 py-32 md:py-40 scroll-mt-20">
+      <section id="kontakt-sekcja" className="border-y border-gray-100 bg-stone-50 py-32 md:py-40 scroll-mt-20">
         <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0 grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           <div className="lg:col-span-5 space-y-8 font-sans">
             <span className="font-mono text-xs text-[#E0115F] uppercase tracking-widest block font-bold">POROZMAWIAJMY O TWOIM PORTRECIE</span>
@@ -609,24 +605,7 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
           </div>
           <div className="lg:col-span-7 bg-white rounded-3xl border border-gray-150 p-6 sm:p-10 space-y-6">
             <h3 className="font-display text-2xl text-gray-900 border-b border-gray-100 pb-4">Zamów wycenę Twojego portretu</h3>
-            {submitSuccess ? (
-              <div className="p-8 text-center space-y-4 bg-gray-50 rounded-2xl animate-scaleIn border">
-                <div className="w-12 h-12 rounded-full border border-green-600 text-green-600 flex items-center justify-center mx-auto text-xl font-bold">
-                  ✓
-                </div>
-                <h4 className="font-display text-lg text-gray-900 font-semibold">Projekt wygenerowany</h4>
-                <p className="text-sm text-gray-600 leading-relaxed font-sans max-w-md mx-auto">
-                  Dziękuję! Twoja domyślna poczta e-mail została otwarta z przygotowanym szablonem zapytania. Załącz do niej klatki fotograficzne i wyślij direct do <strong>kontakt@hellokostek.pl</strong>!
-                </p>
-                <button
-                  onClick={() => setSubmitSuccess(false)}
-                  className="text-xs font-mono uppercase tracking-widest text-[#E0115F] font-bold underline block mx-auto mt-2"
-                >
-                  Napisz nowe zapytanie
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleContactSubmit} className="space-y-6 font-sans">
+            <form onSubmit={handleContactSubmit} className="space-y-6 font-sans">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-1">
                     <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Imię i Nazwisko *</label>
@@ -654,7 +633,7 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
                   </div>
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Kształt podobrazia</label>
+                  <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Kształt podobrazia *</label>
                   <div className="flex gap-3">
                     <label className={`flex-1 flex items-center justify-center p-3 border rounded-xl cursor-pointer hover:border-[#C4F013] text-sm font-sans transition-all text-center ${
                       emailForm.shape === "rectangle" ? "border-[#C4F013] ring-1 ring-[#C4F013] bg-white shadow-xs font-semibold text-gray-950" : "border-gray-200 bg-gray-50 text-gray-500 hover:bg-white"
@@ -685,7 +664,7 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
                   </div>
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Wybierz wstępny rozmiar</label>
+                  <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Wybierz wstępny rozmiar *</label>
                   <div className="grid grid-cols-2 gap-3">
                     <label className={`flex items-center justify-center p-3 border rounded-xl cursor-pointer hover:border-[#C4F013] text-sm font-sans transition-all text-center ${
                       emailForm.size === "30x40" ? "border-[#C4F013] ring-1 ring-[#C4F013] bg-white shadow-xs font-semibold text-gray-950" : "border-gray-200 bg-gray-50 text-gray-500 hover:bg-white"
@@ -807,11 +786,10 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
                     </div>
                   </button>
                   <p className="text-xs text-gray-550 font-sans text-center mt-4 leading-relaxed font-normal">
-                    * Po kliknięciu wygenerujemy ustrukturyzowany szablon zapytania i uruchomimy Twoją domyślną pocztę, dzięki czemu bezpiecznie załączysz pliki i prześlesz je do <strong>kontakt@hellokostek.pl</strong>.
+                    Wiadomość zostanie przesłana bezpośrednio do mojej Pracowni Artystycznej. Odpowiedź wraz z propozycją kompozycji otrzymasz na podany adres e-mail.
                   </p>
                 </div>
               </form>
-            )}
           </div>
         </div>
       </section>
