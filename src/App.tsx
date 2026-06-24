@@ -9,7 +9,7 @@ import Contact from "./components/Contact";
 import Checkout from "./components/Checkout";
 import ProductDetail from "./components/ProductDetail";
 import Success from "./components/Success";
-import { Heart, Mail, Info, ArrowRight, ShieldCheck, Sparkles, X, ShoppingBag } from "lucide-react";
+import { Heart, Mail, Info, ArrowRight, ShieldCheck, Sparkles, X, ShoppingBag, Instagram, Facebook } from "lucide-react";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<PageId>("home");
@@ -127,6 +127,7 @@ export default function App() {
               setCurrentPage("product-detail");
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
+            setCurrentPage={setCurrentPage}
           />
         );
       case "about":
@@ -146,6 +147,7 @@ export default function App() {
           <Shop 
             addToCart={addToCart} 
             cart={cart} 
+            setCurrentPage={setCurrentPage}
             onSelectProduct={(product) => {
               setSelectedProduct(product);
               setCurrentPage("product-detail");
@@ -185,7 +187,7 @@ export default function App() {
       />
 
       {/* Main content body */}
-      <main className="flex-grow pb-16">
+      <main className="flex-grow">
         {renderPage()}
       </main>
 
@@ -197,50 +199,34 @@ export default function App() {
             <div className="w-full max-w-[420px] h-28 md:h-36 overflow-hidden flex items-center justify-start py-1">
               <img
                 src="https://hellokostek.pl/wp-content/uploads/2021/05/logo-animation-30fps-v-2.gif"
-                alt="HelloKostek"
+                alt="hellokostek"
                 referrerPolicy="no-referrer"
                 className="max-w-full max-h-full object-contain mix-blend-multiply"
               />
             </div>
             <p className="font-sans text-xs sm:text-sm text-stone-500 max-w-sm leading-relaxed">
-              Pracownia malarska HelloKostek to oaza tradycyjnego malarstwa olejnego, rysunku i intymnej twórczości ze zdjęcia. Tworzę z myślą o domach pełnych ciepła, miłości i pamiątek pokoleniowych.
+              Pracownia Artystyczna <strong className="font-bold">hellokostek</strong> to miejsce, gdzie tradycyjne malarstwo olejne, rysunek i sztuka tworzona na podstawie zdjęć łączą się w harmonijną całość. Tworzę z myślą o tych, którzy cenią ciepło, miłość i rodzinne pamiątki.
             </p>
           </div>
 
           {/* Column 2 - Core Offers paths */}
           <div className="md:col-span-3 space-y-4 font-sans text-xs sm:text-sm">
-            <span className="font-mono text-xs uppercase text-stone-400 tracking-wider block font-bold">Nasza oferta</span>
+            <span className="font-mono text-xs uppercase text-stone-400 tracking-wider block font-bold">Oferta</span>
             <ul className="space-y-2 text-stone-600">
               <li>
                 <button 
-                  onClick={() => { setCurrentPage("home"); window.scrollTo({ top: 0, behavior: "smooth" }); }} 
-                  className="hover:text-magenta-accent transition-colors cursor-pointer"
+                  onClick={() => { setCurrentPage("portraits"); window.scrollTo({ top: 0, behavior: "smooth" }); }} 
+                  className="hover:text-magenta-accent transition-colors cursor-pointer text-left"
                 >
-                  Portret ze zdjęcia na płótnie prostokątnym
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => { setCurrentPage("home"); window.scrollTo({ top: 0, behavior: "smooth" }); }} 
-                  className="hover:text-magenta-accent transition-colors cursor-pointer"
-                >
-                  Portret ze zdjęcia na płótnie owalnym
+                  Portrety ze zdjęcia na zamówienie
                 </button>
               </li>
               <li>
                 <button 
                   onClick={() => { setCurrentPage("shop"); window.scrollTo({ top: 0, behavior: "smooth" }); }} 
-                  className="hover:text-magenta-accent transition-colors cursor-pointer"
+                  className="hover:text-magenta-accent transition-colors cursor-pointer text-left"
                 >
-                  Kolekcja oryginalnych akwareli
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => { setCurrentPage("shop"); window.scrollTo({ top: 0, behavior: "smooth" }); }} 
-                  className="hover:text-magenta-accent transition-colors cursor-pointer"
-                >
-                  Szkice ołówkiem i wydruki fine-art
+                  Sklep z gotowymi dziełami
                 </button>
               </li>
             </ul>
@@ -255,7 +241,7 @@ export default function App() {
                   onClick={() => { setCurrentPage("about"); window.scrollTo({ top: 0, behavior: "smooth" }); }} 
                   className="hover:text-lime-accent transition-colors cursor-pointer text-left"
                 >
-                  O autorze (Kostek)
+                  O mnie
                 </button>
               </li>
               <li>
@@ -263,15 +249,7 @@ export default function App() {
                   onClick={() => { setCurrentPage("contact"); window.scrollTo({ top: 0, behavior: "smooth" }); }} 
                   className="hover:text-lime-accent transition-colors cursor-pointer text-left"
                 >
-                  Jak złożyć zamówienie?
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => { setCurrentPage("contact"); window.scrollTo({ top: 0, behavior: "smooth" }); }} 
-                  className="hover:text-lime-accent transition-colors cursor-pointer text-left"
-                >
-                  FAQ / Pytania
+                  Kontakt
                 </button>
               </li>
             </ul>
@@ -285,18 +263,54 @@ export default function App() {
               <a href="mailto:kontakt@hellokostek.pl" className="font-bold text-off-black hover:text-lime-accent transition-colors block mt-2">
                 kontakt@hellokostek.pl
               </a>
+              <a href="tel:+48662707153" className="font-bold text-off-black hover:text-lime-accent transition-colors block mt-1">
+                tel. 662 707 153
+              </a>
             </p>
-            <div className="flex gap-2 text-xs font-mono font-bold text-stone-400 mt-2">
-              <span>NIP: 728-261-12-32</span> • <span>REGON: 365219904</span>
+            <div className="flex gap-3 pt-1">
+              <a
+                href="https://www.instagram.com/hellokostek/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center text-stone-650 hover:bg-magenta-accent hover:text-white transition-all duration-300"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-4 h-4" />
+              </a>
+              <a
+                href="https://www.facebook.com/hellokostek/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center text-stone-650 hover:bg-[#1877F2] hover:text-white transition-all duration-300"
+                aria-label="Facebook"
+              >
+                <Facebook className="w-4 h-4" />
+              </a>
+            </div>
+            <div className="text-xs font-mono text-stone-400 mt-2 space-y-1">
+              <div className="font-bold text-xs uppercase tracking-wider text-stone-400">hellokostek Maciej Kosteczka</div>
+              <div className="flex gap-2 font-bold">
+                <span>NIP: 625-236-36-56</span> • <span>REGON: 527158196</span>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Bottom Rights Bar */}
-        <div className="max-w-[1600px] mx-auto border-t border-stone-150 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-400 font-sans">
-          <p>© {new Date().getFullYear()} HelloKostek.pl. Wszelkie prawa zastrzeżone. Rękodzieło i malarstwo artystyczne.</p>
-          <div className="flex gap-4">
-            <a href="#" className="hover:text-lime-accent transition-colors">Polityka prywatności</a>
+        <div className="max-w-[1600px] mx-auto border-t border-stone-150 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-stone-400 font-sans text-center md:text-left">
+          {/* Left: Realization */}
+          <div className="order-3 md:order-1">
+            <span>Realizacja: <a href="https://webisko.pl/" target="_blank" rel="noopener noreferrer" className="font-bold hover:text-lime-accent transition-colors text-stone-500">Webisko.pl</a></span>
+          </div>
+
+          {/* Middle: Copyright */}
+          <div className="order-1 md:order-2">
+            <p>© {new Date().getFullYear()} hellokostek.pl. Wszelkie prawa zastrzeżone. Rękodzieło i malarstwo artystyczne.</p>
+          </div>
+
+          {/* Right: Formal Links */}
+          <div className="order-2 md:order-3 flex gap-4">
+            <a href="https://hellokostek.pl/polityka-prywatnosci/" target="_blank" rel="noopener noreferrer" className="hover:text-lime-accent transition-colors">Polityka prywatności</a>
             <span>•</span>
             <a href="#" className="hover:text-lime-accent transition-colors">Regulamin sklepu</a>
           </div>

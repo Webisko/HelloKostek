@@ -17,13 +17,13 @@ export default function Success({ setCurrentPage, clearCart }: SuccessProps) {
 
       <div className="space-y-4">
         <span className="font-mono text-xs uppercase tracking-widest text-[#E0115F] font-semibold block">
-          Dziękujemy za zaufanie • HelloKostek
+          Dziękujemy za zaufanie • hellokostek
         </span>
-        <h1 className="font-display text-3xl sm:text-4.5xl text-gray-900 tracking-tight leading-none font-normal">
+        <h1 className="font-display text-4.5xl text-gray-900 tracking-tight leading-none font-normal">
           Operacja powiodła się.
         </h1>
         <p className="font-sans text-gray-600 text-base leading-relaxed">
-          Twój formularz kontaktowy lub wirtualne zamówienie uwieczniające wyjątkowe kadry zostało pomyślnie przetworzone przez system Stripe i przekazane do mojej pracowni w Łodzi.
+          Twój formularz kontaktowy lub wirtualne zamówienie uwieczniające wyjątkowe kadry zostało pomyślnie przetworzone przez system Stripe i przekazane do mojej Pracowni Artystycznej w Łodzi.
         </p>
       </div>
 

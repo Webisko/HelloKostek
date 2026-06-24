@@ -149,9 +149,9 @@ export default function ProductDetail({
         <div className="lg:col-span-5 space-y-8 font-sans">
           <div className="space-y-4">
             <span className="font-mono text-xs uppercase tracking-widest text-gray-400 font-bold block">
-              Dostępne w pracowni • {product.year}
+              Dostępne w Pracowni Artystycznej • {product.year}
             </span>
-            <h1 className="font-display text-3xl sm:text-4.5xl leading-tight text-gray-950 font-normal">
+            <h1 className="font-display text-4.5xl leading-tight text-gray-950 font-normal">
               {product.title}
             </h1>
             <div className="flex gap-4 items-baseline">
@@ -327,12 +327,12 @@ export default function ProductDetail({
         <span className="font-mono text-xs uppercase tracking-widest text-[#E0115F] font-semibold block">
           Tło artystyczne & Opis historii
         </span>
-        <h2 className="font-display text-2xl sm:text-3xl text-gray-900 tracking-tight">
+        <h2 className="font-display text-3xl text-gray-900 tracking-tight">
           Opowieść za pociągnięciem pędzla: „{product.title}”
         </h2>
         <div className="font-sans text-base text-gray-700 space-y-4 leading-relaxed">
           <p>
-            Każda kreska i plama barwna na tej karcie papieru bawełnianego niesie za sobą długie godziny uważnego milczenia w pracowni HelloKostek. Praca powiązana jest z moim szerszym cyklem artystycznym eksplorującym wewnętrzną geometrię człowieka, wyobcowanie oraz spokojną, codzienną kontemplację własnych stanów psychicznych.
+            Każda kreska i plama barwna na tej karcie papieru bawełnianego niesie za sobą długie godziny uważnego milczenia w Pracowni Artystycznej hellokostek. Praca powiązana jest z moim szerszym cyklem artystycznym eksplorującym wewnętrzną geometrię człowieka, wyobcowanie oraz spokojną, codzienną kontemplację własnych stanów psychicznych.
           </p>
           <p>
             Wybierając oryginalną wersję tej kompozycji, stajesz się jedynym właścicielem materialnego śladu nastroju artysty utrwalonego przy świetle wschodzącego słońca nad Łodzią. Z kolei zamawiając certyfikowaną reprodukcję, zyskujesz rygorystycznie odwzorowane przejścia tonalne i chropowatość fakturową papieru, która niemal do złudzenia imituje oryginalne dzieło.

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Product, CartItem } from "../types";
+import { Product, CartItem, PageId } from "../types";
 import { SHOP_PRODUCTS } from "../data";
 import { Search, SlidersHorizontal, ArrowRight, CornerDownRight } from "lucide-react";
 
@@ -7,9 +7,10 @@ interface ShopProps {
   addToCart: (product: Product, buyType: "original" | "print") => void;
   cart: CartItem[];
   onSelectProduct: (product: Product) => void;
+  setCurrentPage: (page: PageId) => void;
 }
 
-export default function Shop({ addToCart, cart, onSelectProduct }: ShopProps) {
+export default function Shop({ addToCart, cart, onSelectProduct, setCurrentPage }: ShopProps) {
   const [activeCategory, setActiveCategory] = useState<"all" | "watercolor" | "drawing" | "prints">("all");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -38,11 +39,11 @@ export default function Shop({ addToCart, cart, onSelectProduct }: ShopProps) {
         <span className="font-mono text-xs uppercase tracking-widest text-[#E0115F] font-semibold block">
           Curated Art Archive • Sprzedaż Oryginałów i Wydruków
         </span>
-        <h1 className="font-display text-4xl sm:text-6xl text-gray-900 tracking-tight font-normal">
+        <h1 className="font-display text-6xl text-gray-900 tracking-tight font-normal">
           Dzieła Kameralne
         </h1>
         <p className="text-gray-600 text-base sm:text-lg max-w-2xl leading-relaxed">
-          Zbiór autentycznych akwareli oraz rysunków ołówkiem z mojej pracowni w Łodzi. Każda kompozycja powstała ręcznie z zachowaniem najsurowszych reguł klasycznego warsztatu. Wybierz oryginalne dzieło lub certyfikowany wydruk kolekcjonerski sygnujący limitowaną edycję.
+          Zbiór autentycznych akwareli oraz rysunków ołówkiem z mojej Pracowni Artystycznej w Łodzi. Każda kompozycja powstała ręcznie z zachowaniem najsurowszych reguł klasycznego warsztatu. Wybierz oryginalne dzieło lub certyfikowany wydruk kolekcjonerski sygnujący limitowaną edycję.
         </p>
       </header>
 
@@ -88,24 +89,21 @@ export default function Shop({ addToCart, cart, onSelectProduct }: ShopProps) {
           Brak prac odzwierciedlających aktualne filtry wyszukiwania. Spróbuj zresetować parametry wyszukiwania.
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 pt-6">
-          {filteredProducts.map((product, index) => {
-            // Apply subtle asymmetric offsets to give an curated editorial magazine grid
-            const marginOffset = index % 3 === 1 ? "lg:translate-y-6" : index % 3 === 2 ? "lg:translate-y-12" : "";
-
+        <div className="columns-1 md:columns-2 lg:columns-3 gap-16 pt-6 [column-fill:_balance]">
+          {filteredProducts.map((product) => {
             return (
               <article
                 key={product.id}
                 onClick={() => onSelectProduct(product)}
-                className={`group flex flex-col justify-between space-y-4 cursor-pointer transition-all duration-500 bg-white border border-gray-50 hover:border-gray-200 p-4 rounded-[28px] ${marginOffset}`}
+                className="break-inside-avoid mb-16 group flex flex-col justify-between space-y-4 cursor-pointer transition-all duration-500 bg-white border border-gray-50 hover:border-gray-200 p-4 rounded-[28px]"
               >
                 {/* Image Wrapper */}
-                <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-gray-50 border border-gray-100">
+                <div className="relative rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 w-full">
                   <img
                     src={product.imageUrl}
                     alt={product.title}
                     referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    className="w-full h-auto block transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                   
                   {/* Category Stamp */}
@@ -135,7 +133,7 @@ export default function Shop({ addToCart, cart, onSelectProduct }: ShopProps) {
                   </p>
 
                   <div className="inline-flex items-center gap-1.5 pt-2 text-xs font-mono font-bold uppercase tracking-widest text-gray-450 group-hover:text-[#E0115F] transition-colors">
-                    Sygnowane szczegóły i zakup 
+                    Szczegóły 
                     <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
@@ -144,6 +142,34 @@ export default function Shop({ addToCart, cart, onSelectProduct }: ShopProps) {
           })}
         </div>
       )}
+
+      {/* Sekcja CTA na dole */}
+      <section className="bg-stone-50 rounded-[32px] p-8 sm:p-12 border border-neutral-100 flex flex-col md:flex-row items-center justify-between gap-8 mt-24">
+        <div className="space-y-2 text-center md:text-left max-w-2xl">
+          <h2 className="font-display text-3xl text-gray-900 font-normal">
+            Szukasz czegoś wyjątkowego?
+          </h2>
+          <p className="text-stone-600 text-sm sm:text-base leading-relaxed">
+            Zamów ręcznie malowany tradycyjny portret olejny ze zdjęcia. Idealny prezent i pamiątka na pokolenia.
+          </p>
+        </div>
+        <button
+          onClick={() => {
+            setCurrentPage("home");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+          className="button shrink-0"
+        >
+          <div className="button__blobs">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div className="button__text">
+            Zamów swój portret <ArrowRight className="w-4 h-4 ml-1.5" />
+          </div>
+        </button>
+      </section>
 
       {/* Grid margin spacing padding for offset items */}
       <div className="h-16 hidden lg:block" />

@@ -47,14 +47,14 @@ export default function PortraitsOffer() {
   };
 
   // Generate mailto link with structured client query
-  const mailToUrl = `mailto:kontakt@hellokostek.pl?subject=Zamówienie portretu ze zdjęcia - HelloKostek.pl&body=Dzień dobry,%0D%0A%0D%0AChciałabym zapytać o możliwość namalowania portretu olejnego ze zdjęcia.%0D%0A%0D%0AOto wybrane parametry mojego zamówienia:%0D%0A- Kształt płótna: ${canvasShape === "rectangle" ? "Prostokątne" : "Owalne"}%0D%0A- Rozmiar: ${dimensions === "30x40" ? "30 x 40 cm" : dimensions === "40x55" ? "40 x 55 cm" : "50 x 70 cm"}%0D%0A- Liczba postaci ludzi na obrazie: ${peopleCount}%0D%0A- Dodatkowo zwierzę: ${wantsPets ? "Tak" : "Nie"}%0D%0A%0D%0A[Załączam wstępne zdjęcia w tej wiadomości email]%0D%0A%0D%0AProszę o informację o dostępnych terminach i procesie.%0D%0A%0D%0APozdrawiam serdecznie`;
+  const mailToUrl = `mailto:kontakt@hellokostek.pl?subject=Zamówienie portretu ze zdjęcia - hellokostek.pl&body=Dzień dobry,%0D%0A%0D%0AChciałabym zapytać o możliwość namalowania portretu olejnego ze zdjęcia.%0D%0A%0D%0AOto wybrane parametry mojego zamówienia:%0D%0A- Kształt płótna: ${canvasShape === "rectangle" ? "Prostokątne" : "Owalne"}%0D%0A- Rozmiar: ${dimensions === "30x40" ? "30 x 40 cm" : dimensions === "40x55" ? "40 x 55 cm" : "50 x 70 cm"}%0D%0A- Liczba postaci ludzi na obrazie: ${peopleCount}%0D%0A- Dodatkowo zwierzę: ${wantsPets ? "Tak" : "Nie"}%0D%0A%0D%0A[Załączam wstępne zdjęcia w tej wiadomości email]%0D%0A%0D%0AProszę o informację o dostępnych terminach i procesie.%0D%0A%0D%0APozdrawiam serdecznie`;
 
   return (
     <div className="animate-fadeIn py-12 px-6 max-w-[1600px] mx-auto space-y-20">
       {/* Introduction Banner header */}
       <section className="text-center space-y-6 max-w-4xl mx-auto">
         <span className="font-mono text-xs text-magenta-accent uppercase tracking-widest block font-bold">Zrób wyjątkowy podarunek</span>
-        <h1 className="font-display text-4xl sm:text-5xl text-off-black tracking-tight leading-tight">
+        <h1 className="font-display text-5xl text-off-black tracking-tight leading-tight">
           Portrety Olejne na Zamówienie <br />
           <span className="italic font-normal text-stone-600">— Rękodzieło Klasyczne ze Zdjęcia —</span>
         </h1>
@@ -161,7 +161,7 @@ export default function PortraitsOffer() {
         <div className="lg:col-span-7 space-y-8">
           <div>
             <span className="font-mono text-xs text-stone-500 uppercase tracking-widest block">Stwórz własną kompozycję</span>
-            <h3 className="font-display text-2xl sm:text-3xl text-off-black mt-2">Kalkulator wyceny portretu</h3>
+            <h3 className="font-display text-3xl text-off-black mt-2">Kalkulator wyceny portretu</h3>
             <p className="text-sm text-stone-500 font-sans mt-1">Ustaw parametry, aby oszacować budżet i zobaczyć przejrzyste koszty.</p>
           </div>
 
@@ -355,7 +355,7 @@ export default function PortraitsOffer() {
       <section className="space-y-12">
         <div className="text-center space-y-4">
           <span className="font-mono text-xs uppercase text-stone-500 tracking-wider">Krok po kroku</span>
-          <h2 className="font-display text-3xl sm:text-4xl text-off-black">Jak wygląda cały proces?</h2>
+          <h2 className="font-display text-4xl text-off-black">Jak wygląda cały proces?</h2>
           <p className="font-sans text-sm sm:text-base text-off-black/60 max-w-xl mx-auto">
             Dbam o to, by cały proces był dla Ciebie przyjemny, jasny i w pełni zintegrowany z Twoimi oczekiwaniami. Nie kupujesz kota w worku!
           </p>
@@ -408,7 +408,7 @@ export default function PortraitsOffer() {
       {/* Sizing & Custom requests FAQ call */}
       <section className="bg-lime-accent rounded-3xl p-8 sm:p-12 text-off-black flex flex-col md:flex-row items-center justify-between gap-8">
         <div className="space-y-4 max-w-xl">
-          <h3 className="font-display text-2xl sm:text-3xl text-off-black leading-tight">Potrzebujesz większego formatu lub kompozycji wieloosobowej?</h3>
+          <h3 className="font-display text-3xl text-off-black leading-tight">Potrzebujesz większego formatu lub kompozycji wieloosobowej?</h3>
           <p className="font-sans text-sm sm:text-base leading-relaxed opacity-90">
             Z przyjemnością namaluję obrazy na specjalne zamówienie w większych wymiarach niż standardowe. Cena zależy od ilości portretowanych osób, rozmiaru krosna i stopnia złożoności tła. Wszystko ustalimy mailowo!
           </p>

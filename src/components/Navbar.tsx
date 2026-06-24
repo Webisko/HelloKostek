@@ -1,5 +1,5 @@
 import { PageId, CartItem } from "../types";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 import React, { useState, useEffect } from "react";
 
 interface NavbarProps {
@@ -17,13 +17,26 @@ export default function Navbar({
 }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isHeroScrolledPast, setIsHeroScrolledPast] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
+      const scrollY = window.scrollY;
+      
+      setIsScrolled((prev) => {
+        if (scrollY > 100) {
+          return true;
+        } else if (scrollY < 20) {
+          return false;
+        }
+        return prev;
+      });
+
+      // Check if scrolled past the hero section (approx 700px on desktop)
+      if (scrollY > 700) {
+        setIsHeroScrolledPast(true);
       } else {
-        setIsScrolled(false);
+        setIsHeroScrolledPast(false);
       }
     };
 
@@ -55,8 +68,8 @@ export default function Navbar({
         isScrolled ? "py-1.5 md:py-2" : "py-3 md:py-5"
       }`}>
         
-        {/* Left Side Navigation (Desktop) - Symmetrical side A */}
-        <div className="hidden md:flex items-center space-x-12 w-1/3">
+        {/* Left Side Navigation (Desktop) - Links */}
+        <div className="hidden md:flex items-center space-x-6 lg:space-x-10 w-5/12">
           <button
             onClick={() => {
               setCurrentPage("home");
@@ -86,35 +99,7 @@ export default function Navbar({
               currentPage === "shop" ? "bg-magenta-accent scale-x-100" : "bg-lime-accent scale-x-0 group-hover:scale-x-100"
             }`} />
           </button>
-        </div>
 
-        {/* Centered Logo (Daniel Arthury inspired) - Magnified and animated */}
-        <div className="flex justify-center items-center w-1/3 text-center">
-          <button
-            onClick={() => {
-              setCurrentPage("home");
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-            className="flex flex-col items-center group focus:outline-none"
-            aria-label="Strona główna HelloKostek"
-          >
-            <div className={`flex items-center justify-center overflow-hidden transition-all duration-500 ease-in-out p-1 ${
-              isScrolled 
-                ? "w-[160px] h-[48px] md:w-[240px] md:h-[72px]" 
-                : "w-[200px] h-[60px] md:w-[360px] md:h-[108px]"
-            }`}>
-              <img
-                src="https://hellokostek.pl/wp-content/uploads/2021/05/logo-animation-30fps-v-2.gif"
-                alt="HelloKostek Logo"
-                referrerPolicy="no-referrer"
-                className="max-w-full max-h-full object-contain mix-blend-multiply transition-all duration-500"
-              />
-            </div>
-          </button>
-        </div>
-
-        {/* Right Side Navigation (Desktop) - Symmetrical side B */}
-        <div className="hidden md:flex items-center justify-end space-x-12 w-1/3">
           <button
             onClick={() => {
               setCurrentPage("about");
@@ -143,6 +128,60 @@ export default function Navbar({
             <span className={`absolute bottom-0 left-0 w-full h-[1px] transition-transform duration-300 origin-left ${
               currentPage === "contact" ? "bg-magenta-accent scale-x-100" : "bg-lime-accent scale-x-0 group-hover:scale-x-100"
             }`} />
+          </button>
+        </div>
+
+        {/* Centered Logo (Daniel Arthury inspired) - Magnified and animated */}
+        <div className="flex justify-center items-center w-2/12 text-center">
+          <button
+            onClick={() => {
+              setCurrentPage("home");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            className="flex flex-col items-center group focus:outline-none"
+            aria-label="Strona główna hellokostek"
+          >
+            <div className={`flex items-center justify-center overflow-hidden transition-all duration-500 ease-in-out p-1 ${
+              isScrolled 
+                ? "w-[140px] h-[42px] md:w-[180px] md:h-[54px]" 
+                : "w-[170px] h-[51px] md:w-[260px] md:h-[78px]"
+            }`}>
+              <img
+                src="https://hellokostek.pl/wp-content/uploads/2021/05/logo-animation-30fps-v-2.gif"
+                alt="hellokostek logo"
+                referrerPolicy="no-referrer"
+                className="max-w-full max-h-full object-contain mix-blend-multiply transition-all duration-500"
+              />
+            </div>
+          </button>
+        </div>
+
+        {/* Right Side Navigation (Desktop) - CTA Button */}
+        <div className="hidden md:flex items-center justify-end w-5/12">
+          <button
+            onClick={() => {
+              if (currentPage !== "home") {
+                setCurrentPage("home");
+                setTimeout(() => {
+                  const formSection = document.getElementById("kontakt-sekcja");
+                  if (formSection) formSection.scrollIntoView({ behavior: "smooth" });
+                }, 100);
+              } else {
+                const formSection = document.getElementById("kontakt-sekcja");
+                if (formSection) formSection.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
+            className={`button button--sm ${(currentPage === "home" && !isHeroScrolledPast) ? "button--secondary" : ""}`}
+          >
+            <div className="button__blobs">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <div className="button__text">
+              Zamów projekt
+              <ArrowRight className="w-3.5 h-3.5" />
+            </div>
           </button>
         </div>
 

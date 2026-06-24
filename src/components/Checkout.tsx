@@ -215,7 +215,7 @@ export default function Checkout({
                 {/* Order Summary banner */}
                 <div className="bg-stone-50 p-4 rounded-xl border flex justify-between items-center text-xs">
                   <div>
-                    <span className="font-mono text-stone-500 uppercase tracking-wider block text-xs">Zamówienie HelloKostek.pl</span>
+                    <span className="font-mono text-stone-500 uppercase tracking-wider block text-xs">Zamówienie hellokostek.pl</span>
                     <span className="font-sans font-semibold text-off-black">{cart.length} gotowych prac/wydruków</span>
                   </div>
                   <span className="text-base font-bold font-mono text-magenta-accent">{grandTotal} zł</span>
