@@ -2,100 +2,28 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import ProductSlider from "./ProductSlider";
 import Testimonials from "./Testimonials";
-import { PageId } from "../types";
 import {
   ArrowRight,
   ArrowLeft,
-  Upload,
-  ChevronRight,
-  ChevronLeft,
   Send,
-  Sparkles,
-  Camera,
-  Brush,
-  Clock,
-  Heart,
-  ChevronDown,
-  X,
-  MessageSquare
+  X
 } from "lucide-react";
-import heroObraz from "../../assets/hero.png";
-import portretLeona from "../../assets/portret_Leona.png";
-import portretMarysi from "../../assets/portret_Marysi.jpg";
-import portretOliwii from "../../assets/portret_Oliwii.png";
-import portretSlubnyPary from "../../assets/portret_slubny_pary.jpg";
-interface HomeProps {
-  setCurrentPage: (page: PageId) => void;
-  onSelectProduct: (product: any) => void;
-}
-const TESTIMONIALS = [
-  {
-    id: 1,
-    stars: 5,
-    text: "„Portret ślubny wyszedł niesamowicie. Kiedy rozpakowaliśmy przesyłkę, oboje mieliśmy łzy w oczach. Dbałość o szczegóły i faktura farby olejnej na płótnie robią spektakularne wrażenie na żywo.”",
-    author: "Anna K.",
-    meta: "Warszawa • Portret Ślubny Pary"
-  },
-  {
-    id: 2,
-    stars: 5,
-    text: "„Zamówiłem portret córki Marysi. Kontakt z Panem Maciejem był rewelacyjny na każdym etapie – od projektu cyfrowego po gotowy obraz. Odbiór osobisty w Łodzi był bardzo miłym akcentem. Polecam z całego serca.”",
-    author: "Piotr M.",
-    meta: "Łódź • Portret Marysi"
-  },
-  {
-    id: 3,
-    stars: 5,
-    text: "„Owalny portret Oliwii w salonie przykuwa uwagę każdego gościa. To nie jest zwykły wydruk ze zdjęcia, to prawdziwa sztuka z duszą. Gra światła na tym płótnie o różnych porach dnia jest zachwycająca.”",
-    author: "Karolina W.",
-    meta: "Kraków • Portret Oliwii"
-  },
-  {
-    id: 4,
-    stars: 5,
-    text: "„Portret Leona to był strzał w dziesiątkę jako prezent dla taty. Obraz wisi w gabinecie i robi piorunujące wrażenie na wszystkich. Tradycyjna technika olejna ma tę głębię, której brak współczesnym wydrukom.”",
-    author: "Michał T.",
-    meta: "Poznań • Portret Leona"
-  },
-  {
-    id: 5,
-    stars: 5,
-    text: "„Zamówiłem akwarelę do sypialni. Kolorystyka i nastrój tego rysunku są wręcz hipnotyzujące. Cały proces od wysyłki do dostarczenia paczki przebiegł sprawnie i bezpiecznie. Na pewno wrócę po kolejną pracę!”",
-    author: "Zofia S.",
-    meta: "Wrocław • Akwarela"
-  },
-  {
-    id: 6,
-    stars: 5,
-    text: "„Rysunek ołówkiem wysłany w tubie zabezpieczony idealnie. Precyzja cieniowania i realizm powalają. Bardzo sprawna wysyłka i profesjonalne podejście.”",
-    author: "Janusz B.",
-    meta: "Gdańsk • Rysunek Ołówkiem"
-  },
-  {
-    id: 7,
-    stars: 5,
-    text: "„Malowany portret dla rodziców na jubileusz okazał się najpiękniejszym prezentem. Rodzice byli wzruszeni, a obraz wisi w najważniejszym miejscu w domu.”",
-    author: "Małgorzata D.",
-    meta: "Katowice • Portret Ślubny Pary"
-  },
-  {
-    id: 8,
-    stars: 5,
-    text: "„Klasa sama w sobie. Tradycyjny warsztat malarski czuć od pierwszego spojrzenia na płótno. Szczerze polecam każdemu, kto ceni autentyczne rzemiosło.”",
-    author: "Tomasz R.",
-    meta: "Lublin • Portret Leona"
-  },
-  {
-    id: 9,
-    stars: 5,
-    text: "„Kupiłem gotową akwarelę do pokoju gościnnego. Kolory są jeszcze piękniejsze na żywo niż na zdjęciach. Bardzo szybka dostawa, obraz był solidnie spakowany.”",
-    author: "Agnieszka K.",
-    meta: "Szczecin • Akwarela"
-  }
-];
+import heroObraz from "../assets/hero.png";
+import portretLeona from "../assets/portret_Leona.png";
+import portretMarysi from "../assets/portret_Marysi.jpg";
+import portretOliwii from "../assets/portret_Oliwii.png";
+import portretSlubnyPary from "../assets/portret_slubny_pary.jpg";
+
+const getSrc = (img: any): string => (img && typeof img === 'object' && 'src' in img ? img.src : img);
+const heroObrazUrl = getSrc(heroObraz);
+const portretLeonaUrl = getSrc(portretLeona);
+const portretMarysiUrl = getSrc(portretMarysi);
+const portretOliwiiUrl = getSrc(portretOliwii);
+const portretSlubnyParyUrl = getSrc(portretSlubnyPary);
+
 const portfolioItems = [
   {
-    src: portretLeona,
+    src: portretLeonaUrl,
     alt: "Portret kobiety",
     title: "Portret Kobiety",
     format: "Płótno prostokątne • 30×40 cm",
@@ -103,7 +31,7 @@ const portfolioItems = [
     isOval: false
   },
   {
-    src: portretOliwii,
+    src: portretOliwiiUrl,
     alt: "Portret psa Tequili",
     title: "Portret psa Tequili",
     format: "Płótno owalne • 30×40 cm",
@@ -111,7 +39,7 @@ const portfolioItems = [
     isOval: true
   },
   {
-    src: portretSlubnyPary,
+    src: portretSlubnyParyUrl,
     alt: "Portret trzech dziewczynek",
     title: "Portret Trzech Dziewczynek",
     format: "Płótno prostokątne • 40×50 cm",
@@ -119,7 +47,7 @@ const portfolioItems = [
     isOval: false
   },
   {
-    src: portretMarysi,
+    src: portretMarysiUrl,
     alt: "Portret śpiącego niemowlęcia",
     title: "Portret Śpiącego Niemowlęcia",
     format: "Płótno prostokątne • 30×40 cm",
@@ -127,8 +55,8 @@ const portfolioItems = [
     isOval: false
   }
 ];
-export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
-  // Email form state
+
+export default function Home() {
   const [emailForm, setEmailForm] = useState({
     name: "",
     email: "",
@@ -139,36 +67,47 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
   });
   const [emailFiles, setEmailFiles] = useState<File[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   // Lightbox state
   const [lightbox, setLightbox] = useState({
     isOpen: false,
     currentIndex: 0
   });
+
   const openLightbox = (index: number) => {
     setLightbox({
       isOpen: true,
       currentIndex: index
     });
   };
+
   const closeLightbox = () => {
     setLightbox({
       isOpen: false,
       currentIndex: 0
     });
   };
+
   const nextLightboxImage = () => {
     setLightbox(prev => ({
       ...prev,
       currentIndex: (prev.currentIndex + 1) % portfolioItems.length
     }));
   };
+
   const prevLightboxImage = () => {
     setLightbox(prev => ({
       ...prev,
       currentIndex: (prev.currentIndex - 1 + portfolioItems.length) % portfolioItems.length
     }));
   };
+
   // Block body scroll when lightbox is open
   useEffect(() => {
     if (lightbox.isOpen) {
@@ -180,6 +119,7 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
       document.body.style.overflow = "";
     };
   }, [lightbox.isOpen]);
+
   useEffect(() => {
     if (!lightbox.isOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -190,6 +130,7 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [lightbox.isOpen]);
+
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!emailForm.shape) {
@@ -205,112 +146,67 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
       setIsSubmitting(false);
       setEmailForm({ name: "", email: "", subject: "portrait_commission", message: "", shape: "", size: "" });
       setEmailFiles([]);
-      setCurrentPage("success-contact");
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (typeof window !== "undefined") {
+        window.location.href = "/HelloKostek/sukces-kontakt";
+      }
     }, 1000);
   };
-  // Slider states and logic (infinite loop)
-  const [windowWidth, setWindowWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 1200);
-  useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
-  // Testimonials Slider states and logic (infinite loop)
-  const [reviewsIndex, setReviewsIndex] = useState(TESTIMONIALS.length);
-  const [reviewsTransitionEnabled, setReviewsTransitionEnabled] = useState(true);
-  const [isReviewsPaused, setIsReviewsPaused] = useState(false);
-  const reviewsPerPage = windowWidth >= 1024 ? 3 : windowWidth >= 640 ? 2 : 1;
-  useEffect(() => {
-    if (!reviewsTransitionEnabled) {
-      const raf = requestAnimationFrame(() => {
-        setReviewsTransitionEnabled(true);
-      });
-      return () => cancelAnimationFrame(raf);
-    }
-  }, [reviewsTransitionEnabled]);
-  const handleReviewsTransitionEnd = () => {
-    const N = TESTIMONIALS.length;
-    if (reviewsIndex >= 2 * N) {
-      setReviewsTransitionEnabled(false);
-      setReviewsIndex(reviewsIndex - N);
-    } else if (reviewsIndex < N) {
-      setReviewsTransitionEnabled(false);
-      setReviewsIndex(reviewsIndex + N);
-    }
-  };
-  const nextReviewsSlide = useCallback(() => {
-    if (!reviewsTransitionEnabled) return;
-    setReviewsIndex((prev) => prev + reviewsPerPage);
-  }, [reviewsPerPage, reviewsTransitionEnabled]);
-  const prevReviewsSlide = useCallback(() => {
-    if (!reviewsTransitionEnabled) return;
-    setReviewsIndex((prev) => prev - reviewsPerPage);
-  }, [reviewsPerPage, reviewsTransitionEnabled]);
-  useEffect(() => {
-    if (isReviewsPaused) return;
-    const timer = setInterval(() => {
-      nextReviewsSlide();
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [isReviewsPaused, nextReviewsSlide]);
-  const extendedTestimonials = [...TESTIMONIALS, ...TESTIMONIALS, ...TESTIMONIALS];
+  const basePath = "/HelloKostek";
+
   return (
     <div className="bg-white min-h-screen text-gray-900 selection:bg-lime-accent selection:text-gray-900 animate-fadeIn">
       {/* 1. HERO SECTION: 50/50 ASYMMETRIC SPLIT */}
       <section className="pt-12 md:pt-20 lg:pt-16 xl:pt-12 2xl:pt-20 pb-12 md:pb-20 lg:pb-16 xl:pb-14 2xl:pb-24">
         <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 items-center">
-        {/* Left: Massive Serif text + CTA */}
-        <div className="lg:col-span-7 2xl:col-span-6 space-y-8 font-sans">
-          <div className="inline-flex items-center gap-3">
-            <span className="h-[1px] w-8 bg-gray-900" />
-            <span className="font-mono text-xs tracking-widest uppercase text-gray-400 font-bold">
-              PRACOWNIA ARTYSTYCZNA • KOSTEK MACIEJ KOSTECZKA
-            </span>
+          {/* Left: Massive Serif text + CTA */}
+          <div className="lg:col-span-7 2xl:col-span-6 space-y-8 font-sans">
+            <div className="inline-flex items-center gap-3">
+              <span className="h-[1px] w-8 bg-gray-900" />
+              <span className="font-mono text-xs tracking-widest uppercase text-gray-400 font-bold">
+                PRACOWNIA ARTYSTYCZNA • KOSTEK MACIEJ KOSTECZKA
+              </span>
+            </div>
+            <h1 className="font-display text-6xl sm:text-8xl lg:text-[96px] xl:text-[112px] 2xl:text-[128px] leading-[0.90] tracking-tighter text-gray-950 font-normal">
+              Twój <br className="hidden sm:inline" />
+              <span className="font-display italic font-light text-[#E0115F]">ulubiony kadr</span> <br className="hidden sm:inline" />
+              uwieczniony <br className="hidden sm:inline" />
+              na płótnie
+            </h1>
+            <p className="font-sans text-gray-700 text-base sm:text-lg leading-relaxed max-w-xl">
+              Ręcznie malowane, klasyczne portrety olejne na krosnach sosnowych ze zdjęcia. Przenieś wyjątkowe chwile w ponadczasowy wymiar szlachetnego rzemiosła.
+            </p>
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
+              <a
+                href="#kontakt-sekcja"
+                className="button text-center"
+              >
+                <div className="button__blobs">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+                <div className="button__text">
+                  Zamów swój portret
+                  <ArrowRight className="w-4 h-4" />
+                </div>
+              </a>
+            </div>
           </div>
-          <h1 className="font-display text-6xl sm:text-8xl lg:text-[96px] xl:text-[112px] 2xl:text-[128px] leading-[0.90] tracking-tighter text-gray-950 font-normal">
-            Twój <br className="hidden sm:inline" />
-            <span className="font-display italic font-light text-[#E0115F]">ulubiony kadr</span> <br className="hidden sm:inline" />
-            uwieczniony <br className="hidden sm:inline" />
-            na płótnie
-          </h1>
-          <p className="font-sans text-gray-700 text-base sm:text-lg leading-relaxed max-w-xl">
-            Ręcznie malowane, klasyczne portrety olejne na krosnach sosnowych ze zdjęcia. Przenieś wyjątkowe chwile w ponadczasowy wymiar szlachetnego rzemiosła.
-          </p>
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
-            <button
-              onClick={() => {
-                const formSection = document.getElementById("kontakt-sekcja");
-                if (formSection) formSection.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="button"
-            >
-              <div className="button__blobs">
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-              <div className="button__text">
-                Zamów swój portret
-                <ArrowRight className="w-4 h-4" />
-              </div>
-            </button>
+          {/* Right: Premium oil portrait presentation */}
+          <div className="lg:col-span-5 2xl:col-span-6 flex flex-col justify-center">
+            <div className="relative w-full 2xl:max-w-[85%] lg:ml-auto overflow-hidden rounded-[32px] border border-gray-100 shadow-sm bg-gray-55">
+              <img
+                src={heroObrazUrl}
+                alt="Portret olejny namalowany ze zdjęcia"
+                referrerPolicy="no-referrer"
+                className="w-full h-auto block"
+              />
+            </div>
           </div>
-        </div>
-        {/* Right: Premium oil portrait presentation */}
-        <div className="lg:col-span-5 2xl:col-span-6 flex flex-col justify-center">
-          <div className="relative w-full 2xl:max-w-[85%] lg:ml-auto overflow-hidden rounded-[32px] border border-gray-100 shadow-sm bg-gray-55">
-            <img
-              src={heroObraz}
-              alt="Portret olejny namalowany ze zdjęcia"
-              referrerPolicy="no-referrer"
-              className="w-full h-auto block"
-            />
-          </div>
-        </div>
         </div>
       </section>
+
       {/* 2. PORTFOLIO GRID: ART-GALLERY STYLE ASYMMETRIC GRID WITH TRANSITIONS */}
       <section className="bg-white border-y border-gray-100 py-20 md:py-28 lg:py-24 xl:py-20 2xl:py-32">
         <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0 space-y-16">
@@ -323,6 +219,7 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
               Przekonaj się o precyzji mojego pędzla. Każda z poniższych prac powstała metodą tradycyjną na podstawie fotografii powierzonych mi przez klientów.
             </p>
           </header>
+
           {/* Asymmetric gallery grid using two columns for robust layout and custom button placement */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 md:gap-x-20 items-start">
             {/* Left Column */}
@@ -334,7 +231,7 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
                   className="aspect-[4/5] rounded-[24px] overflow-hidden bg-gray-100 border border-gray-100 relative cursor-zoom-in"
                 >
                   <img
-                    src={portretLeona}
+                    src={portretLeonaUrl}
                     alt="Portret kobiety"
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105 group-hover:rotate-1"
@@ -345,14 +242,12 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
                   <span className="font-mono text-xs text-gray-500">Płótno prostokątne • 30×40 cm</span>
                 </div>
               </div>
+
               {/* Centered button "zobacz galerię portretów" in the gap */}
               <div className="py-4 flex justify-center md:justify-start">
-                <button
-                  onClick={() => {
-                    setCurrentPage("gallery");
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                  }}
-                  className="button button--secondary"
+                <a
+                  href={`${basePath}/galeria`}
+                  className="button button--secondary text-center"
                 >
                   <div className="button__blobs">
                     <div></div>
@@ -363,8 +258,9 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
                     Zobacz galerię portretów
                     <ArrowRight className="w-4 h-4 ml-1.5" />
                   </div>
-                </button>
+                </a>
               </div>
+
               {/* Gallery Item 3 */}
               <div className="space-y-4 group md:max-w-[85%]">
                 <div
@@ -372,7 +268,7 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
                   className="aspect-[4/5] rounded-[24px] overflow-hidden bg-gray-100 border border-gray-100 relative cursor-zoom-in"
                 >
                   <img
-                    src={portretSlubnyPary}
+                    src={portretSlubnyParyUrl}
                     alt="Portret trzech dziewczynek"
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105 group-hover:rotate-1"
@@ -384,6 +280,7 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
                 </div>
               </div>
             </div>
+
             {/* Right Column (shifted down to preserve asymmetry) */}
             <div className="space-y-32 md:space-y-40 md:pt-36">
               {/* Gallery Item 2 */}
@@ -394,7 +291,7 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
                   style={{ borderRadius: "50%" }}
                 >
                   <img
-                    src={portretOliwii}
+                    src={portretOliwiiUrl}
                     alt="Portret psa Tequili"
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105 group-hover:-rotate-1"
@@ -406,6 +303,7 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
                   <span className="font-mono text-xs text-gray-500">Płótno owalne • 30×40 cm</span>
                 </div>
               </div>
+
               {/* Gallery Item 4 */}
               <div className="space-y-4 group md:max-w-[85%] md:ml-auto">
                 <div
@@ -413,7 +311,7 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
                   className="aspect-[4/5] rounded-[24px] overflow-hidden bg-gray-100 border border-gray-100 relative cursor-zoom-in"
                 >
                   <img
-                    src={portretMarysi}
+                    src={portretMarysiUrl}
                     alt="Portret śpiącego niemowlęcia"
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105 group-hover:-rotate-1"
@@ -426,14 +324,12 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
               </div>
             </div>
           </div>
+
           {/* Asymmetric CTA button at the bottom of the grid, pushed down and right to match layout flow */}
           <div className="flex justify-end pt-12 md:pt-16 pr-6 md:pr-24 lg:pr-36">
-            <button
-              onClick={() => {
-                const formSection = document.getElementById("kontakt-sekcja");
-                if (formSection) formSection.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="button"
+            <a
+              href="#kontakt-sekcja"
+              className="button text-center"
             >
               <div className="button__blobs">
                 <div></div>
@@ -444,77 +340,77 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
                 Zamów swój portret
                 <ArrowRight className="w-4 h-4" />
               </div>
-            </button>
+            </a>
           </div>
         </div>
       </section>
+
       {/* 2.5 TESTIMONIALS SECTION */}
       <Testimonials />
+
       {/* 3. PROCESS TIMELINE: SYMMETRICAL, HORIZONTAL 4-STEP AXIS */}
       <section id="jak-zamowic-sekcja" className="py-20 md:py-28 lg:py-24 xl:py-20 2xl:py-32 scroll-mt-20">
         <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0">
           <header className="space-y-3 max-w-2xl mb-20 text-center mx-auto">
-          <span className="font-mono text-xs text-[#E0115F] uppercase tracking-widest block font-bold">ETAPY WSPÓŁPRACY</span>
-          <h2 className="font-display text-5xl text-gray-950 font-normal">Przejrzyste zasady, pewny efekt</h2>
-          <p className="font-sans text-gray-700 text-base leading-relaxed">
-            Eliminuję stres związany z zamawianiem tradycyjnych dzieł sztuki przez internet. Każdy krok jest przejrzysty i poddany Twojej akceptacji.
-          </p>
-        </header>
-        {/* Horizontal Process Axis timeline with interactive custom hollow dots and transitions */}
-        <div className="relative pt-8 border-t border-gray-150">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-16">
-            {/* Step 1 */}
-            <div className="space-y-4 relative flex flex-col items-center text-center group">
-              {/* Hollow timeline dot that grows and turns lime on hover */}
-              <div className="absolute -top-8 -translate-y-1/2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-gray-400 bg-white z-10 group-hover:scale-155 group-hover:bg-[#C4F013] group-hover:border-[#C4F013] transition-all duration-300" />
-              <div className="space-y-1">
-                <span className="font-mono text-xs uppercase tracking-widest text-[#E0115F] font-bold block">Krok 01</span>
-                <h3 className="font-display text-lg sm:text-xl text-gray-900">Konsultacja i kadr</h3>
+            <span className="font-mono text-xs text-[#E0115F] uppercase tracking-widest block font-bold">ETAPY WSPÓŁPRACY</span>
+            <h2 className="font-display text-5xl text-gray-950 font-normal">Przejrzyste zasady, pewny efekt</h2>
+            <p className="font-sans text-gray-700 text-base leading-relaxed">
+              Eliminuję stres związany z zamawianiem tradycyjnych dzieł sztuki przez internet. Każdy krok jest przejrzysty i poddany Twojej akceptacji.
+            </p>
+          </header>
+
+          {/* Horizontal Process Axis timeline with interactive custom hollow dots and transitions */}
+          <div className="relative pt-8 border-t border-gray-150">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-16">
+              {/* Step 1 */}
+              <div className="space-y-4 relative flex flex-col items-center text-center group">
+                <div className="absolute -top-8 -translate-y-1/2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-gray-400 bg-white z-10 group-hover:scale-155 group-hover:bg-[#C4F013] group-hover:border-[#C4F013] transition-all duration-300" />
+                <div className="space-y-1">
+                  <span className="font-mono text-xs uppercase tracking-widest text-[#E0115F] font-bold block">Krok 01</span>
+                  <h3 className="font-display text-lg sm:text-xl text-gray-900">Konsultacja i kadr</h3>
+                </div>
+                <p className="font-sans text-sm text-gray-600 leading-relaxed">
+                  Przesyłasz jedno lub więcej zdjęć pożądanej osoby/zwierzęcia drogą e-mailową lub za pomocą formularza na dole strony.
+                </p>
               </div>
-              <p className="font-sans text-sm text-gray-600 leading-relaxed">
-                Przesyłasz jedno lub więcej zdjęć pożądanej osoby/zwierzęcia drogą e-mailową lub za pomocą formularza na dole strony.
-              </p>
-            </div>
-            {/* Step 2 */}
-            <div className="space-y-4 relative flex flex-col items-center text-center group">
-              {/* Hollow timeline dot that grows and turns lime on hover */}
-              <div className="absolute -top-8 -translate-y-1/2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-gray-400 bg-white z-10 group-hover:scale-155 group-hover:bg-[#C4F013] group-hover:border-[#C4F013] transition-all duration-300" />
-              <div className="space-y-1">
-                <span className="font-mono text-xs uppercase tracking-widest text-[#E0115F] font-bold block">Krok 02</span>
-                <h3 className="font-display text-lg sm:text-xl text-gray-900">Projekt cyfrowy</h3>
+              {/* Step 2 */}
+              <div className="space-y-4 relative flex flex-col items-center text-center group">
+                <div className="absolute -top-8 -translate-y-1/2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-gray-400 bg-white z-10 group-hover:scale-155 group-hover:bg-[#C4F013] group-hover:border-[#C4F013] transition-all duration-300" />
+                <div className="space-y-1">
+                  <span className="font-mono text-xs uppercase tracking-widest text-[#E0115F] font-bold block">Krok 02</span>
+                  <h3 className="font-display text-lg sm:text-xl text-gray-900">Projekt cyfrowy</h3>
+                </div>
+                <p className="font-sans text-sm text-gray-600 leading-relaxed">
+                  Układam kolaż pozycjonowania i tła. Ty decydujesz o poprawkach – daję Ci do dyspozycji darmowe tury zmian przed malowaniem.
+                </p>
               </div>
-              <p className="font-sans text-sm text-gray-600 leading-relaxed">
-                Układam kolaż pozycjonowania i tła. Ty decydujesz o poprawkach – daję Ci do dyspozycji darmowe tury zmian przed malowaniem.
-              </p>
-            </div>
-            {/* Step 3 */}
-            <div className="space-y-4 relative flex flex-col items-center text-center group">
-              {/* Hollow timeline dot that grows and turns lime on hover */}
-              <div className="absolute -top-8 -translate-y-1/2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-gray-400 bg-white z-10 group-hover:scale-155 group-hover:bg-[#C4F013] group-hover:border-[#C4F013] transition-all duration-300" />
-              <div className="space-y-1">
-                <span className="font-mono text-xs uppercase tracking-widest text-[#E0115F] font-bold block">Krok 03</span>
-                <h3 className="font-display text-lg sm:text-xl text-gray-900">Wpłata zadatku</h3>
+              {/* Step 3 */}
+              <div className="space-y-4 relative flex flex-col items-center text-center group">
+                <div className="absolute -top-8 -translate-y-1/2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-gray-400 bg-white z-10 group-hover:scale-155 group-hover:bg-[#C4F013] group-hover:border-[#C4F013] transition-all duration-300" />
+                <div className="space-y-1">
+                  <span className="font-mono text-xs uppercase tracking-widest text-[#E0115F] font-bold block">Krok 03</span>
+                  <h3 className="font-display text-lg sm:text-xl text-gray-900">Wpłata zadatku</h3>
+                </div>
+                <p className="font-sans text-sm text-gray-600 leading-relaxed">
+                  Dopiero po pełnej akceptacji cyfrowego projektu wpłacasz 50% zadatku. W tym momencie naciągam unikalne płótno i rozpoczynam pracę.
+                </p>
               </div>
-              <p className="font-sans text-sm text-gray-600 leading-relaxed">
-                Dopiero po pełnej akceptacji cyfrowego projektu wpłacasz 50% zadatku. W tym momencie naciągam unikalne płótno i rozpoczynam pracę.
-              </p>
-            </div>
-            {/* Step 4 */}
-            <div className="space-y-4 relative flex flex-col items-center text-center group">
-              {/* Hollow timeline dot that grows and turns lime on hover */}
-              <div className="absolute -top-8 -translate-y-1/2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-gray-400 bg-white z-10 group-hover:scale-155 group-hover:bg-[#C4F013] group-hover:border-[#C4F013] transition-all duration-300" />
-              <div className="space-y-1">
-                <span className="font-mono text-xs uppercase tracking-widest text-[#E0115F] font-bold block">Krok 04</span>
-                <h3 className="font-display text-lg sm:text-xl text-gray-900">Ukończenie i odbiór</h3>
+              {/* Step 4 */}
+              <div className="space-y-4 relative flex flex-col items-center text-center group">
+                <div className="absolute -top-8 -translate-y-1/2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-gray-400 bg-white z-10 group-hover:scale-155 group-hover:bg-[#C4F013] group-hover:border-[#C4F013] transition-all duration-300" />
+                <div className="space-y-1">
+                  <span className="font-mono text-xs uppercase tracking-widest text-[#E0115F] font-bold block">Krok 04</span>
+                  <h3 className="font-display text-lg sm:text-xl text-gray-900">Ukończenie i odbiór</h3>
+                </div>
+                <p className="font-sans text-sm text-gray-600 leading-relaxed">
+                  Po 3-4 tygodniach przesyłam zdjęcia gotowego obrazu. Po akceptacji dopłacasz drugą połowę, a ja wysyłam ubezpieczoną paczkę kurierem.
+                </p>
               </div>
-              <p className="font-sans text-sm text-gray-600 leading-relaxed">
-                Po 3-4 tygodniach przesyłam zdjęcia gotowego obrazu. Po akceptacji dopłacasz drugą połowę, a ja wysyłam ubezpieczoną paczkę kurierem.
-              </p>
             </div>
           </div>
         </div>
-        </div>
       </section>
+
       {/* 4. PRICING: TWO BORDERLESS, CLEAN COLUMNS */}
       <section className="bg-stone-50 border-y border-gray-100 py-20 md:py-28 lg:py-24 xl:py-20 2xl:py-32">
         <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0 space-y-24">
@@ -530,7 +426,6 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
               {/* Format 1: Rectangle */}
               <div className="flex flex-col justify-between space-y-8 py-4">
                 <div className="space-y-6 text-center">
-                  {/* 3:4 Rectangle Canvas Visualizer - Sharp/No rounded corners as requested */}
                   <div className="w-48 aspect-[3/4] mx-auto bg-white border border-gray-150 rounded-none shadow-[0_8px_24px_rgba(0,0,0,0.02)] flex flex-col items-center justify-center transition-all duration-500 hover:scale-[1.03] hover:border-[#E0115F]/40 hover:shadow-[0_12px_32px_rgba(224,17,95,0.05)] mb-8 select-none relative group">
                     <div className="absolute inset-2 border border-dashed border-gray-100 rounded-none group-hover:border-[#E0115F]/20 transition-colors" />
                     <span className="text-sm font-mono text-gray-500 z-10 font-bold uppercase tracking-widest leading-none">3:4</span>
@@ -555,7 +450,6 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
               {/* Format 2: Oval */}
               <div className="flex flex-col justify-between space-y-8 py-4">
                 <div className="space-y-6 text-center">
-                  {/* 3:4 Oval Canvas Visualizer with perfect 50% border radius for realistic ellipse shape */}
                   <div
                     className="w-48 aspect-[3/4] mx-auto bg-white border border-gray-150 shadow-[0_8px_24px_rgba(0,0,0,0.02)] flex flex-col items-center justify-center transition-all duration-500 hover:scale-[1.03] hover:border-[#E0115F]/40 hover:shadow-[0_12px_32px_rgba(224,17,95,0.05)] mb-8 select-none relative group"
                     style={{ borderRadius: "50%" }}
@@ -593,7 +487,8 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
           </div>
         </div>
       </section>
-            {/* 6. CONTACT SECTION: FORM */}
+
+      {/* 6. CONTACT SECTION: FORM */}
       <section id="kontakt-sekcja" className="border-y border-gray-100 bg-stone-50 py-32 md:py-40 scroll-mt-20">
         <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0 grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           <div className="lg:col-span-5 space-y-8 font-sans">
@@ -603,199 +498,201 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
               Prześlij swoje zdjęcia i opisz pomysł. Bez żadnych zobowiązań przyjrzę się Twoim kadrom i podpowiem, jak najlepiej zaaranżować tło, światło oraz kompozycję, aby portret na płótnie lub papierze zyskał prawdziwie malarski, szlachetny charakter.
             </p>
           </div>
-          <div className="lg:col-span-7 bg-white rounded-3xl border border-gray-150 p-6 sm:p-10 space-y-6">
+          <div className="lg:col-span-7 bg-white rounded-3xl border border-off-black p-6 sm:p-10 space-y-6">
             <h3 className="font-display text-2xl text-gray-900 border-b border-gray-100 pb-4">Zamów wycenę Twojego portretu</h3>
             <form onSubmit={handleContactSubmit} className="space-y-6 font-sans">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div className="space-y-1">
-                    <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Imię i Nazwisko *</label>
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      placeholder="np. Anna Kowalska"
-                      value={emailForm.name}
-                      onChange={(e) => setEmailForm({...emailForm, name: e.target.value})}
-                      className="w-full p-3 bg-gray-50 border border-gray-200 focus:border-[#C4F013] focus:ring-1 focus:ring-[#C4F013] focus:bg-white outline-none rounded-xl text-sm transition-all"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Twój Adres E-mail *</label>
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      placeholder="np. anna.kowalska@gmail.com"
-                      value={emailForm.email}
-                      onChange={(e) => setEmailForm({...emailForm, email: e.target.value})}
-                      className="w-full p-3 bg-gray-50 border border-gray-200 focus:border-[#C4F013] focus:ring-1 focus:ring-[#C4F013] focus:bg-white outline-none rounded-xl text-sm transition-all"
-                    />
-                  </div>
-                </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-1">
-                  <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Kształt podobrazia *</label>
-                  <div className="flex gap-3">
-                    <label className={`flex-1 flex items-center justify-center p-3 border rounded-xl cursor-pointer hover:border-[#C4F013] text-sm font-sans transition-all text-center ${
-                      emailForm.shape === "rectangle" ? "border-[#C4F013] ring-1 ring-[#C4F013] bg-white shadow-xs font-semibold text-gray-950" : "border-gray-200 bg-gray-50 text-gray-500 hover:bg-white"
-                    }`}>
-                      <input
-                        type="radio"
-                        name="shape"
-                        value="rectangle"
-                        checked={emailForm.shape === "rectangle"}
-                        onChange={(e) => setEmailForm({...emailForm, shape: e.target.value})}
-                        className="sr-only"
-                      />
-                      Prostokątne
-                    </label>
-                    <label className={`flex-1 flex items-center justify-center p-3 border rounded-xl cursor-pointer hover:border-[#C4F013] text-sm font-sans transition-all text-center ${
-                      emailForm.shape === "oval" ? "border-[#C4F013] ring-1 ring-[#C4F013] bg-white shadow-xs font-semibold text-gray-950" : "border-gray-200 bg-gray-50 text-gray-500 hover:bg-white"
-                    }`}>
-                      <input
-                        type="radio"
-                        name="shape"
-                        value="oval"
-                        checked={emailForm.shape === "oval"}
-                        onChange={(e) => setEmailForm({...emailForm, shape: e.target.value})}
-                        className="sr-only"
-                      />
-                      Owalne
-                    </label>
-                  </div>
-                </div>
-                <div className="space-y-1">
-                  <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Wybierz wstępny rozmiar *</label>
-                  <div className="grid grid-cols-2 gap-3">
-                    <label className={`flex items-center justify-center p-3 border rounded-xl cursor-pointer hover:border-[#C4F013] text-sm font-sans transition-all text-center ${
-                      emailForm.size === "30x40" ? "border-[#C4F013] ring-1 ring-[#C4F013] bg-white shadow-xs font-semibold text-gray-950" : "border-gray-200 bg-gray-50 text-gray-500 hover:bg-white"
-                    }`}>
-                      <input
-                        type="radio"
-                        name="size"
-                        value="30x40"
-                        checked={emailForm.size === "30x40"}
-                        onChange={(e) => setEmailForm({...emailForm, size: e.target.value})}
-                        className="sr-only"
-                      />
-                      Standardowy (30 x 40 cm)
-                    </label>
-                    <label className={`flex items-center justify-center p-3 border rounded-xl cursor-pointer hover:border-[#C4F013] text-sm font-sans transition-all text-center ${
-                      emailForm.size === "40x55" ? "border-[#C4F013] ring-1 ring-[#C4F013] bg-white shadow-xs font-semibold text-gray-950" : "border-gray-200 bg-gray-50 text-gray-500 hover:bg-white"
-                    }`}>
-                      <input
-                        type="radio"
-                        name="size"
-                        value="40x55"
-                        checked={emailForm.size === "40x55"}
-                        onChange={(e) => setEmailForm({...emailForm, size: e.target.value})}
-                        className="sr-only"
-                      />
-                      Średni (40 x 55 cm)
-                    </label>
-                    <label className={`flex items-center justify-center p-3 border rounded-xl cursor-pointer hover:border-[#C4F013] text-sm font-sans transition-all text-center ${
-                      emailForm.size === "50x70" ? "border-[#C4F013] ring-1 ring-[#C4F013] bg-white shadow-xs font-semibold text-gray-950" : "border-gray-200 bg-gray-50 text-gray-500 hover:bg-white"
-                    }`}>
-                      <input
-                        type="radio"
-                        name="size"
-                        value="50x70"
-                        checked={emailForm.size === "50x70"}
-                        onChange={(e) => setEmailForm({...emailForm, size: e.target.value})}
-                        className="sr-only"
-                      />
-                      Wielki (50 x 70 cm)
-                    </label>
-                    <label className={`flex items-center justify-center p-3 border rounded-xl cursor-pointer hover:border-[#C4F013] text-sm font-sans transition-all text-center ${
-                      emailForm.size === "custom" ? "border-[#C4F013] ring-1 ring-[#C4F013] bg-white shadow-xs font-semibold text-gray-950" : "border-gray-200 bg-gray-50 text-gray-500 hover:bg-white"
-                    }`}>
-                      <input
-                        type="radio"
-                        name="size"
-                        value="custom"
-                        checked={emailForm.size === "custom"}
-                        onChange={(e) => setEmailForm({...emailForm, size: e.target.value})}
-                        className="sr-only"
-                      />
-                      Niestandardowy (własny format)
-                    </label>
-                  </div>
-                </div>
-                <div className="space-y-1">
-                  <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Opisz swoją wizję lub przeznaczenie obrazu *</label>
-                  <textarea
-                    name="message"
+                  <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Imię i Nazwisko *</label>
+                  <input
+                    type="text"
+                    name="name"
                     required
-                    rows={4}
-                    placeholder="Napisz dla kogo powstaje obraz, czy to pamiątka rodzinna, prezent na rocznicę i czy masz już wybrane ujęcia zdjęciowe..."
-                    value={emailForm.message}
-                    onChange={(e) => setEmailForm({...emailForm, message: e.target.value})}
-                    className="w-full p-3 bg-gray-50 border border-gray-200 focus:border-[#C4F013] focus:ring-1 focus:ring-[#C4F013] focus:bg-white outline-none rounded-xl text-sm transition-all resize-none leading-relaxed"
+                    placeholder="np. Anna Kowalska"
+                    value={emailForm.name}
+                    onChange={(e) => setEmailForm({...emailForm, name: e.target.value})}
+                    className="w-full p-3 bg-gray-50 border border-gray-200 focus:border-[#C4F013] focus:ring-1 focus:ring-[#C4F013] focus:bg-white outline-none rounded-xl text-sm transition-all"
                   />
                 </div>
-                <div className="space-y-2">
-                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Dołącz poglądowe zdjęcia (JPG, PNG)</span>
-                  <div
-                    onClick={() => fileInputRef.current?.click()}
-                    className="border border-dashed border-gray-200 rounded-xl p-6 text-center bg-gray-50/50 hover:bg-gray-50 transition-all cursor-pointer relative"
-                  >
-                    <input
-                      type="file"
-                      ref={fileInputRef}
-                      multiple
-                      onChange={(e) => {
-                        if (e.target.files) {
-                          setEmailFiles(Array.from(e.target.files));
-                        }
-                      }}
-                      className="hidden"
-                    />
-                    <div className="space-y-2 pointer-events-none">
-                      <div className="text-xs font-medium text-gray-500">
-                        {emailFiles.length > 0 ? (
-                          <span className="text-[#E0115F] font-bold">
-                            ✓ Wybrano {emailFiles.length} {emailFiles.length === 1 ? 'plik' : emailFiles.length < 5 ? 'pliki' : 'plików'}: {emailFiles.map(f => f.name).join(", ")}
-                          </span>
-                        ) : (
-                          <span>Kliknij, by załączyć klatki zdjęciowe (możesz też wysłać je bezpośrednio w mailu)</span>
-                        )}
-                      </div>
-                      <p className="text-xs text-gray-400">Twoje dane są w pełni bezpieczne.</p>
-                    </div>
-                  </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Twój Adres E-mail *</label>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    placeholder="np. anna.kowalska@gmail.com"
+                    value={emailForm.email}
+                    onChange={(e) => setEmailForm({...emailForm, email: e.target.value})}
+                    className="w-full p-3 bg-gray-50 border border-gray-200 focus:border-[#C4F013] focus:ring-1 focus:ring-[#C4F013] focus:bg-white outline-none rounded-xl text-sm transition-all"
+                  />
                 </div>
-                <div className="pt-4">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="button button--full"
-                  >
-                    <div className="button__blobs">
-                      <div></div>
-                      <div></div>
-                      <div></div>
-                    </div>
-                    <div className="button__text">
-                      {isSubmitting ? (
-                        <span>Generowanie wiadomości...</span>
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Kształt podobrazia *</label>
+                <div className="flex gap-3">
+                  <label className={`flex-1 flex items-center justify-center p-3 border rounded-xl cursor-pointer hover:border-[#C4F013] text-sm font-sans transition-all text-center ${
+                    emailForm.shape === "rectangle" ? "border-[#C4F013] ring-1 ring-[#C4F013] bg-white shadow-xs font-semibold text-gray-950" : "border-gray-200 bg-gray-50 text-gray-500 hover:bg-white"
+                  }`}>
+                    <input
+                      type="radio"
+                      name="shape"
+                      value="rectangle"
+                      checked={emailForm.shape === "rectangle"}
+                      onChange={(e) => setEmailForm({...emailForm, shape: e.target.value})}
+                      className="sr-only"
+                    />
+                    Prostokątne
+                  </label>
+                  <label className={`flex-1 flex items-center justify-center p-3 border rounded-xl cursor-pointer hover:border-[#C4F013] text-sm font-sans transition-all text-center ${
+                    emailForm.shape === "oval" ? "border-[#C4F013] ring-1 ring-[#C4F013] bg-white shadow-xs font-semibold text-gray-950" : "border-gray-200 bg-gray-50 text-gray-500 hover:bg-white"
+                  }`}>
+                    <input
+                      type="radio"
+                      name="shape"
+                      value="oval"
+                      checked={emailForm.shape === "oval"}
+                      onChange={(e) => setEmailForm({...emailForm, shape: e.target.value})}
+                      className="sr-only"
+                    />
+                    Owalne
+                  </label>
+                </div>
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Wybierz wstępny rozmiar *</label>
+                <div className="grid grid-cols-2 gap-3">
+                  <label className={`flex items-center justify-center p-3 border rounded-xl cursor-pointer hover:border-[#C4F013] text-sm font-sans transition-all text-center ${
+                    emailForm.size === "30x40" ? "border-[#C4F013] ring-1 ring-[#C4F013] bg-white shadow-xs font-semibold text-gray-950" : "border-gray-200 bg-gray-50 text-gray-500 hover:bg-white"
+                  }`}>
+                    <input
+                      type="radio"
+                      name="size"
+                      value="30x40"
+                      checked={emailForm.size === "30x40"}
+                      onChange={(e) => setEmailForm({...emailForm, size: e.target.value})}
+                      className="sr-only"
+                    />
+                    Standardowy (30 x 40 cm)
+                  </label>
+                  <label className={`flex items-center justify-center p-3 border rounded-xl cursor-pointer hover:border-[#C4F013] text-sm font-sans transition-all text-center ${
+                    emailForm.size === "40x55" ? "border-[#C4F013] ring-1 ring-[#C4F013] bg-white shadow-xs font-semibold text-gray-950" : "border-gray-200 bg-gray-50 text-gray-500 hover:bg-white"
+                  }`}>
+                    <input
+                      type="radio"
+                      name="size"
+                      value="40x55"
+                      checked={emailForm.size === "40x55"}
+                      onChange={(e) => setEmailForm({...emailForm, size: e.target.value})}
+                      className="sr-only"
+                    />
+                    Średni (40 x 55 cm)
+                  </label>
+                  <label className={`flex items-center justify-center p-3 border rounded-xl cursor-pointer hover:border-[#C4F013] text-sm font-sans transition-all text-center ${
+                    emailForm.size === "50x70" ? "border-[#C4F013] ring-1 ring-[#C4F013] bg-white shadow-xs font-semibold text-gray-950" : "border-gray-200 bg-gray-50 text-gray-500 hover:bg-white"
+                  }`}>
+                    <input
+                      type="radio"
+                      name="size"
+                      value="50x70"
+                      checked={emailForm.size === "50x70"}
+                      onChange={(e) => setEmailForm({...emailForm, size: e.target.value})}
+                      className="sr-only"
+                    />
+                    Wielki (50 x 70 cm)
+                  </label>
+                  <label className={`flex items-center justify-center p-3 border rounded-xl cursor-pointer hover:border-[#C4F013] text-sm font-sans transition-all text-center ${
+                    emailForm.size === "custom" ? "border-[#C4F013] ring-1 ring-[#C4F013] bg-white shadow-xs font-semibold text-gray-950" : "border-gray-200 bg-gray-50 text-gray-500 hover:bg-white"
+                  }`}>
+                    <input
+                      type="radio"
+                      name="size"
+                      value="custom"
+                      checked={emailForm.size === "custom"}
+                      onChange={(e) => setEmailForm({...emailForm, size: e.target.value})}
+                      className="sr-only"
+                    />
+                    Niestandardowy (własny format)
+                  </label>
+                </div>
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Opisz swoją wizję lub przeznaczenie obrazu *</label>
+                <textarea
+                  name="message"
+                  required
+                  rows={4}
+                  placeholder="Napisz dla kogo powstaje obraz, czy to pamiątka rodzinna, prezent na rocznicę i czy masz już wybrane ujęcia zdjęciowe..."
+                  value={emailForm.message}
+                  onChange={(e) => setEmailForm({...emailForm, message: e.target.value})}
+                  className="w-full p-3 bg-gray-50 border border-gray-200 focus:border-[#C4F013] focus:ring-1 focus:ring-[#C4F013] focus:bg-white outline-none rounded-xl text-sm transition-all resize-none leading-relaxed"
+                />
+              </div>
+              <div className="space-y-2">
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Dołącz poglądowe zdjęcia (JPG, PNG)</span>
+                <div
+                  onClick={() => fileInputRef.current?.click()}
+                  className="border border-dashed border-gray-200 rounded-xl p-6 text-center bg-gray-50/50 hover:bg-gray-50 transition-all cursor-pointer relative"
+                >
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    multiple
+                    onChange={(e) => {
+                      if (e.target.files) {
+                        setEmailFiles(Array.from(e.target.files));
+                      }
+                    }}
+                    className="hidden"
+                  />
+                  <div className="space-y-2 pointer-events-none">
+                    <div className="text-xs font-medium text-gray-500">
+                      {emailFiles.length > 0 ? (
+                        <span className="text-[#E0115F] font-bold">
+                          ✓ Wybrano {emailFiles.length} {emailFiles.length === 1 ? 'plik' : emailFiles.length < 5 ? 'pliki' : 'plików'}: {emailFiles.map(f => f.name).join(", ")}
+                        </span>
                       ) : (
-                        <>
-                          <span>Wyślij zapytanie</span>
-                          <Send className="w-4 h-4" />
-                        </>
+                        <span>Kliknij, by załączyć klatki zdjęciowe (możesz też wysłać je bezpośrednio w mailu)</span>
                       )}
                     </div>
-                  </button>
-                  <p className="text-xs text-gray-550 font-sans text-center mt-4 leading-relaxed font-normal">
-                    Wiadomość zostanie przesłana bezpośrednio do mojej Pracowni Artystycznej. Odpowiedź wraz z propozycją kompozycji otrzymasz na podany adres e-mail.
-                  </p>
+                    <p className="text-xs text-gray-400">Twoje dane są w pełni bezpieczne.</p>
+                  </div>
                 </div>
-              </form>
+              </div>
+              <div className="pt-4">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="button button--full cursor-pointer"
+                >
+                  <div className="button__blobs">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                  <div className="button__text">
+                    {isSubmitting ? (
+                      <span>Generowanie wiadomości...</span>
+                    ) : (
+                      <>
+                        <span>Wyślij zapytanie</span>
+                        <Send className="w-4 h-4" />
+                      </>
+                    )}
+                  </div>
+                </button>
+                <p className="text-xs text-gray-550 font-sans text-center mt-4 leading-relaxed font-normal">
+                  Wiadomość zostanie przesłana bezpośrednio do mojej Pracowni Artystycznej. Odpowiedź wraz z propozycją kompozycji otrzymasz na podany adres e-mail.
+                </p>
+              </div>
+            </form>
           </div>
         </div>
       </section>
-      <ProductSlider setCurrentPage={setCurrentPage} onSelectProduct={onSelectProduct} />
-          {/* Lightbox Modal */}
-      {lightbox.isOpen && createPortal(
+
+      <ProductSlider />
+
+      {/* Lightbox Modal */}
+      {isMounted && lightbox.isOpen && createPortal(
         <div
           className="fixed inset-0 w-screen h-screen z-50 flex flex-col md:flex-row bg-neutral-950 text-white transition-opacity duration-300 overflow-hidden"
           onClick={closeLightbox}
@@ -887,4 +784,3 @@ export default function Home({ setCurrentPage, onSelectProduct }: HomeProps) {
     </div>
   );
 }
-

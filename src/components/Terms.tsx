@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BookOpen, Sparkles, FileEdit, CreditCard, Truck, RotateCcw, AlertTriangle, Copyright, Scale, Info, Mail, ArrowRight } from "lucide-react";
 
-interface TermsProps {
-  onNavigateToContact: (subject: string) => void;
-}
-
-export default function Terms({ onNavigateToContact }: TermsProps) {
+export default function Terms() {
   const [activeSection, setActiveSection] = useState<string>("postanowienia-ogolne");
 
   useEffect(() => {
@@ -30,6 +26,7 @@ export default function Terms({ onNavigateToContact }: TermsProps) {
       sections.forEach((section) => observer.unobserve(section));
     };
   }, []);
+  
   return (
     <div className="animate-fadeIn pt-12 md:pt-20 lg:pt-16 xl:pt-12 2xl:pt-20 pb-16 px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0 max-w-[1600px] mx-auto space-y-16">
       {/* Editorial Header */}
@@ -48,7 +45,7 @@ export default function Terms({ onNavigateToContact }: TermsProps) {
       {/* Intro Text & Quick Navigation layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
         {/* Main Content Column */}
-        <div className="lg:col-span-8 space-y-12 font-sans text-gray-700 leading-relaxed max-w-3xl">
+        <div className="lg:col-span-8 space-y-12 font-sans text-gray-750 leading-relaxed max-w-3xl">
           <p className="text-base sm:text-lg text-gray-600">
             Poniższy Regulamin określa zasady korzystania ze sklepu internetowego <strong>hellokostek</strong>, dostępnego pod adresem <a href="https://hellokostek.pl/" className="text-gray-900 underline hover:text-[#E0115F] transition-colors">https://hellokostek.pl/</a>, prowadzonego przez Macieja Kosteczkę.
           </p>
@@ -184,7 +181,7 @@ export default function Terms({ onNavigateToContact }: TermsProps) {
                 </div>
                 <div className="text-amber-900 text-xs sm:text-sm leading-relaxed space-y-2">
                   <p>
-                    <strong>1. W przypadku Produktów Gotowych:</strong> Klient będący Konsumentem ma prawo odstąpić od umowy sprzedaży w terminie 14 dni bez podania jakiejkolwiek przyczyny. Termin ten biegnie od dnia objęcia obrazu w posiadanie przez Klienta. Koszt odesłania zwrotu ponosi Klient. Obraz musi zostać zwrócony w stanie nienaruszonym, odpowiednio zabezpieczonym do transportu.
+                    <strong>1. W przypadku Produktów Gotowych:</strong> Klient będący Konsumentem ma prawo odstąpić od umowy sprzedaży w terminie 14 dni bez podania jakiejkolwiek przyczyny. Termin ten biegnie od dnia objęcia obrazu w posiadanie przez Klienta. Koszt odesłania zwrotu ponosi Klient. Obraz must zostać zwrócony w stanie nienaruszonym, odpowiednio zabezpieczonym do transportu.
                   </p>
                   <p>
                     <strong>2. W przypadku Produktów na Zamówienie (Spersonalizowanych):</strong> Zgodnie z <strong>art. 38 ust. 1 pkt 3 ustawy o prawach konsumenta</strong>, prawo do odstąpienia od umowy zawartej na odległość <strong>nie przysługuje konsumentowi</strong> w odniesieniu do umów, w których przedmiotem świadczenia jest towar nieprefabrykowany, wyprodukowany według specyfikacji konsumenta lub służący zaspokojeniu jego zindywidualizowanych potrzeb.
@@ -421,8 +418,8 @@ export default function Terms({ onNavigateToContact }: TermsProps) {
             <p className="text-xs text-gray-500 leading-relaxed">
               Mój regulamin ma na celu jasne zabezpieczenie zarówno Twoich praw, jak i integralności rękodzieła.
             </p>
-            <button 
-              onClick={() => onNavigateToContact("other_question")}
+            <a 
+              href="/HelloKostek/kontakt?subject=other_question"
               className="button button--full button--sm cursor-pointer"
             >
               <div className="button__blobs">
@@ -434,7 +431,7 @@ export default function Terms({ onNavigateToContact }: TermsProps) {
                 <Mail className="w-4 h-4" />
                 <span>Napisz do mnie</span>
               </div>
-            </button>
+            </a>
           </div>
         </aside>
       </div>

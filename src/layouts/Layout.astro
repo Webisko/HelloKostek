@@ -1,0 +1,72 @@
+---
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer.astro';
+import BackToTop from '../components/BackToTop.astro';
+import CookieConsent from '../components/CookieConsent.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  hideHeaderFooter?: boolean;
+}
+
+const { 
+  title = "hellokostek | Pracownia Artystyczna Maciej Kosteczka", 
+  description = "Ręcznie malowane portrety olejne, rysunki i akwarele na zamówienie ze zdjęcia. Stwórz unikalną pamiątkę rodzną.", 
+  hideHeaderFooter = false 
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <!-- Dynamic page ID representation for debugging/styling purposes if needed -->
+    <meta name="page-path" content={currentPath} />
+  </head>
+  <body class="min-h-screen bg-white text-off-black selection:bg-lime-accent selection:text-off-black flex flex-col justify-between">
+    
+    <!-- Centered Navigation -->
+    {!hideHeaderFooter && (
+      <Navbar currentPath={currentPath} client:load />
+    )}
+
+    <!-- Main content body -->
+    <main class="flex-grow">
+      <slot />
+    </main>
+
+    <!-- FOOTER - Minimal, elegant and respectful -->
+    {!hideHeaderFooter && (
+      <Footer />
+    )}
+
+    <!-- Subtle Back to Top Button -->
+    {!hideHeaderFooter && (
+      <BackToTop />
+    )}
+
+    <!-- COOKIE CONSENT AGREEMENT -->
+    <CookieConsent />
+
+    <!-- SVG Goo Filters -->
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style={{ display: "none" }}>
+      <defs>
+        <filter id="goo">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"></feGaussianBlur>
+          <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo"></feColorMatrix>
+          <feBlend in="SourceGraphic" in2="goo"></feBlend>
+        </filter>
+      </defs>
+    </svg>
+  </body>
+</html>

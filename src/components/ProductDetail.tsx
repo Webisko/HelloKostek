@@ -1,37 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Product, CartItem, PageId } from "../types";
-import { ChevronLeft, Shield, Sparkles, ArrowRight, CornerDownRight, X } from "lucide-react";
+import type { Product } from "../types";
+import { ChevronLeft, Shield, ArrowRight, X } from "lucide-react";
 
 interface ProductDetailProps {
   product: Product;
-  addToCart: (
-    product: Product, 
-    buyType: "original" | "print", 
-    quantityToAdd?: number,
-    shippingMethod?: string,
-    shippingPrice?: number
-  ) => void;
-  setCurrentPage: (page: PageId) => void;
-  cart: CartItem[];
-  setIsCartOpen: (isOpen: boolean) => void;
-  onPurchaseSuccess?: (order: {
-    orderNumber: string;
-    productTitle: string;
-    purchaseType: "original" | "print";
-    price: number;
-    shippingMethod?: string;
-    shippingPrice?: number;
-  }) => void;
 }
 
-export default function ProductDetail({
-  product,
-  addToCart,
-  setCurrentPage,
-  cart,
-  setIsCartOpen,
-  onPurchaseSuccess
-}: ProductDetailProps) {
+export default function ProductDetail({ product }: ProductDetailProps) {
   const [selectedType, setSelectedType] = useState<"original" | "print">(
     product.isOriginalAvailable ? "original" : "print"
   );
@@ -73,49 +48,42 @@ export default function ProductDetail({
   const currentPrice = selectedType === "original" ? product.originalPrice : (product.printPrice || 20);
 
   const handleKupTeraz = () => {
-    if (onPurchaseSuccess) {
-      const orderNum = "HK-" + Math.floor(10000 + Math.random() * 90000);
-      const deliveryOpt = deliveryOptions.find(opt => opt.id === selectedDelivery) || deliveryOptions[0];
-      onPurchaseSuccess({
-        orderNumber: orderNum,
-        productTitle: product.title,
-        purchaseType: selectedType,
-        price: currentPrice,
-        shippingMethod: deliveryOpt.name,
-        shippingPrice: deliveryOpt.price
-      });
-    } else {
-      setCurrentPage("success-purchase");
+    const orderNum = "HK-" + Math.floor(10000 + Math.random() * 90000);
+    const deliveryOpt = deliveryOptions.find(opt => opt.id === selectedDelivery) || deliveryOptions[0];
+    
+    // Redirect to the success page with query parameters representing the purchase
+    if (typeof window !== "undefined") {
+      window.location.href = `/HelloKostek/sukces-zakup?orderNumber=${orderNum}&productTitle=${encodeURIComponent(product.title)}&purchaseType=${selectedType}&price=${currentPrice}&shippingMethod=${encodeURIComponent(deliveryOpt.name)}&shippingPrice=${deliveryOpt.price}`;
     }
-    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   // Extra thumbnails to represent different contexts for editorial minimalism
   const thumbnails = {
     front: product.imageUrl,
     frame: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=800&auto=format&fit=crop", // Simulated luxury frame setup
-    detail: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=800&auto=format&fit=crop" // Close-up watercolor/drawing texture
+    detail: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?q=80&w=800&auto=format&fit=crop" // Close-up texture
   };
 
   const currentThumbnailUrl = thumbnails[activeThumbnail] || product.imageUrl;
+  const basePath = "/HelloKostek";
 
   return (
     <div className="animate-fadeIn pt-12 md:pt-20 lg:pt-16 xl:pt-12 2xl:pt-20 pb-16 px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0 max-w-[1600px] mx-auto space-y-16">
       {/* Back to Gallery Path Link */}
-      <button
-        onClick={() => setCurrentPage("shop")}
-        className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-off-black hover:text-magenta-accent active:text-magenta-accent transition-all duration-300 cursor-pointer"
+      <a
+        href={`${basePath}/sklep`}
+        className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-off-black hover:text-magenta-accent transition-all duration-300"
       >
         <ChevronLeft className="w-4 h-4" />
         Cofnij do galerii prac
-      </button>
+      </a>
 
       {/* Main Container Dual-Column Layout (50/50 split) */}
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
         {/* Left Column: Media & Thumbnails Context (50% width) */}
         <div className="lg:col-span-6 space-y-6">
           <div 
-            className="aspect-[3/4] relative overflow-hidden rounded-[32px] border border-gray-100 bg-gray-50/50 cursor-zoom-in group/img"
+            className="aspect-[3/4] relative overflow-hidden rounded-[32px] border border-gray-100 bg-gray-55 cursor-zoom-in group/img"
             onClick={() => setIsLightboxOpen(true)}
           >
             <img
@@ -131,7 +99,7 @@ export default function ProductDetail({
             </div>
             
             {activeThumbnail === "detail" && (
-              <span className="absolute bottom-4 left-4 bg-lime-accent/90 text-off-black px-3 py-1.5 rounded-xl text-xs font-semibold font-sans uppercase tracking-wide tracking-wider z-10 pointer-events-none">
+              <span className="absolute bottom-4 left-4 bg-lime-accent/90 text-off-black px-3 py-1.5 rounded-xl text-xs font-semibold font-sans uppercase tracking-wider z-10 pointer-events-none">
                 ZBLIŻENIE NA SYGNATURĘ I STRUKTURĘ
               </span>
             )}
@@ -141,8 +109,8 @@ export default function ProductDetail({
           <div className="grid grid-cols-3 gap-4">
             <button
               onClick={() => setActiveThumbnail("front")}
-              className={`aspect-square rounded-2xl overflow-hidden border p-1 transition-all ${
-                activeThumbnail === "front" ? "border-[#E0115F] bg-gray-50/50" : "border-gray-150 hover:bg-gray-50"
+              className={`aspect-square rounded-2xl overflow-hidden border p-1 transition-all cursor-pointer ${
+                activeThumbnail === "front" ? "border-[#E0115F] bg-gray-50/50" : "border-gray-150 hover:bg-gray-55"
               }`}
             >
               <img
@@ -154,8 +122,8 @@ export default function ProductDetail({
             </button>
             <button
               onClick={() => setActiveThumbnail("frame")}
-              className={`aspect-square rounded-2xl overflow-hidden border p-1 transition-all ${
-                activeThumbnail === "frame" ? "border-[#E0115F] bg-gray-50/50" : "border-gray-150 hover:bg-gray-50"
+              className={`aspect-square rounded-2xl overflow-hidden border p-1 transition-all cursor-pointer ${
+                activeThumbnail === "frame" ? "border-[#E0115F] bg-gray-50/50" : "border-gray-150 hover:bg-gray-55"
               }`}
             >
               <img
@@ -167,8 +135,8 @@ export default function ProductDetail({
             </button>
             <button
               onClick={() => setActiveThumbnail("detail")}
-              className={`aspect-square rounded-2xl overflow-hidden border p-1 transition-all ${
-                activeThumbnail === "detail" ? "border-[#E0115F] bg-gray-50/50" : "border-gray-150 hover:bg-gray-50"
+              className={`aspect-square rounded-2xl overflow-hidden border p-1 transition-all cursor-pointer ${
+                activeThumbnail === "detail" ? "border-[#E0115F] bg-gray-50/50" : "border-gray-150 hover:bg-gray-55"
               }`}
             >
               <img
@@ -220,7 +188,7 @@ export default function ProductDetail({
                   className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all ${
                     selectedType === "original"
                       ? "border-magenta-accent bg-gray-50/40 font-medium"
-                      : "border-gray-200 bg-white hover:border-lime-accent hover:bg-gray-50"
+                      : "border-gray-200 bg-white hover:border-lime-accent hover:bg-gray-55"
                   }`}
                 >
                   <div className="flex items-center gap-3">
@@ -257,7 +225,7 @@ export default function ProductDetail({
                   className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all ${
                     selectedType === "print"
                       ? "border-magenta-accent bg-gray-50/40 font-medium"
-                      : "border-gray-200 bg-white hover:border-lime-accent hover:bg-gray-50"
+                      : "border-gray-200 bg-white hover:border-lime-accent hover:bg-gray-55"
                   }`}
                 >
                   <div className="flex items-center gap-3">
@@ -288,7 +256,7 @@ export default function ProductDetail({
                   <button
                     type="button"
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="w-7 h-7 flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:text-magenta-accent active:bg-gray-100 transition-colors font-bold cursor-pointer text-xs"
+                    className="w-7 h-7 flex items-center justify-center text-gray-600 hover:bg-gray-55 hover:text-magenta-accent active:bg-gray-100 transition-colors font-bold cursor-pointer text-xs"
                   >
                     -
                   </button>
@@ -298,7 +266,7 @@ export default function ProductDetail({
                   <button
                     type="button"
                     onClick={() => setQuantity(quantity + 1)}
-                    className="w-7 h-7 flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:text-magenta-accent active:bg-gray-100 transition-colors font-bold cursor-pointer text-xs"
+                    className="w-7 h-7 flex items-center justify-center text-gray-600 hover:bg-gray-55 hover:text-magenta-accent active:bg-gray-100 transition-colors font-bold cursor-pointer text-xs"
                   >
                     +
                   </button>
@@ -317,7 +285,7 @@ export default function ProductDetail({
                     className={`flex items-center justify-between p-3.5 rounded-xl border cursor-pointer transition-all text-xs ${
                       selectedDelivery === opt.id
                         ? "border-magenta-accent bg-gray-50/40 font-medium"
-                        : "border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50"
+                        : "border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-55"
                     }`}
                   >
                     <div className="flex items-center gap-3">
@@ -340,7 +308,7 @@ export default function ProductDetail({
 
             <button
               onClick={handleKupTeraz}
-              className="button button--full"
+              className="button button--full cursor-pointer"
             >
               <div className="button__blobs">
                 <div></div>
@@ -399,18 +367,8 @@ export default function ProductDetail({
           className="fixed inset-0 bg-off-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4 cursor-zoom-out animate-fadeIn"
           onClick={() => setIsLightboxOpen(false)}
         >
-          <style>{`
-            @keyframes scaleIn {
-              from { transform: scale(0.95); opacity: 0; }
-              to { transform: scale(1); opacity: 1; }
-            }
-            .animate-scaleIn {
-              animation: scaleIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            }
-          `}</style>
-          
           <button 
-            className="absolute top-6 right-6 text-white hover:text-magenta-accent transition-colors p-2 cursor-pointer z-51"
+            className="absolute top-6 right-6 text-white hover:text-magenta-accent transition-colors p-2 cursor-pointer z-51 border-none bg-transparent"
             onClick={() => setIsLightboxOpen(false)}
             aria-label="Zamknij"
           >

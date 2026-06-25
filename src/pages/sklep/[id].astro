@@ -1,0 +1,21 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ProductDetail from '../../components/ProductDetail';
+import { SHOP_PRODUCTS } from '../../data';
+
+export async function getStaticPaths() {
+  return SHOP_PRODUCTS.map((product) => ({
+    params: { id: product.id },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props;
+---
+
+<Layout 
+  title={`${product.title} | Sklep | hellokostek`}
+  description={product.description}
+>
+  <ProductDetail product={product} client:load />
+</Layout>

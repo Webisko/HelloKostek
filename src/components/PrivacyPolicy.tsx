@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ShieldCheck, ClipboardList, Users, UserCheck, Cookie, Scale, FileText, Mail, ArrowRight } from "lucide-react";
 
-interface PrivacyPolicyProps {
-  onNavigateToContact: (subject: string) => void;
-}
-
-export default function PrivacyPolicy({ onNavigateToContact }: PrivacyPolicyProps) {
+export default function PrivacyPolicy() {
   const [activeSection, setActiveSection] = useState<string>("postanowienia-ogolne");
 
   useEffect(() => {
@@ -30,6 +26,7 @@ export default function PrivacyPolicy({ onNavigateToContact }: PrivacyPolicyProp
       sections.forEach((section) => observer.unobserve(section));
     };
   }, []);
+  
   return (
     <div className="animate-fadeIn pt-12 md:pt-20 lg:pt-16 xl:pt-12 2xl:pt-20 pb-16 px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0 max-w-[1600px] mx-auto space-y-16">
       {/* Editorial Header */}
@@ -48,7 +45,7 @@ export default function PrivacyPolicy({ onNavigateToContact }: PrivacyPolicyProp
       {/* Intro Text & Quick Navigation layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
         {/* Main Content Column */}
-        <div className="lg:col-span-8 space-y-12 font-sans text-gray-700 leading-relaxed max-w-3xl">
+        <div className="lg:col-span-8 space-y-12 font-sans text-gray-750 leading-relaxed max-w-3xl">
           <p className="text-base sm:text-lg text-gray-600">
             Niniejsza Polityka Prywatności określa zasady przetwarzania i ochrony danych osobowych użytkowników korzystających ze strony internetowej i sklepu <strong>hellokostek</strong>, dostępnego pod adresem: <a href="https://hellokostek.pl/" className="text-gray-900 underline hover:text-[#E0115F] transition-colors">https://hellokostek.pl/</a>.
           </p>
@@ -352,10 +349,10 @@ export default function PrivacyPolicy({ onNavigateToContact }: PrivacyPolicyProp
           <div className="border-t border-gray-200/60 pt-6 space-y-4">
             <h4 className="font-sans font-bold text-gray-900 text-sm">Masz pytania dotyczące prywatności?</h4>
             <p className="text-xs text-gray-500 leading-relaxed">
-              Jeśli chcesz zrealizować swoje prawa RODO lub masz jakiekolwier wątpliwości, skontaktuj się ze mną bezpośrednio.
+              Jeśli chcesz zrealizować swoje prawa RODO lub masz jakiekolwiek wątpliwości, skontaktuj się ze mną bezpośrednio.
             </p>
-            <button 
-              onClick={() => onNavigateToContact("other_question")}
+            <a 
+              href="/HelloKostek/kontakt?subject=other_question"
               className="button button--full button--sm cursor-pointer"
             >
               <div className="button__blobs">
@@ -367,7 +364,7 @@ export default function PrivacyPolicy({ onNavigateToContact }: PrivacyPolicyProp
                 <Mail className="w-4 h-4" />
                 <span>Napisz do mnie</span>
               </div>
-            </button>
+            </a>
           </div>
         </aside>
       </div>

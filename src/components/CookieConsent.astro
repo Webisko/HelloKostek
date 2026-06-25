@@ -1,0 +1,46 @@
+---
+const basePath = "/HelloKostek";
+---
+
+<div id="cookie-banner" class="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-md bg-white border border-neutral-200 p-6 rounded-2xl shadow-xl z-50 hidden animate-fadeIn font-sans space-y-4">
+  <div class="flex items-start gap-3">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-off-black shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="16" y2="12"></line><line x1="12" x2="12.01" y1="8" y2="8"></line></svg>
+    <div class="text-xs text-stone-600 leading-relaxed">
+      <strong class="text-off-black font-semibold block text-sm mb-1">Dbamy o Twoją prywatność</strong>
+      Ta strona korzysta z plików cookies w celu zapewnienia prawidłowego działania koszyka zakupowego, bezpiecznych płatności Stripe oraz analizowania ruchu. Klikając „Zgadzam się”, pozwalasz nam na pełną dbałość o Twoje doświadczenia zakupowe.
+    </div>
+  </div>
+  
+  <div class="flex justify-between items-center gap-3">
+    <a 
+      href={`${basePath}/polityka-prywatnosci`} 
+      class="text-xs text-stone-400 hover:text-magenta-accent hover:underline cursor-pointer text-left block"
+    >
+      Więcej w polityce prywatności
+    </a>
+    <div class="flex gap-2">
+      <button
+        id="accept-cookies"
+        class="px-4 py-2.5 bg-off-black text-white hover:bg-lime-accent hover:text-off-black active:bg-magenta-accent active:text-white transition-all duration-300 rounded-lg text-xs font-mono uppercase tracking-wider leading-none cursor-pointer"
+      >
+        Zgadzam się
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const banner = document.getElementById('cookie-banner');
+  const acceptBtn = document.getElementById('accept-cookies');
+  
+  if (banner && acceptBtn) {
+    if (localStorage.getItem('hellokostek_cookies') !== 'true') {
+      banner.classList.remove('hidden');
+    }
+    
+    acceptBtn.addEventListener('click', () => {
+      localStorage.setItem('hellokostek_cookies', 'true');
+      banner.classList.add('hidden');
+    });
+  }
+</script>

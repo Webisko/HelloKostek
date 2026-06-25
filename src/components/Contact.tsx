@@ -1,27 +1,30 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Mail, Send, MessageSquare, Check, MapPin, Instagram, Facebook, ChevronDown } from "lucide-react";
 
-import { PageId } from "../types";
-
-interface ContactProps {
-  initialSubject?: string;
-  setCurrentPage?: (page: PageId) => void;
-}
-
-export default function Contact({ initialSubject = "", setCurrentPage }: ContactProps) {
+export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    subject: initialSubject,
+    subject: "",
     message: "",
     shape: "",
     size: ""
   });
 
   const [files, setFiles] = useState<File[]>([]);
-  const [isSent, setIsSent] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Check URL query parameters for initial subject on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const subjectParam = params.get("subject");
+      if (subjectParam) {
+        setFormData((prev) => ({ ...prev, subject: subjectParam }));
+      }
+    }
+  }, []);
 
   const subjects = [
     { value: "portrait_commission", label: "Chcę zlecić ręcznie malowany portret ze zdjęcia" },
@@ -38,6 +41,10 @@ export default function Contact({ initialSubject = "", setCurrentPage }: Contact
     if (e.target.files) {
       setFiles(Array.from(e.target.files));
     }
+  };
+
+  const removeFile = (index: number) => {
+    setFiles((prev) => prev.filter((_, i) => i !== index));
   };
 
   const getMessageFieldDetails = () => {
@@ -77,13 +84,11 @@ export default function Contact({ initialSubject = "", setCurrentPage }: Contact
       }
     }
     
-    if (setCurrentPage) {
-      setCurrentPage("success-contact");
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    // Redirect to success contact page
+    if (typeof window !== "undefined") {
+      window.location.href = "/HelloKostek/sukces-kontakt";
     }
   };
-
-
 
   return (
     <div className="animate-fadeIn pt-12 md:pt-20 lg:pt-16 xl:pt-12 2xl:pt-20 pb-16 px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0 max-w-[1600px] mx-auto space-y-24">
@@ -162,8 +167,8 @@ export default function Contact({ initialSubject = "", setCurrentPage }: Contact
           </div>
         </div>
 
-        {/* Right Side: Contact Form (5/12 width) */}
-        <div className="lg:col-span-7 bg-white rounded-3xl border border-gray-200 p-6 sm:p-10 space-y-6">
+        {/* Right Side: Contact Form (7/12 width) */}
+        <div className="lg:col-span-7 bg-white rounded-3xl border border-off-black p-6 sm:p-10 space-y-6">
           <h3 className="font-display text-2xl text-gray-900 border-b border-gray-100 pb-4">Wypełnij formularz kontaktowy</h3>
 
           <form onSubmit={handleSubmit} className="space-y-6 font-sans">
@@ -229,7 +234,7 @@ export default function Contact({ initialSubject = "", setCurrentPage }: Contact
                             setFormData(prev => ({ ...prev, subject: subj.value }));
                             setIsDropdownOpen(false);
                           }}
-                          className={`w-full text-left px-4 py-3 text-sm transition-colors hover:bg-gray-50 ${
+                          className={`w-full text-left px-4 py-3 text-sm transition-colors hover:bg-gray-50 cursor-pointer ${
                             formData.subject === subj.value 
                               ? "bg-gray-50/80 text-[#E0115F] font-semibold" 
                               : "text-gray-700"

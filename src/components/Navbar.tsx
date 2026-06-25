@@ -1,20 +1,11 @@
-import { PageId, CartItem } from "../types";
 import { Menu, X, ArrowRight } from "lucide-react";
 import React, { useState, useEffect } from "react";
 
 interface NavbarProps {
-  currentPage: PageId;
-  setCurrentPage: (page: PageId) => void;
-  cart: CartItem[];
-  setIsCartOpen: (open: boolean) => void;
+  currentPath: string;
 }
 
-export default function Navbar({
-  currentPage,
-  setCurrentPage,
-  cart,
-  setIsCartOpen,
-}: NavbarProps) {
+export default function Navbar({ currentPath }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHeroScrolledPast, setIsHeroScrolledPast] = useState(false);
@@ -44,23 +35,15 @@ export default function Navbar({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleJakZamowic = () => {
-    setIsMobileMenuOpen(false);
-    if (currentPage !== "home") {
-      setCurrentPage("home");
-      setTimeout(() => {
-        const element = document.getElementById("jak-zamowic-sekcja");
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      }, 100);
-    } else {
-      const element = document.getElementById("jak-zamowic-sekcja");
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    }
-  };
+  // Normalizing current path for comparison (handling trailing slashes and base path)
+  const normPath = currentPath.endsWith('/') && currentPath.length > 1 ? currentPath.slice(0, -1) : currentPath;
+  const basePath = "/HelloKostek";
+
+  const isHome = normPath === basePath || normPath === `${basePath}/` || normPath === '/' || normPath === '';
+  const isGallery = normPath === `${basePath}/galeria` || normPath === '/galeria';
+  const isShop = normPath.startsWith(`${basePath}/sklep`) || normPath.startsWith('/sklep');
+  const isAbout = normPath === `${basePath}/o-mnie` || normPath === '/o-mnie';
+  const isContact = normPath === `${basePath}/kontakt` || normPath === '/kontakt';
 
   return (
     <nav className="sticky top-0 z-50 bg-white border-b border-neutral-100 transition-all duration-500 ease-in-out">
@@ -70,89 +53,71 @@ export default function Navbar({
         
         {/* Left Side Navigation (Desktop) - Links */}
         <div className="hidden md:flex items-center space-x-4 lg:space-x-6 w-5/12">
-          <button
-            onClick={() => {
-              setCurrentPage("home");
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
+          <a
+            href={`${basePath}/`}
             className={`font-sans text-[13px] uppercase tracking-widest transition-all duration-300 hover:text-lime-accent relative py-1 group ${
-              currentPage === "home" ? "text-magenta-accent font-semibold" : "text-off-black/60"
+              isHome ? "text-magenta-accent font-semibold" : "text-off-black/60"
             }`}
           >
             Portrety
             <span className={`absolute bottom-0 left-0 w-full h-[1px] transition-transform duration-300 origin-left ${
-              currentPage === "home" ? "bg-magenta-accent scale-x-100" : "bg-lime-accent scale-x-0 group-hover:scale-x-100"
+              isHome ? "bg-magenta-accent scale-x-100" : "bg-lime-accent scale-x-0 group-hover:scale-x-100"
             }`} />
-          </button>
+          </a>
           
-          <button
-            onClick={() => {
-              setCurrentPage("gallery");
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
+          <a
+            href={`${basePath}/galeria`}
             className={`font-sans text-[13px] uppercase tracking-widest transition-all duration-300 hover:text-lime-accent relative py-1 group ${
-              currentPage === "gallery" ? "text-magenta-accent font-semibold" : "text-off-black/60"
+              isGallery ? "text-magenta-accent font-semibold" : "text-off-black/60"
             }`}
           >
             Galeria
             <span className={`absolute bottom-0 left-0 w-full h-[1px] transition-transform duration-300 origin-left ${
-              currentPage === "gallery" ? "bg-magenta-accent scale-x-100" : "bg-lime-accent scale-x-0 group-hover:scale-x-100"
+              isGallery ? "bg-magenta-accent scale-x-100" : "bg-lime-accent scale-x-0 group-hover:scale-x-100"
             }`} />
-          </button>
+          </a>
           
-          <button
-            onClick={() => {
-              setCurrentPage("shop");
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
+          <a
+            href={`${basePath}/sklep`}
             className={`font-sans text-[13px] uppercase tracking-widest transition-all duration-300 hover:text-lime-accent relative py-1 group ${
-              currentPage === "shop" ? "text-magenta-accent font-semibold" : "text-off-black/60"
+              isShop ? "text-magenta-accent font-semibold" : "text-off-black/60"
             }`}
           >
             Sklep
             <span className={`absolute bottom-0 left-0 w-full h-[1px] transition-transform duration-300 origin-left ${
-              currentPage === "shop" ? "bg-magenta-accent scale-x-100" : "bg-lime-accent scale-x-0 group-hover:scale-x-100"
+              isShop ? "bg-magenta-accent scale-x-100" : "bg-lime-accent scale-x-0 group-hover:scale-x-100"
             }`} />
-          </button>
+          </a>
 
-          <button
-            onClick={() => {
-              setCurrentPage("about");
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
+          <a
+            href={`${basePath}/o-mnie`}
             className={`font-sans text-[13px] uppercase tracking-widest transition-all duration-300 hover:text-lime-accent relative py-1 group ${
-              currentPage === "about" ? "text-magenta-accent font-semibold" : "text-off-black/60"
+              isAbout ? "text-magenta-accent font-semibold" : "text-off-black/60"
             }`}
           >
             O mnie
             <span className={`absolute bottom-0 left-0 w-full h-[1px] transition-transform duration-300 origin-left ${
-              currentPage === "about" ? "bg-magenta-accent scale-x-100" : "bg-lime-accent scale-x-0 group-hover:scale-x-100"
+              isAbout ? "bg-magenta-accent scale-x-100" : "bg-lime-accent scale-x-0 group-hover:scale-x-100"
             }`} />
-          </button>
+          </a>
           
-          <button
-            onClick={() => {
-              setCurrentPage("contact");
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
+          <a
+            href={`${basePath}/kontakt`}
             className={`font-sans text-[13px] uppercase tracking-widest transition-all duration-300 hover:text-lime-accent relative py-1 group ${
-              currentPage === "contact" ? "text-magenta-accent font-semibold" : "text-off-black/60"
+              isContact ? "text-magenta-accent font-semibold" : "text-off-black/60"
             }`}
           >
             Kontakt
             <span className={`absolute bottom-0 left-0 w-full h-[1px] transition-transform duration-300 origin-left ${
-              currentPage === "contact" ? "bg-magenta-accent scale-x-100" : "bg-lime-accent scale-x-0 group-hover:scale-x-100"
+              isContact ? "bg-magenta-accent scale-x-100" : "bg-lime-accent scale-x-0 group-hover:scale-x-100"
             }`} />
-          </button>
+          </a>
         </div>
 
         {/* Centered Logo (Daniel Arthury inspired) - Magnified and animated */}
         <div className="flex justify-center items-center w-2/12 text-center">
-          <button
-            onClick={() => {
-              setCurrentPage("home");
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
+          <a
+            href={`${basePath}/`}
             className="flex flex-col items-center group focus:outline-none"
             aria-label="Strona główna hellokostek"
           >
@@ -168,25 +133,14 @@ export default function Navbar({
                 className="max-w-full max-h-full object-contain mix-blend-multiply transition-all duration-500"
               />
             </div>
-          </button>
+          </a>
         </div>
 
         {/* Right Side Navigation (Desktop) - CTA Button */}
         <div className="hidden md:flex items-center justify-end w-5/12">
-          <button
-            onClick={() => {
-              if (currentPage !== "home") {
-                setCurrentPage("home");
-                setTimeout(() => {
-                  const formSection = document.getElementById("kontakt-sekcja");
-                  if (formSection) formSection.scrollIntoView({ behavior: "smooth" });
-                }, 100);
-              } else {
-                const formSection = document.getElementById("kontakt-sekcja");
-                if (formSection) formSection.scrollIntoView({ behavior: "smooth" });
-              }
-            }}
-            className={`button button--nav ${(currentPage === "home" && !isHeroScrolledPast) ? "button--secondary" : ""}`}
+          <a
+            href={isHome ? "#kontakt-sekcja" : `${basePath}/#kontakt-sekcja`}
+            className={`button button--nav ${(isHome && !isHeroScrolledPast) ? "button--secondary" : ""}`}
           >
             <div className="button__blobs">
               <div></div>
@@ -197,7 +151,7 @@ export default function Navbar({
               Zamów portret
               <ArrowRight className="w-4 h-4" />
             </div>
-          </button>
+          </a>
         </div>
 
         {/* Mobile controls */}
@@ -215,70 +169,50 @@ export default function Navbar({
       {/* Mobile Menu panel */}
       {isMobileMenuOpen && (
         <div className="md:hidden mt-4 pt-4 border-t border-neutral-100 flex flex-col space-y-4 pb-4 animate-fadeIn px-6">
-          <button
-            onClick={() => {
-              setCurrentPage("home");
-              setIsMobileMenuOpen(false);
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
+          <a
+            href={`${basePath}/`}
             className={`text-left text-xs uppercase tracking-widest font-sans py-2 border-l-2 pl-3 transition-colors ${
-              currentPage === "home" ? "border-[#E0115F] text-[#E0115F] font-semibold" : "border-transparent text-off-black/60"
+              isHome ? "border-[#E0115F] text-[#E0115F] font-semibold" : "border-transparent text-off-black/60"
             }`}
           >
             Portrety
-          </button>
+          </a>
           
-          <button
-            onClick={() => {
-              setCurrentPage("gallery");
-              setIsMobileMenuOpen(false);
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
+          <a
+            href={`${basePath}/galeria`}
             className={`text-left text-xs uppercase tracking-widest font-sans py-2 border-l-2 pl-3 transition-colors ${
-              currentPage === "gallery" ? "border-[#E0115F] text-[#E0115F] font-semibold" : "border-transparent text-off-black/60"
+              isGallery ? "border-[#E0115F] text-[#E0115F] font-semibold" : "border-transparent text-off-black/60"
             }`}
           >
             Galeria
-          </button>
+          </a>
           
-          <button
-            onClick={() => {
-              setCurrentPage("shop");
-              setIsMobileMenuOpen(false);
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
+          <a
+            href={`${basePath}/sklep`}
             className={`text-left text-xs uppercase tracking-widest font-sans py-2 border-l-2 pl-3 transition-colors ${
-              currentPage === "shop" ? "border-[#E0115F] text-[#E0115F] font-semibold" : "border-transparent text-off-black/60"
+              isShop ? "border-[#E0115F] text-[#E0115F] font-semibold" : "border-transparent text-off-black/60"
             }`}
           >
             Sklep
-          </button>
+          </a>
 
-          <button
-            onClick={() => {
-              setCurrentPage("about");
-              setIsMobileMenuOpen(false);
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
+          <a
+            href={`${basePath}/o-mnie`}
             className={`text-left text-xs uppercase tracking-widest font-sans py-2 border-l-2 pl-3 transition-colors ${
-              currentPage === "about" ? "border-[#E0115F] text-[#E0115F] font-semibold" : "border-transparent text-off-black/60"
+              isAbout ? "border-[#E0115F] text-[#E0115F] font-semibold" : "border-transparent text-off-black/60"
             }`}
           >
             O mnie
-          </button>
+          </a>
 
-          <button
-            onClick={() => {
-              setCurrentPage("contact");
-              setIsMobileMenuOpen(false);
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
+          <a
+            href={`${basePath}/kontakt`}
             className={`text-left text-xs uppercase tracking-widest font-sans py-2 border-l-2 pl-3 transition-colors ${
-              currentPage === "contact" ? "border-[#E0115F] text-[#E0115F] font-semibold" : "border-transparent text-off-black/60"
+              isContact ? "border-[#E0115F] text-[#E0115F] font-semibold" : "border-transparent text-off-black/60"
             }`}
           >
             Kontakt
-          </button>
+          </a>
         </div>
       )}
     </nav>

@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Success from '../components/Success';
+
+const orderNumber = Astro.url.searchParams.get("orderNumber");
+const productTitle = Astro.url.searchParams.get("productTitle");
+const purchaseType = Astro.url.searchParams.get("purchaseType") as "original" | "print" | null;
+const price = parseFloat(Astro.url.searchParams.get("price") || "0");
+const shippingMethod = Astro.url.searchParams.get("shippingMethod") || undefined;
+const shippingPrice = Astro.url.searchParams.get("shippingPrice") ? parseFloat(Astro.url.searchParams.get("shippingPrice") || "0") : undefined;
+
+const orderDetails = orderNumber && productTitle ? {
+  orderNumber,
+  productTitle,
+  purchaseType: purchaseType || "original",
+  price,
+  shippingMethod,
+  shippingPrice,
+} : null;
+---
+
+<Layout title="Transakcja zakończona pomyślnie | hellokostek" hideHeaderFooter={true}>
+  <Success mode="purchase" orderDetails={orderDetails} client:load />
+</Layout>

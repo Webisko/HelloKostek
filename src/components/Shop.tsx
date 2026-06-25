@@ -1,16 +1,8 @@
-import { useState } from "react";
-import { Product, CartItem, PageId } from "../types";
+import React, { useState } from "react";
 import { SHOP_PRODUCTS } from "../data";
-import { Search, SlidersHorizontal, ArrowRight, CornerDownRight } from "lucide-react";
+import { Search, ArrowRight } from "lucide-react";
 
-interface ShopProps {
-  addToCart: (product: Product, buyType: "original" | "print") => void;
-  cart: CartItem[];
-  onSelectProduct: (product: Product) => void;
-  setCurrentPage: (page: PageId) => void;
-}
-
-export default function Shop({ addToCart, cart, onSelectProduct, setCurrentPage }: ShopProps) {
+export default function Shop() {
   const [activeCategory, setActiveCategory] = useState<"all" | "watercolor" | "drawing" | "prints">("all");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -31,6 +23,8 @@ export default function Shop({ addToCart, cart, onSelectProduct, setCurrentPage 
     }
     return true;
   });
+
+  const basePath = "/HelloKostek";
 
   return (
     <div className="animate-fadeIn pt-12 md:pt-20 lg:pt-16 xl:pt-12 2xl:pt-20 pb-16 px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0 max-w-[1600px] mx-auto space-y-16 font-sans">
@@ -59,7 +53,7 @@ export default function Shop({ addToCart, cart, onSelectProduct, setCurrentPage 
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id as any)}
-              className={`px-4 py-2.5 rounded-lg text-xs font-semibold tracking-wider transition-all uppercase ${
+              className={`px-4 py-2.5 rounded-lg text-xs font-semibold tracking-wider transition-all uppercase cursor-pointer ${
                 activeCategory === cat.id
                   ? "bg-gray-950 text-white shadow-sm"
                   : "bg-gray-50 text-gray-600 border border-transparent hover:border-gray-200 hover:bg-white"
@@ -92,10 +86,10 @@ export default function Shop({ addToCart, cart, onSelectProduct, setCurrentPage 
         <div className="columns-1 md:columns-2 lg:columns-3 gap-16 pt-6 [column-fill:_balance]">
           {filteredProducts.map((product) => {
             return (
-              <article
+              <a
                 key={product.id}
-                onClick={() => onSelectProduct(product)}
-                className="break-inside-avoid mb-16 group flex flex-col justify-between space-y-4 cursor-pointer transition-all duration-500 bg-white border border-gray-50 hover:border-gray-200 p-4 rounded-[28px]"
+                href={`${basePath}/sklep/${product.id}`}
+                className="break-inside-avoid mb-16 group flex flex-col justify-between space-y-4 cursor-pointer transition-all duration-500 bg-white border border-gray-55 hover:border-gray-200 p-4 rounded-[28px] hover:shadow-lg block"
               >
                 {/* Image Wrapper */}
                 <div className="relative rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 w-full">
@@ -137,7 +131,7 @@ export default function Shop({ addToCart, cart, onSelectProduct, setCurrentPage 
                     <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
-              </article>
+              </a>
             );
           })}
         </div>
@@ -153,12 +147,9 @@ export default function Shop({ addToCart, cart, onSelectProduct, setCurrentPage 
             Zamów ręcznie malowany tradycyjny portret olejny ze zdjęcia. Idealny prezent i pamiątka na pokolenia.
           </p>
         </div>
-        <button
-          onClick={() => {
-            setCurrentPage("home");
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }}
-          className="button shrink-0"
+        <a
+          href={`${basePath}/`}
+          className="button shrink-0 text-center"
         >
           <div className="button__blobs">
             <div></div>
@@ -168,7 +159,7 @@ export default function Shop({ addToCart, cart, onSelectProduct, setCurrentPage 
           <div className="button__text">
             Zamów swój portret <ArrowRight className="w-4 h-4 ml-1.5" />
           </div>
-        </button>
+        </a>
       </section>
 
       {/* Grid margin spacing padding for offset items */}

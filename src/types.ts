@@ -51,4 +51,3 @@ export interface Testimonial {
   author: string;
   meta: string;
 }
-

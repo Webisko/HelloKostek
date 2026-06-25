@@ -1,16 +1,10 @@
-import { Palette, Landmark, ShieldCheck, Heart, Camera, Brush } from "lucide-react";
+import { Palette, ShieldCheck, Brush } from "lucide-react";
 import Testimonials from "./Testimonials";
 import ProductSlider from "./ProductSlider";
-import { PageId } from "../types";
 
-const maciejImg = "https://hellokostek.pl/wp-content/uploads/2024/12/VideoCapture_20241205-135234.jpg";
+const maciejImg = "/HelloKostek/images/VideoCapture_20241205-135234.jpg";
 
-interface AboutMeProps {
-  setCurrentPage: (page: PageId) => void;
-  onSelectProduct: (product: any) => void;
-}
-
-export default function AboutMe({ setCurrentPage, onSelectProduct }: AboutMeProps) {
+export default function AboutMe() {
   return (
     <div className="animate-fadeIn pt-12 md:pt-20 lg:pt-16 xl:pt-12 2xl:pt-20 pb-16 space-y-16 md:space-y-24 lg:space-y-20 xl:space-y-16 2xl:space-y-24">
       {/* Asymmetric Section 1: Biography vs Workspace Photography */}
@@ -35,19 +29,19 @@ export default function AboutMe({ setCurrentPage, onSelectProduct }: AboutMeProp
               Malarstwo to proces intymny i niepospieszny. Prace sygnowane marką <strong>hellokostek</strong> powstają z chęci zachowania tradycyjnego, czystego rzemiosła artystycznego. Jako niezależny malarz tworzę w zaciszu łódzkiej Pracowni Artystycznej portrety olejne, rysunki oraz akwarele, które stają się świadkami najważniejszych życiowych emocji moich klientów.
             </p>
           
-          <p>
-            Miejscem moich codziennych poszukiwań twórczych jest Łódź – miasto o surowej, postindustrialnej architekturze, niesamowitym filmowym dziedzictwie i nastrojowej, nieco melancholijnej aurze. Ta unikalna tożsamość przestrzeni bezpośrednio wpływa na moją paletę barw: od głębokich umbr i ugorów, po mocne, nasycone akcenty świetlne wyłaniające się z mroku.
-          </p>
+            <p>
+              Miejscem moich codziennych poszukiwań twórczych jest Łódź – miasto o surowej, postindustrialnej architekturze, niesamowitym filmowym dziedzictwie i nastrojowej, nieco melancholijnej aurze. Ta unikalna tożsamość przestrzeni bezpośrednio wpływa na moją paletę barw: od głębokich umbr i ugorów, po mocne, nasycone akcenty świetlne wyłaniające się z mroku.
+            </p>
 
-          <p>
-            Specjalizuję się w malowaniu portretów ze zdjęcia na zamówienie. Każde dzieło to osobna opowieść. Kiedy powierzasz mi wizerunek męża, dziecka, rodziców lub ukochanego pupila, nie oddajesz go w ręce algorytmów czy bezdusznych maszyn drukarskich. Uzyskujesz bezpośredni, stały kontakt z autorem obrazu. Rozmawiamy o charakterze portretowanej osoby, o jej wzroku, uśmiechu czy ułożeniu dłoni, by praca emanowała prawdą, a nie tylko suchym podobieństwem.
-          </p>
+            <p>
+              Specjalizuję się w malowaniu portretów ze zdjęcia na zamówienie. Każde dzieło to osobna opowieść. Kiedy powierzasz mi wizerunek męża, dziecka, rodziców lub ukochanego pupila, nie oddajesz go w ręce algorytmów czy bezdusznych maszyn drukarskich. Uzyskujesz bezpośredni, stały kontakt z autorem obrazu. Rozmawiamy o charakterze portretowanej osoby, o jej wzroku, uśmiechu czy ułożeniu dłoni, by praca emanowała prawdą, a nie tylko suchym podobieństwem.
+            </p>
 
-          <p>
-            Mój warsztat wywodzi się z klasycznych tradycji akademickich. Korzystam wyłącznie z najwyższej klasy materiałów: naturalnych lnianych lub bawełnianych płócien naciąganych na krosna sosnowe, pędzli z włosia naturalnego oraz wyselekcjonowanych pigmentów olejnych uznanych europejskich marek. Wszystko po to, by obraz zachwycał intensywnością i fakturą przez pokolenia.
-          </p>
+            <p>
+              Mój warsztat wywodzi się z klasycznych tradycji akademickich. Korzystam wyłącznie z najwyższej klasy materiałów: naturalnych lnianych lub bawełnianych płócien naciąganych na krosna sosnowe, pędzli z włosia naturalnego oraz wyselekcjonowanych pigmentów olejnych uznanych europejskich marek. Wszystko po to, by obraz zachwycał intensywnością i fakturą przez pokolenia.
+            </p>
+          </div>
         </div>
-      </div>
 
         {/* Right Column: Dynamic Workspace Image Framing (Asymmetric span) */}
         <div className="lg:col-span-5 space-y-6">
@@ -108,7 +102,7 @@ export default function AboutMe({ setCurrentPage, onSelectProduct }: AboutMeProp
       <Testimonials />
 
       {/* Interactive gallery slider - gotowe prace */}
-      <ProductSlider setCurrentPage={setCurrentPage} onSelectProduct={onSelectProduct} />
+      <ProductSlider />
     </div>
   );
 }

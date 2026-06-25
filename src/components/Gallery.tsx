@@ -1,28 +1,27 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
-import { PageId } from "../types";
 import { GALLERY_ARTWORKS } from "../data/gallery";
 import { 
   X, 
   ArrowLeft, 
   ArrowRight, 
   Search, 
-  SlidersHorizontal,
-  ExternalLink,
-  MessageSquare
+  Mail
 } from "lucide-react";
 
-interface GalleryProps {
-  setCurrentPage: (page: PageId) => void;
-  handleNavigateToContact: (subject: string) => void;
-}
+const getSrc = (img: any): string => (img && typeof img === 'object' && 'src' in img ? img.src : img);
 
 type FilterType = "all" | "2024" | "2023" | "2022" | "older";
 
-export default function Gallery({ setCurrentPage, handleNavigateToContact }: GalleryProps) {
+export default function Gallery() {
   const [activeFilter, setActiveFilter] = useState<FilterType>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Block body scroll when lightbox is open
   useEffect(() => {
@@ -98,6 +97,7 @@ export default function Gallery({ setCurrentPage, handleNavigateToContact }: Gal
 
   // Currently viewing artwork in lightbox
   const currentArtwork = selectedImageIndex !== null ? filteredArtworks[selectedImageIndex] : null;
+  const basePath = "/HelloKostek";
 
   return (
     <div className="animate-fadeIn pt-12 md:pt-20 lg:pt-16 xl:pt-12 2xl:pt-20 pb-16 px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0 max-w-[1600px] mx-auto space-y-16 font-sans">
@@ -132,7 +132,7 @@ export default function Gallery({ setCurrentPage, handleNavigateToContact }: Gal
                 setActiveFilter(filter.id as FilterType);
                 setSelectedImageIndex(null);
               }}
-              className={`px-4 py-2.5 rounded-lg text-xs font-semibold tracking-wider transition-all uppercase ${
+              className={`px-4 py-2.5 rounded-lg text-xs font-semibold tracking-wider transition-all uppercase cursor-pointer ${
                 activeFilter === filter.id
                   ? "bg-gray-950 text-white shadow-sm"
                   : "bg-gray-50 text-gray-600 border border-transparent hover:border-gray-200 hover:bg-white"
@@ -175,7 +175,7 @@ export default function Gallery({ setCurrentPage, handleNavigateToContact }: Gal
               {/* Image Container */}
               <div className="relative rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 w-full">
                 <img
-                  src={artwork.imageUrl}
+                  src={getSrc(artwork.imageUrl)}
                   alt={artwork.title}
                   loading="lazy"
                   referrerPolicy="no-referrer"
@@ -194,7 +194,7 @@ export default function Gallery({ setCurrentPage, handleNavigateToContact }: Gal
                   {artwork.title}
                 </h3>
                 <p className="text-xs text-gray-400 font-mono mt-1 uppercase tracking-wider">
-                  Malarstwo olejone na płótnie
+                  Malarstwo olejne na płótnie
                 </p>
               </div>
             </article>
@@ -203,7 +203,7 @@ export default function Gallery({ setCurrentPage, handleNavigateToContact }: Gal
       )}
 
       {/* Lightbox Modal (True Full-Screen Responsive Layout) */}
-      {selectedImageIndex !== null && currentArtwork && createPortal(
+      {isMounted && selectedImageIndex !== null && currentArtwork && createPortal(
         <div 
           className="fixed inset-0 w-screen h-screen z-50 flex flex-col md:flex-row bg-neutral-950 text-white transition-opacity duration-300 overflow-hidden"
           onClick={handleCloseLightbox}
@@ -215,7 +215,7 @@ export default function Gallery({ setCurrentPage, handleNavigateToContact }: Gal
           >
             {/* Image */}
             <img
-              src={currentArtwork.imageUrl}
+              src={getSrc(currentArtwork.imageUrl)}
               alt={currentArtwork.title}
               referrerPolicy="no-referrer"
               className="max-w-full max-h-full object-contain rounded-lg shadow-2xl select-none"
@@ -247,7 +247,7 @@ export default function Gallery({ setCurrentPage, handleNavigateToContact }: Gal
             {/* Close button top right of sidebar on desktop */}
             <button 
               onClick={handleCloseLightbox}
-              className="absolute top-6 right-6 text-neutral-400 hover:text-white bg-white/5 hover:bg-white/10 p-2.5 rounded-full transition-all duration-300"
+              className="absolute top-6 right-6 text-neutral-400 hover:text-white bg-white/5 hover:bg-white/10 p-2.5 rounded-full transition-all duration-300 cursor-pointer"
               aria-label="Zamknij podgląd"
             >
               <X className="w-5 h-5" />
@@ -274,18 +274,9 @@ export default function Gallery({ setCurrentPage, handleNavigateToContact }: Gal
 
             {/* Actions Section */}
             <div className="pt-6 border-t border-white/5">
-              <button
-                onClick={() => {
-                  setCurrentPage("home");
-                  handleCloseLightbox();
-                  setTimeout(() => {
-                    const element = document.getElementById("kontakt-sekcja");
-                    if (element) {
-                      element.scrollIntoView({ behavior: "smooth", block: "start" });
-                    }
-                  }, 100);
-                }}
-                className="button button--full cursor-pointer"
+              <a
+                href={`${basePath}/#kontakt-sekcja`}
+                className="button button--full cursor-pointer text-center"
               >
                 <div className="button__blobs">
                   <div></div>
@@ -296,14 +287,12 @@ export default function Gallery({ setCurrentPage, handleNavigateToContact }: Gal
                   Chcę podobny portret
                   <ArrowRight className="w-4 h-4 ml-1.5" />
                 </div>
-              </button>
+              </a>
             </div>
           </div>
         </div>,
         document.body
       )}
-
-
 
       {/* bottom CTA card */}
       <section className="bg-stone-50 rounded-[32px] p-8 sm:p-12 border border-neutral-100 flex flex-col md:flex-row items-center justify-between gap-8 mt-24">
@@ -316,17 +305,9 @@ export default function Gallery({ setCurrentPage, handleNavigateToContact }: Gal
           </p>
         </div>
         <div className="flex flex-col sm:flex-row gap-4 shrink-0 w-full sm:w-auto">
-          <button
-            onClick={() => {
-              setCurrentPage("home");
-              setTimeout(() => {
-                const element = document.getElementById("jak-zamowic-sekcja");
-                if (element) {
-                  element.scrollIntoView({ behavior: "smooth", block: "start" });
-                }
-              }, 100);
-            }}
-            className="button shrink-0"
+          <a
+            href={`${basePath}/#jak-zamowic-sekcja`}
+            className="button shrink-0 text-center"
           >
             <div className="button__blobs">
               <div></div>
@@ -337,7 +318,7 @@ export default function Gallery({ setCurrentPage, handleNavigateToContact }: Gal
               Oferta portretów ze zdjęcia
               <ArrowRight className="w-4 h-4 ml-1.5" />
             </div>
-          </button>
+          </a>
         </div>
       </section>
 
