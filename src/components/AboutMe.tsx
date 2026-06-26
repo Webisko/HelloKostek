@@ -2,7 +2,7 @@ import { Palette, ShieldCheck, Brush } from "lucide-react";
 import Testimonials from "./Testimonials";
 import ProductSlider from "./ProductSlider";
 
-const maciejImg = "/HelloKostek/images/VideoCapture_20241205-135234.jpg";
+const maciejImg = "/hellokostek/images/VideoCapture_20241205-135234.jpg";
 
 export default function AboutMe() {
   return (

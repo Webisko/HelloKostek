@@ -419,7 +419,7 @@ export default function Terms() {
               Mój regulamin ma na celu jasne zabezpieczenie zarówno Twoich praw, jak i integralności rękodzieła.
             </p>
             <a 
-              href="/HelloKostek/kontakt?subject=other_question"
+              href="/hellokostek/kontakt?subject=other_question"
               className="button button--full button--sm cursor-pointer"
             >
               <div className="button__blobs">

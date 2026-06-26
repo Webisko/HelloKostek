@@ -147,12 +147,12 @@ export default function Home() {
       setEmailForm({ name: "", email: "", subject: "portrait_commission", message: "", shape: "", size: "" });
       setEmailFiles([]);
       if (typeof window !== "undefined") {
-        window.location.href = "/HelloKostek/sukces-kontakt";
+        window.location.href = "/hellokostek/sukces-kontakt";
       }
     }, 1000);
   };
 
-  const basePath = "/HelloKostek";
+  const basePath = "/hellokostek";
 
   return (
     <div className="bg-white min-h-screen text-gray-900 selection:bg-lime-accent selection:text-gray-900 animate-fadeIn">

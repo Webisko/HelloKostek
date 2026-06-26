@@ -352,7 +352,7 @@ export default function PrivacyPolicy() {
               Jeśli chcesz zrealizować swoje prawa RODO lub masz jakiekolwiek wątpliwości, skontaktuj się ze mną bezpośrednio.
             </p>
             <a 
-              href="/HelloKostek/kontakt?subject=other_question"
+              href="/hellokostek/kontakt?subject=other_question"
               className="button button--full button--sm cursor-pointer"
             >
               <div className="button__blobs">

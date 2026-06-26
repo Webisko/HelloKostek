@@ -53,7 +53,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
     
     // Redirect to the success page with query parameters representing the purchase
     if (typeof window !== "undefined") {
-      window.location.href = `/HelloKostek/sukces-zakup?orderNumber=${orderNum}&productTitle=${encodeURIComponent(product.title)}&purchaseType=${selectedType}&price=${currentPrice}&shippingMethod=${encodeURIComponent(deliveryOpt.name)}&shippingPrice=${deliveryOpt.price}`;
+      window.location.href = `/hellokostek/sukces-zakup?orderNumber=${orderNum}&productTitle=${encodeURIComponent(product.title)}&purchaseType=${selectedType}&price=${currentPrice}&shippingMethod=${encodeURIComponent(deliveryOpt.name)}&shippingPrice=${deliveryOpt.price}`;
     }
   };
 
@@ -65,7 +65,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
   };
 
   const currentThumbnailUrl = thumbnails[activeThumbnail] || product.imageUrl;
-  const basePath = "/HelloKostek";
+  const basePath = "/hellokostek";
 
   return (
     <div className="animate-fadeIn pt-12 md:pt-20 lg:pt-16 xl:pt-12 2xl:pt-20 pb-16 px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0 max-w-[1600px] mx-auto space-y-16">

@@ -37,7 +37,7 @@ export default function Navbar({ currentPath }: NavbarProps) {
 
   // Normalizing current path for comparison (handling trailing slashes and base path)
   const normPath = currentPath.endsWith('/') && currentPath.length > 1 ? currentPath.slice(0, -1) : currentPath;
-  const basePath = "/HelloKostek";
+  const basePath = "/hellokostek";
 
   const isHome = normPath === basePath || normPath === `${basePath}/` || normPath === '/' || normPath === '';
   const isGallery = normPath === `${basePath}/galeria` || normPath === '/galeria';

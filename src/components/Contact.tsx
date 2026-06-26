@@ -86,7 +86,7 @@ export default function Contact() {
     
     // Redirect to success contact page
     if (typeof window !== "undefined") {
-      window.location.href = "/HelloKostek/sukces-kontakt";
+      window.location.href = "/hellokostek/sukces-kontakt";
     }
   };
 

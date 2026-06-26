@@ -97,7 +97,7 @@ export default function Gallery() {
 
   // Currently viewing artwork in lightbox
   const currentArtwork = selectedImageIndex !== null ? filteredArtworks[selectedImageIndex] : null;
-  const basePath = "/HelloKostek";
+  const basePath = "/hellokostek";
 
   return (
     <div className="animate-fadeIn pt-12 md:pt-20 lg:pt-16 xl:pt-12 2xl:pt-20 pb-16 px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0 max-w-[1600px] mx-auto space-y-16 font-sans">

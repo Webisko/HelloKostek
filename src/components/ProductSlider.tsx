@@ -55,7 +55,7 @@ export default function ProductSlider() {
   }, [isPaused, nextSlide]);
 
   const extendedProducts = [...SHOP_PRODUCTS, ...SHOP_PRODUCTS, ...SHOP_PRODUCTS];
-  const basePath = "/HelloKostek";
+  const basePath = "/hellokostek";
 
   return (
     <section className="py-20 md:py-28 lg:py-24 xl:py-20 2xl:py-32">
