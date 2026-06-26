@@ -29,11 +29,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          # Wyłączamy cache, ponieważ nie wypychasz pliku package-lock.json do repozytorium
+          cache: 'npm'
 
       - name: Install dependencies
-        # Zmieniamy z 'npm ci' na 'npm install', ponieważ 'npm ci' wymaga obecności pliku package-lock.json
-        run: npm install
+        run: npm ci
 
       - name: Build
         run: npm run build
