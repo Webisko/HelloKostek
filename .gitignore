@@ -32,3 +32,6 @@ recover_info.py
 restore_final.py
 restore_home.py
 user_actions.py
+
+# Image backups
+backup_images/

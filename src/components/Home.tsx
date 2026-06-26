@@ -8,11 +8,11 @@ import {
   Send,
   X
 } from "lucide-react";
-import heroObraz from "../assets/hero.png";
-import portretLeona from "../assets/portret_Leona.png";
-import portretMarysi from "../assets/portret_Marysi.jpg";
-import portretOliwii from "../assets/portret_Oliwii.png";
-import portretSlubnyPary from "../assets/portret_slubny_pary.jpg";
+import heroObraz from "../assets/hero.webp";
+import portretLeona from "../assets/portret_Leona.webp";
+import portretMarysi from "../assets/portret_Marysi.webp";
+import portretOliwii from "../assets/portret_Oliwii.webp";
+import portretSlubnyPary from "../assets/portret_slubny_pary.webp";
 
 const getSrc = (img: any): string => (img && typeof img === 'object' && 'src' in img ? img.src : img);
 const heroObrazUrl = getSrc(heroObraz);
