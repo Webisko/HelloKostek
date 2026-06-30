@@ -108,14 +108,14 @@ export default function ProductSlider() {
                 >
                   <a 
                     href={`${basePath}/sklep/${p.id}`}
-                    className="group cursor-pointer relative flex items-center justify-center mx-auto h-[420px] sm:h-[540px] md:h-[700px] lg:h-[840px] w-fit bg-white border border-gray-55 hover:border-gray-200 p-4 rounded-[28px] transition-all duration-500 hover:shadow-lg"
+                    className="group cursor-pointer relative flex items-center justify-center mx-auto h-[280px] sm:h-[500px] md:h-[650px] lg:h-[800px] w-fit max-w-full bg-white border border-gray-55 hover:border-gray-200 p-4 rounded-[28px] transition-all duration-500 hover:shadow-lg block"
                   >
-                    <div className="relative rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 h-full w-fit">
+                    <div className="relative rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 h-full w-fit max-w-full flex items-center justify-center">
                       <img
                         src={p.imageUrl}
                         alt={p.title}
                         referrerPolicy="no-referrer"
-                        className="h-full w-auto block transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                        className="h-full max-h-full w-auto max-w-full block object-contain transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                       />
                     </div>
                   </a>

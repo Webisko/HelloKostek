@@ -106,7 +106,7 @@ export default function Gallery() {
         <span className="font-mono text-xs uppercase tracking-widest text-[#E0115F] font-semibold block">
           portfolio
         </span>
-        <h1 className="font-display text-5xl md:text-6xl text-gray-900 tracking-tight font-normal">
+        <h1 className="font-display text-4xl sm:text-5xl md:text-6xl text-gray-900 tracking-tight font-normal">
           Malarstwo Portretowe
         </h1>
         <p className="text-gray-600 text-base sm:text-lg max-w-3xl leading-relaxed">

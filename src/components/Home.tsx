@@ -151,11 +151,11 @@ export default function Home() {
           {/* Left: Massive Serif text + CTA */}
           <div className="lg:col-span-7 2xl:col-span-6 space-y-8 font-sans">
             <div className="block">
-              <span className="font-mono text-xs tracking-widest uppercase text-gray-400 font-bold block">
+              <span className="font-mono text-[10px] sm:text-xs tracking-wider sm:tracking-widest uppercase text-gray-400 font-bold block">
                 PRACOWNIA ARTYSTYCZNA • KOSTEK MACIEJ KOSTECZKA
               </span>
             </div>
-            <h1 className="font-display text-6xl sm:text-[90px] lg:text-[104px] xl:text-[120px] 2xl:text-[136px] leading-[0.90] tracking-tighter text-gray-950 font-normal">
+            <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-[96px] xl:text-[110px] 2xl:text-[120px] leading-[0.95] tracking-tighter text-gray-950 font-normal">
               Człowiek dla człowieka – <span className="text-[#E0115F]">sztuka prawdziwa</span> bez AI
             </h1>
             <p className="font-sans text-gray-700 text-lg leading-relaxed max-w-xl font-normal">
@@ -405,27 +405,29 @@ export default function Home() {
             <form onSubmit={handleContactSubmit} className="space-y-6 font-sans">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-1">
-                  <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Imię *</label>
+                  <label htmlFor="home-contact-name" className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Imię *</label>
                   <input
                     type="text"
+                    id="home-contact-name"
                     name="name"
                     required
                     placeholder="np. Anna Kowalska"
                     value={emailForm.name}
                     onChange={(e) => setEmailForm({...emailForm, name: e.target.value})}
-                    className="w-full p-3 bg-gray-50 border border-gray-200 focus:border-[#C4F013] focus:ring-1 focus:ring-[#C4F013] focus:bg-white outline-none rounded-xl text-sm transition-all"
+                    className="w-full p-3 bg-gray-55 border border-gray-200 focus:border-[#C4F013] focus:ring-1 focus:ring-[#C4F013] focus:bg-white outline-none rounded-xl text-sm transition-all"
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">adres e-mail *</label>
+                  <label htmlFor="home-contact-email" className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">adres e-mail *</label>
                   <input
                     type="email"
+                    id="home-contact-email"
                     name="email"
                     required
                     placeholder="np. anna.kowalska@gmail.com"
                     value={emailForm.email}
                     onChange={(e) => setEmailForm({...emailForm, email: e.target.value})}
-                    className="w-full p-3 bg-gray-50 border border-gray-200 focus:border-[#C4F013] focus:ring-1 focus:ring-[#C4F013] focus:bg-white outline-none rounded-xl text-sm transition-all"
+                    className="w-full p-3 bg-gray-55 border border-gray-200 focus:border-[#C4F013] focus:ring-1 focus:ring-[#C4F013] focus:bg-white outline-none rounded-xl text-sm transition-all"
                   />
                 </div>
               </div>
@@ -476,15 +478,16 @@ export default function Home() {
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Opisz swoją wizję lub przeznaczenie obrazu *</label>
+                <label htmlFor="home-contact-message" className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Opisz swoją wizję lub przeznaczenie obrazu *</label>
                 <textarea
+                  id="home-contact-message"
                   name="message"
                   required
                   rows={4}
                   placeholder="Dla kogo powstaje obraz? Czy to pamiątka rodzinna czy prezent na rocznicę? A może chcesz swojego kota wielu miejscach jednocześnie (na drapaku i w ramce)? Daj znać!"
                   value={emailForm.message}
                   onChange={(e) => setEmailForm({...emailForm, message: e.target.value})}
-                  className="w-full p-3 bg-gray-50 border border-gray-200 focus:border-[#C4F013] focus:ring-1 focus:ring-[#C4F013] focus:bg-white outline-none rounded-xl text-sm transition-all resize-none leading-relaxed"
+                  className="w-full p-3 bg-gray-55 border border-gray-200 focus:border-[#C4F013] focus:ring-1 focus:ring-[#C4F013] focus:bg-white outline-none rounded-xl text-sm transition-all resize-none leading-relaxed"
                 />
               </div>
               <div className="space-y-2">

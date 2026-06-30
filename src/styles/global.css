@@ -11,6 +11,14 @@
   --color-magenta-accent: #E0115F;
   --breakpoint-3xl: 100rem;
   
+  /* Dodane niestandardowe szarości z audytu */
+  --color-gray-55: #F9F9F8;
+  --color-gray-450: #858580;
+  --color-gray-550: #6E6D6A;
+  --color-gray-650: #575653;
+  --color-gray-750: #3D3B38;
+  --color-gray-905: #1C1C1B;
+  
   /* Fluid typography scale (rem values at 320px viewport to 1440px viewport) */
   --text-xs: clamp(0.75rem, 0.05vw + 0.7375rem, 0.8125rem);      /* 12px -> 13px */
   --text-sm: clamp(0.8125rem, 0.1vw + 0.7875rem, 0.9375rem);     /* 13px -> 15px */
@@ -44,7 +52,7 @@ html, body {
   background: transparent;
 }
 .custom-scroll::-webkit-scrollbar-thumb {
-  background: #181716-opacity-20;
+  background: rgba(24, 23, 22, 0.2);
   border-radius: 99px;
 }
 

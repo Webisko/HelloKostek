@@ -15,7 +15,7 @@ export default function AboutMe() {
             <span className="font-mono text-xs uppercase tracking-widest text-[#E0115F] font-semibold block mb-4">
               Artysta • Malarz • Łódź
             </span>
-            <h1 className="font-display text-5xl md:text-6xl lg:text-7xl text-gray-900 tracking-tight leading-[1.05] font-normal mb-8">
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-gray-900 tracking-tight leading-[1.05] font-normal mb-8">
               Kostek Maciej Kosteczka
             </h1>
             <p className="font-sans italic text-gray-650 text-xl sm:text-2xl pl-6 border-l-4 border-[#E0115F] leading-relaxed">

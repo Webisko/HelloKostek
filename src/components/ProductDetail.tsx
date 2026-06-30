@@ -381,9 +381,10 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                   <div className="space-y-4 pt-2">
                     {/* Name */}
                     <div className="space-y-1.5">
-                      <label className="font-mono text-xs uppercase tracking-wider text-gray-400 font-bold block">Imię i Nazwisko *</label>
+                      <label htmlFor="checkout-name" className="font-mono text-xs uppercase tracking-wider text-gray-400 font-bold block">Imię i Nazwisko *</label>
                       <input
                         type="text"
+                        id="checkout-name"
                         required
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
@@ -394,9 +395,10 @@ export default function ProductDetail({ product }: ProductDetailProps) {
 
                     {/* Email */}
                     <div className="space-y-1.5">
-                      <label className="font-mono text-xs uppercase tracking-wider text-gray-400 font-bold block">Adres E-mail *</label>
+                      <label htmlFor="checkout-email" className="font-mono text-xs uppercase tracking-wider text-gray-400 font-bold block">Adres E-mail *</label>
                       <input
                         type="email"
+                        id="checkout-email"
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -407,9 +409,10 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                     
                     {/* Phone */}
                     <div className="space-y-1.5">
-                      <label className="font-mono text-xs uppercase tracking-wider text-gray-400 font-bold block">Numer Telefonu *</label>
+                      <label htmlFor="checkout-phone" className="font-mono text-xs uppercase tracking-wider text-gray-400 font-bold block">Numer Telefonu *</label>
                       <input
                         type="tel"
+                        id="checkout-phone"
                         required
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
@@ -445,9 +448,10 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                     {selectedDelivery && (
                       isPointDelivery ? (
                         <div className="space-y-1.5">
-                          <label className="font-mono text-xs uppercase tracking-wider text-gray-400 font-bold block">Kod Paczkomatu InPost / Orlen Paczki *</label>
+                          <label htmlFor="checkout-paczkomat" className="font-mono text-xs uppercase tracking-wider text-gray-400 font-bold block">Kod Paczkomatu InPost / Orlen Paczki *</label>
                           <input
                             type="text"
+                            id="checkout-paczkomat"
                             required
                             value={paczkomatCode}
                             onChange={(e) => setPaczkomatCode(e.target.value.toUpperCase())}
@@ -461,9 +465,10 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                       ) : (
                         <>
                           <div className="space-y-1.5">
-                            <label className="font-mono text-xs uppercase tracking-wider text-gray-400 font-bold block">Ulica i numer domu/mieszkania *</label>
+                            <label htmlFor="checkout-street" className="font-mono text-xs uppercase tracking-wider text-gray-400 font-bold block">Ulica i numer domu/mieszkania *</label>
                             <input
                               type="text"
+                              id="checkout-street"
                               required
                               value={streetAddress}
                               onChange={(e) => setStreetAddress(e.target.value)}
@@ -473,9 +478,10 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                           </div>
                           <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-1.5">
-                              <label className="font-mono text-xs uppercase tracking-wider text-gray-400 font-bold block">Kod pocztowy *</label>
+                              <label htmlFor="checkout-postal" className="font-mono text-xs uppercase tracking-wider text-gray-400 font-bold block">Kod pocztowy *</label>
                               <input
                                 type="text"
+                                id="checkout-postal"
                                 required
                                 value={postalCode}
                                 onChange={(e) => setPostalCode(e.target.value)}
@@ -484,9 +490,10 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                               />
                             </div>
                             <div className="space-y-1.5">
-                              <label className="font-mono text-xs uppercase tracking-wider text-gray-400 font-bold block">Miasto *</label>
+                              <label htmlFor="checkout-city" className="font-mono text-xs uppercase tracking-wider text-gray-400 font-bold block">Miasto *</label>
                               <input
                                 type="text"
+                                id="checkout-city"
                                 required
                                 value={city}
                                 onChange={(e) => setCity(e.target.value)}
@@ -575,9 +582,10 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                     {/* Method fields */}
                     {paymentMethod === "blik" && (
                       <div className="space-y-1.5 animate-fadeIn">
-                        <label className="font-mono text-xs uppercase tracking-wider text-gray-400 font-bold block">Kod BLIK *</label>
+                        <label htmlFor="checkout-blik" className="font-mono text-xs uppercase tracking-wider text-gray-400 font-bold block">Kod BLIK *</label>
                         <input
                           type="text"
+                          id="checkout-blik"
                           maxLength={6}
                           required
                           value={blikCode}
@@ -591,9 +599,10 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                     {paymentMethod === "card" && (
                       <div className="space-y-3 animate-fadeIn">
                         <div className="space-y-1.5">
-                          <label className="font-mono text-xs uppercase tracking-wider text-gray-400 font-bold block">Numer Karty *</label>
+                          <label htmlFor="checkout-card-number" className="font-mono text-xs uppercase tracking-wider text-gray-400 font-bold block">Numer Karty *</label>
                           <input
                             type="text"
+                            id="checkout-card-number"
                             required
                             value={cardNumber}
                             onChange={(e) => setCardNumber(e.target.value.replace(/\s?/g, '').replace(/(\d{4})/g, '$1 ').trim())}
@@ -603,9 +612,10 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                           <div className="space-y-1.5">
-                            <label className="font-mono text-xs uppercase tracking-wider text-gray-400 font-bold block">Termin ważności *</label>
+                            <label htmlFor="checkout-card-expiry" className="font-mono text-xs uppercase tracking-wider text-gray-400 font-bold block">Termin ważności *</label>
                             <input
                               type="text"
+                              id="checkout-card-expiry"
                               required
                               value={cardExpiry}
                               onChange={(e) => setCardExpiry(e.target.value.replace(/\D/g, '').replace(/(\d{2})/, '$1/'))}
@@ -614,9 +624,10 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                             />
                           </div>
                           <div className="space-y-1.5">
-                            <label className="font-mono text-xs uppercase tracking-wider text-gray-400 font-bold block">CVC / CVV *</label>
+                            <label htmlFor="checkout-card-cvv" className="font-mono text-xs uppercase tracking-wider text-gray-400 font-bold block">CVC / CVV *</label>
                             <input
                               type="text"
+                              id="checkout-card-cvv"
                               maxLength={3}
                               required
                               value={cardCvv}

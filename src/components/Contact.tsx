@@ -99,7 +99,7 @@ export default function Contact() {
           <span className="font-mono text-xs uppercase tracking-widest text-[#E0115F] font-semibold block mb-4">
             Kontakt ze mną
           </span>
-          <h1 className="font-display text-6xl text-gray-900 tracking-tight leading-none font-normal">
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl text-gray-900 tracking-tight leading-none font-normal">
             Utrwalmy Twoje wspomnienia
           </h1>
           <p className="font-sans text-gray-600 text-base sm:text-lg max-w-2xl mt-4 leading-relaxed">
@@ -194,28 +194,30 @@ export default function Contact() {
           <form onSubmit={handleSubmit} className="space-y-6 font-sans">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="space-y-1">
-                <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Imię i Nazwisko *</label>
+                <label htmlFor="contact-name" className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Imię i Nazwisko *</label>
                 <input
                   type="text"
+                  id="contact-name"
                   name="name"
                   required
                   value={formData.name}
                   onChange={handleInputChange}
                   placeholder="np. Anna Kowalska"
-                  className="w-full p-3 bg-gray-50 border border-gray-200 focus:border-[#C4F013] focus:ring-1 focus:ring-[#C4F013] focus:bg-white outline-none rounded-xl text-sm transition-all"
+                  className="w-full p-3 bg-gray-55 border border-gray-200 focus:border-[#C4F013] focus:ring-1 focus:ring-[#C4F013] focus:bg-white outline-none rounded-xl text-sm transition-all"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Twój Adres E-mail *</label>
+                <label htmlFor="contact-email" className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Twój Adres E-mail *</label>
                 <input
                   type="email"
+                  id="contact-email"
                   name="email"
                   required
                   value={formData.email}
                   onChange={handleInputChange}
                   placeholder="np. anna.kowalska@gmail.com"
-                  className="w-full p-3 bg-gray-50 border border-gray-200 focus:border-[#C4F013] focus:ring-1 focus:ring-[#C4F013] focus:bg-white outline-none rounded-xl text-sm transition-all"
+                  className="w-full p-3 bg-gray-55 border border-gray-200 focus:border-[#C4F013] focus:ring-1 focus:ring-[#C4F013] focus:bg-white outline-none rounded-xl text-sm transition-all"
                 />
               </div>
             </div>
@@ -226,7 +228,7 @@ export default function Contact() {
                 <button
                   type="button"
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  className={`w-full p-3 pr-10 bg-gray-50 border border-gray-200 focus:border-[#C4F013] focus:ring-1 focus:ring-[#C4F013] focus:bg-white outline-none rounded-xl text-sm transition-all cursor-pointer text-left flex justify-between items-center ${
+                  className={`w-full p-3 pr-10 bg-gray-55 border border-gray-200 focus:border-[#C4F013] focus:ring-1 focus:ring-[#C4F013] focus:bg-white outline-none rounded-xl text-sm transition-all cursor-pointer text-left flex justify-between items-center ${
                     formData.subject ? "text-gray-950" : "text-gray-400"
                   }`}
                 >
@@ -276,7 +278,7 @@ export default function Contact() {
                   <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">Podobrazie *</label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <label className={`flex items-center justify-center p-3 border rounded-xl cursor-pointer hover:border-[#C4F013] text-sm font-sans transition-all text-center ${
-                      formData.shape === "rectangle" && formData.size === "30x40" ? "border-[#C4F013] ring-1 ring-[#C4F013] bg-white shadow-xs font-semibold text-gray-950" : "border-gray-200 bg-gray-50 text-gray-500 hover:bg-white"
+                      formData.shape === "rectangle" && formData.size === "30x40" ? "border-[#C4F013] ring-1 ring-[#C4F013] bg-white shadow-xs font-semibold text-gray-950" : "border-gray-200 bg-gray-55 text-gray-500 hover:bg-white"
                     }`}>
                       <input
                         type="radio"
@@ -289,7 +291,7 @@ export default function Contact() {
                       Prostokątne 30x40
                     </label>
                     <label className={`flex items-center justify-center p-3 border rounded-xl cursor-pointer hover:border-[#C4F013] text-sm font-sans transition-all text-center ${
-                      formData.shape === "oval" && formData.size === "30x40" ? "border-[#C4F013] ring-1 ring-[#C4F013] bg-white shadow-xs font-semibold text-gray-950" : "border-gray-200 bg-gray-50 text-gray-500 hover:bg-white"
+                      formData.shape === "oval" && formData.size === "30x40" ? "border-[#C4F013] ring-1 ring-[#C4F013] bg-white shadow-xs font-semibold text-gray-950" : "border-gray-200 bg-gray-55 text-gray-500 hover:bg-white"
                     }`}>
                       <input
                         type="radio"
@@ -302,7 +304,7 @@ export default function Contact() {
                       Owalne 30x40
                     </label>
                     <label className={`flex items-center justify-center p-3 border rounded-xl cursor-pointer hover:border-[#C4F013] text-sm font-sans transition-all text-center ${
-                      formData.shape === "other" && formData.size === "other" ? "border-[#C4F013] ring-1 ring-[#C4F013] bg-white shadow-xs font-semibold text-gray-950" : "border-gray-200 bg-gray-50 text-gray-500 hover:bg-white"
+                      formData.shape === "other" && formData.size === "other" ? "border-[#C4F013] ring-1 ring-[#C4F013] bg-white shadow-xs font-semibold text-gray-950" : "border-gray-200 bg-gray-55 text-gray-500 hover:bg-white"
                     }`}>
                       <input
                         type="radio"
@@ -320,17 +322,18 @@ export default function Contact() {
             )}
 
             <div className="space-y-1">
-              <label className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">
+              <label htmlFor="contact-message" className="text-xs font-mono font-bold uppercase tracking-wider text-gray-400 block">
                 {getMessageFieldDetails().label}
               </label>
               <textarea
+                id="contact-message"
                 name="message"
                 required
                 rows={4}
                 value={formData.message}
                 onChange={handleInputChange}
                 placeholder={getMessageFieldDetails().placeholder}
-                className="w-full p-3 bg-gray-50 border border-gray-200 focus:border-[#C4F013] focus:ring-1 focus:ring-[#C4F013] focus:bg-white outline-none rounded-xl text-sm transition-all resize-none leading-relaxed"
+                className="w-full p-3 bg-gray-55 border border-gray-200 focus:border-[#C4F013] focus:ring-1 focus:ring-[#C4F013] focus:bg-white outline-none rounded-xl text-sm transition-all resize-none leading-relaxed"
               />
             </div>
 

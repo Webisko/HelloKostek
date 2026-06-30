@@ -148,17 +148,17 @@ const currentYear = new Date().getFullYear();
     </div>
 
     <!-- Right: Formal Links -->
-    <div class="order-2 md:order-3 flex gap-4">
+    <div class="order-2 md:order-3 flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
       <a 
         href={`${basePath}/polityka-prywatnosci`} 
-        class="hover:text-magenta-accent transition-colors cursor-pointer block"
+        class="hover:text-magenta-accent transition-colors cursor-pointer block text-center"
       >
         Polityka prywatności i plików cookies
       </a>
-      <span>•</span>
+      <span class="hidden sm:inline">•</span>
       <a 
         href={`${basePath}/regulamin`} 
-        class="hover:text-magenta-accent transition-colors cursor-pointer block"
+        class="hover:text-magenta-accent transition-colors cursor-pointer block text-center"
       >
         Regulamin sklepu
       </a>

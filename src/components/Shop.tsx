@@ -20,7 +20,7 @@ export default function Shop() {
     <div className="animate-fadeIn pt-12 md:pt-20 lg:pt-16 xl:pt-12 2xl:pt-20 pb-16 px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0 max-w-[1600px] mx-auto space-y-16 font-sans">
       {/* Page Title & SEO Introductory block */}
       <header className="pb-12 max-w-none space-y-4">
-        <span className="font-mono text-xs uppercase tracking-widest text-[#E0115F] font-semibold block">
+        <span className="font-mono text-[10px] sm:text-xs tracking-wider sm:tracking-widest uppercase text-[#E0115F] font-semibold block">
           SELEKCJA DZIEŁ SZTUKI • ORYGINAŁY I LIMITOWANE WYDRUKI
         </span>
         <h1 className="font-display text-4xl sm:text-6xl text-gray-900 tracking-tight font-normal">
