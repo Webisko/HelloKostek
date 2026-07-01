@@ -1,8 +1,48 @@
 import React, { useState, useEffect } from "react";
-import { ShieldCheck, ClipboardList, Users, UserCheck, Cookie, Scale, FileText, Mail, ArrowRight } from "lucide-react";
+import { createPortal } from "react-dom";
+import { ShieldCheck, ClipboardList, Users, UserCheck, Cookie, Scale, FileText, Mail, ArrowRight, X, BookOpen } from "lucide-react";
+
+const PRIVACY_SECTIONS = [
+  { id: "postanowienia-ogolne", label: "§ 1. Postanowienia ogólne" },
+  { id: "cele-i-podstawy-przetwarzania", label: "§ 2. Cele i podstawy prawne" },
+  { id: "odbiorcy-danych", label: "§ 3. Odbiorcy danych" },
+  { id: "prawa-uzytkownikow", label: "§ 4. Twoje prawa (RODO)" },
+  { id: "pliki-cookies", label: "§ 5. Pliki cookies" },
+  { id: "profilowanie-i-omnibus", label: "§ 6. Dyrektywa Omnibus" },
+  { id: "postanowienia-koncowe", label: "§ 7. Postanowienia końcowe" }
+];
 
 export default function PrivacyPolicy() {
   const [activeSection, setActiveSection] = useState<string>("postanowienia-ogolne");
+  const [isMounted, setIsMounted] = useState(false);
+  const [isTocDrawerOpen, setIsTocDrawerOpen] = useState(false);
+
+  const handleScrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.history.pushState(null, "", `#${id}`);
+      setActiveSection(id);
+    }
+  };
+
+  useEffect(() => {
+    setIsMounted(true);
+    
+    // Przewijanie do kotwicy z adresu URL po załadowaniu
+    const hash = window.location.hash.replace("#", "");
+    if (hash) {
+      const timer = setTimeout(() => {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+          setActiveSection(hash);
+        }
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   useEffect(() => {
     const sections = document.querySelectorAll("section[id]");
@@ -28,7 +68,7 @@ export default function PrivacyPolicy() {
   }, []);
   
   return (
-    <div className="animate-fadeIn pt-12 md:pt-20 lg:pt-16 xl:pt-12 2xl:pt-20 pb-16 px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0 max-w-[1600px] mx-auto space-y-16">
+    <div className="animate-fadeIn pt-6 md:pt-8 xl:pt-12 2xl:pt-20 pb-16 px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0 max-w-[1600px] mx-auto space-y-8 xl:space-y-16">
       {/* Editorial Header */}
       <header className="border-b border-gray-100 pb-12 max-w-4xl">
         <span className="font-mono text-xs uppercase tracking-widest text-[#E0115F] font-semibold block mb-4">
@@ -41,6 +81,17 @@ export default function PrivacyPolicy() {
           Stan na: Czerwiec 2026 r.
         </p>
       </header>
+
+      {/* Mobile Table of Contents Trigger (Sticky, floating) */}
+      <div className="sticky top-[63px] md:top-[72px] lg:hidden z-30 flex justify-between items-center w-full py-3 pointer-events-none">
+        <button
+          onClick={() => setIsTocDrawerOpen(true)}
+          className="pointer-events-auto flex items-center gap-2 px-5 py-3 rounded-xl border border-gray-200 bg-white text-gray-800 text-xs font-semibold uppercase tracking-wider hover:bg-gray-55 hover:border-gray-300 transition-all cursor-pointer shadow-md active:scale-[0.98]"
+        >
+          <BookOpen className="w-4 h-4 text-[#E0115F]" />
+          Spis treści
+        </button>
+      </div>
 
       {/* Intro Text & Quick Navigation layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
@@ -248,101 +299,27 @@ export default function PrivacyPolicy() {
         </div>
 
         {/* Sidebar Navigation (Asymmetric) */}
-        <aside className="lg:col-span-4 lg:sticky lg:top-28 bg-gray-50 border border-gray-100 p-6 rounded-3xl space-y-6">
+        <aside className="hidden lg:block lg:col-span-4 lg:sticky lg:top-28 bg-gray-55 border border-gray-100 p-6 rounded-3xl space-y-6">
           <div>
-            <h3 className="font-mono text-xs uppercase tracking-widest text-gray-400 font-semibold mb-2">Skróty sekcji</h3>
+            <h3 className="font-mono text-xs uppercase tracking-widest text-gray-400 font-semibold mb-2">Spis treści</h3>
             <nav className="flex flex-col gap-2.5 font-sans text-sm font-light">
-              <a 
-                href="#postanowienia-ogolne" 
-                className={`transition-all flex items-center gap-1.5 py-0.5 duration-300 ${
-                  activeSection === "postanowienia-ogolne" 
-                    ? "text-[#E0115F] font-semibold translate-x-1" 
-                    : "text-stone-500 hover:text-[#E0115F]"
-                }`}
-              >
-                <ArrowRight className={`w-3.5 h-3.5 transition-colors duration-300 ${
-                  activeSection === "postanowienia-ogolne" ? "text-[#E0115F]" : "text-stone-400"
-                }`} />
-                <span>§ 1. Postanowienia ogólne</span>
-              </a>
-              <a 
-                href="#cele-i-podstawy-przetwarzania" 
-                className={`transition-all flex items-center gap-1.5 py-0.5 duration-300 ${
-                  activeSection === "cele-i-podstawy-przetwarzania" 
-                    ? "text-[#E0115F] font-semibold translate-x-1" 
-                    : "text-stone-500 hover:text-[#E0115F]"
-                }`}
-              >
-                <ArrowRight className={`w-3.5 h-3.5 transition-colors duration-300 ${
-                  activeSection === "cele-i-podstawy-przetwarzania" ? "text-[#E0115F]" : "text-stone-400"
-                }`} />
-                <span>§ 2. Cele i podstawy prawne</span>
-              </a>
-              <a 
-                href="#odbiorcy-danych" 
-                className={`transition-all flex items-center gap-1.5 py-0.5 duration-300 ${
-                  activeSection === "odbiorcy-danych" 
-                    ? "text-[#E0115F] font-semibold translate-x-1" 
-                    : "text-stone-500 hover:text-[#E0115F]"
-                }`}
-              >
-                <ArrowRight className={`w-3.5 h-3.5 transition-colors duration-300 ${
-                  activeSection === "odbiorcy-danych" ? "text-[#E0115F]" : "text-stone-400"
-                }`} />
-                <span>§ 3. Odbiorcy danych</span>
-              </a>
-              <a 
-                href="#prawa-uzytkownikow" 
-                className={`transition-all flex items-center gap-1.5 py-0.5 duration-300 ${
-                  activeSection === "prawa-uzytkownikow" 
-                    ? "text-[#E0115F] font-semibold translate-x-1" 
-                    : "text-stone-500 hover:text-[#E0115F]"
-                }`}
-              >
-                <ArrowRight className={`w-3.5 h-3.5 transition-colors duration-300 ${
-                  activeSection === "prawa-uzytkownikow" ? "text-[#E0115F]" : "text-stone-400"
-                }`} />
-                <span>§ 4. Twoje prawa (RODO)</span>
-              </a>
-              <a 
-                href="#pliki-cookies" 
-                className={`transition-all flex items-center gap-1.5 py-0.5 duration-300 ${
-                  activeSection === "pliki-cookies" 
-                    ? "text-[#E0115F] font-semibold translate-x-1" 
-                    : "text-stone-500 hover:text-[#E0115F]"
-                }`}
-              >
-                <ArrowRight className={`w-3.5 h-3.5 transition-colors duration-300 ${
-                  activeSection === "pliki-cookies" ? "text-[#E0115F]" : "text-stone-400"
-                }`} />
-                <span>§ 5. Pliki cookies</span>
-              </a>
-              <a 
-                href="#profilowanie-i-omnibus" 
-                className={`transition-all flex items-center gap-1.5 py-0.5 duration-300 ${
-                  activeSection === "profilowanie-i-omnibus" 
-                    ? "text-[#E0115F] font-semibold translate-x-1" 
-                    : "text-stone-500 hover:text-[#E0115F]"
-                }`}
-              >
-                <ArrowRight className={`w-3.5 h-3.5 transition-colors duration-300 ${
-                  activeSection === "profilowanie-i-omnibus" ? "text-[#E0115F]" : "text-stone-400"
-                }`} />
-                <span>§ 6. Dyrektywa Omnibus</span>
-              </a>
-              <a 
-                href="#postanowienia-koncowe" 
-                className={`transition-all flex items-center gap-1.5 py-0.5 duration-300 ${
-                  activeSection === "postanowienia-koncowe" 
-                    ? "text-[#E0115F] font-semibold translate-x-1" 
-                    : "text-stone-500 hover:text-[#E0115F]"
-                }`}
-              >
-                <ArrowRight className={`w-3.5 h-3.5 transition-colors duration-300 ${
-                  activeSection === "postanowienia-koncowe" ? "text-[#E0115F]" : "text-stone-400"
-                }`} />
-                <span>§ 7. Postanowienia końcowe</span>
-              </a>
+              {PRIVACY_SECTIONS.map((sec) => (
+                <a 
+                  key={sec.id}
+                  href={`#${sec.id}`}
+                  onClick={(e) => handleScrollToSection(e, sec.id)}
+                  className={`transition-all flex items-center gap-1.5 py-0.5 duration-300 ${
+                    activeSection === sec.id 
+                      ? "text-[#E0115F] font-semibold translate-x-1" 
+                      : "text-stone-500 hover:text-[#E0115F]"
+                  }`}
+                >
+                  <ArrowRight className={`w-3.5 h-3.5 transition-colors duration-300 ${
+                    activeSection === sec.id ? "text-[#E0115F]" : "text-stone-400"
+                  }`} />
+                  <span>{sec.label}</span>
+                </a>
+              ))}
             </nav>
           </div>
 
@@ -368,6 +345,81 @@ export default function PrivacyPolicy() {
           </div>
         </aside>
       </div>
+
+      {/* Table of Contents Drawer (Off-Canvas Menu) */}
+      {isMounted && createPortal(
+        <div className={`fixed inset-0 z-50 overflow-hidden transition-all duration-300 ${isTocDrawerOpen ? "pointer-events-auto" : "pointer-events-none"}`}>
+          {/* Backdrop */}
+          <div 
+            className={`absolute inset-0 bg-black transition-opacity duration-300 ${
+              isTocDrawerOpen ? "opacity-50" : "opacity-0"
+            }`} 
+            onClick={() => setIsTocDrawerOpen(false)}
+          />
+          
+          {/* Sliding Panel */}
+          <div className="absolute inset-y-0 left-0 max-w-full flex">
+            <div className={`w-screen max-w-xs sm:max-w-sm bg-white text-gray-905 shadow-2xl flex flex-col justify-between h-full transform transition-transform duration-300 ease-in-out ${
+              isTocDrawerOpen ? "translate-x-0" : "-translate-x-full"
+            }`}>
+              {/* Header */}
+              <div className="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
+                <h2 className="text-lg font-display font-semibold text-gray-950">Spis treści</h2>
+                <button 
+                  onClick={() => setIsTocDrawerOpen(false)}
+                  className="p-2 -mr-2 text-gray-400 hover:text-gray-900 rounded-full hover:bg-gray-100 transition-colors cursor-pointer border-none bg-transparent"
+                  aria-label="Zamknij spis treści"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Content (Scrollable Navigation) */}
+              <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6">
+                <nav className="flex flex-col gap-3 font-sans text-sm font-light">
+                  {PRIVACY_SECTIONS.map((sec) => (
+                    <a 
+                      key={sec.id}
+                      href={`#${sec.id}`}
+                      onClick={(e) => { setIsTocDrawerOpen(false); handleScrollToSection(e, sec.id); }}
+                      className={`transition-all flex items-center gap-1.5 py-1 duration-300 ${
+                        activeSection === sec.id 
+                          ? "text-[#E0115F] font-semibold translate-x-1" 
+                          : "text-stone-500 hover:text-[#E0115F]"
+                      }`}
+                    >
+                      <ArrowRight className={`w-3.5 h-3.5 transition-colors duration-300 ${
+                        activeSection === sec.id ? "text-[#E0115F]" : "text-stone-400"
+                      }`} />
+                      <span>{sec.label}</span>
+                    </a>
+                  ))}
+                </nav>
+              </div>
+
+              {/* Footer */}
+              <div className="p-6 border-t border-gray-100 bg-gray-55">
+                <a 
+                  href="/hellokostek/kontakt?subject=other_question"
+                  onClick={() => setIsTocDrawerOpen(false)}
+                  className="button button--full button--sm cursor-pointer"
+                >
+                  <div className="button__blobs">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                  <div className="button__text">
+                    <Mail className="w-4 h-4" />
+                    <span>Napisz do mnie</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   );
 }

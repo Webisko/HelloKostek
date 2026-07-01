@@ -4,7 +4,7 @@ export const SHOP_PRODUCTS: Product[] = [
   // --- WATERCOLORS (300 PLN Original, 30 PLN Print) ---
   {
     id: "watercolor-2-2022",
-    title: "Więcej o obiekcie II",
+    title: "Obiekt II",
     year: "2022",
     category: "watercolor",
     originalPrice: 300,
@@ -15,7 +15,7 @@ export const SHOP_PRODUCTS: Product[] = [
   },
   {
     id: "watercolor-7-2022",
-    title: "Więcej o obiekcie VII",
+    title: "Obiekt VII",
     year: "2022",
     category: "watercolor",
     originalPrice: 300,
@@ -26,7 +26,7 @@ export const SHOP_PRODUCTS: Product[] = [
   },
   {
     id: "watercolor-8-2022",
-    title: "Więcej o obiekcie VIII",
+    title: "Obiekt VIII",
     year: "2022",
     category: "watercolor",
     originalPrice: 300,
@@ -37,7 +37,7 @@ export const SHOP_PRODUCTS: Product[] = [
   },
   {
     id: "watercolor-9-2022",
-    title: "Więcej o obiekcie IX",
+    title: "Obiekt IX",
     year: "2022",
     category: "watercolor",
     originalPrice: 300,
@@ -48,7 +48,7 @@ export const SHOP_PRODUCTS: Product[] = [
   },
   {
     id: "watercolor-13-2022",
-    title: "Więcej o obiekcie XIII (Sygnowany)",
+    title: "Obiekt XIII (Sygnowany)",
     year: "2022",
     category: "watercolor",
     originalPrice: 300,

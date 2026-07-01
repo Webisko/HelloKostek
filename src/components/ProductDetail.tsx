@@ -36,15 +36,18 @@ export default function ProductDetail({ product }: ProductDetailProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    if (isCheckoutOpen) {
+    if (isCheckoutOpen || isLightboxOpen) {
       document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
     }
     return () => {
       document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
     };
-  }, [isCheckoutOpen]);
+  }, [isCheckoutOpen, isLightboxOpen]);
 
   const deliveryOptions = selectedType === "original" 
     ? [
@@ -132,7 +135,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
   const basePath = "/hellokostek";
 
   return (
-    <div className="animate-fadeIn pt-12 md:pt-20 lg:pt-16 xl:pt-12 2xl:pt-20 pb-16 px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0 max-w-[1600px] mx-auto space-y-16">
+    <div className="animate-fadeIn pt-6 md:pt-8 xl:pt-12 2xl:pt-20 pb-16 px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0 max-w-[1600px] mx-auto space-y-8 xl:space-y-16">
       {/* Back to Gallery Path Link */}
       <a
         href={`${basePath}/sklep`}
@@ -143,9 +146,9 @@ export default function ProductDetail({ product }: ProductDetailProps) {
       </a>
 
       {/* Main Container Dual-Column Layout (50/50 split) */}
-      <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+      <section className="grid grid-cols-1 xl:grid-cols-12 gap-12 xl:gap-16 items-start">
         {/* Left Column: Media Context (58% width) */}
-        <div className="lg:col-span-7 space-y-6">
+        <div className="xl:col-span-7 space-y-6">
           <div 
             className="relative overflow-hidden rounded-[32px] border border-gray-100 bg-gray-55 cursor-zoom-in group/img"
             onClick={() => setIsLightboxOpen(true)}
@@ -158,14 +161,19 @@ export default function ProductDetail({ product }: ProductDetailProps) {
             />
             
             {/* Visual Guide Overlay */}
-            <div className="absolute top-4 right-4 bg-off-black/85 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-mono tracking-wider z-10 pointer-events-none opacity-0 group-hover/img:opacity-100 transition-opacity duration-300">
+            <div className="hidden xl:block absolute top-4 right-4 bg-off-black/85 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-mono tracking-wider z-10 pointer-events-none opacity-0 group-hover/img:opacity-100 transition-opacity duration-300">
               KLIKNIJ ABY POWIĘKSZYĆ
             </div>
+          </div>
+
+          {/* Informacja dla urządzeń mobilnych i tabletów bez hover */}
+          <div className="xl:hidden text-center text-xs font-mono tracking-wider text-gray-400 uppercase">
+            Kliknij w zdjęcie, aby je powiększyć
           </div>
         </div>
 
         {/* Right Column: Title, Parameters Selector and wide Purchase Controls (42% width) */}
-        <div className="lg:col-span-5 space-y-8 font-sans">
+        <div className="xl:col-span-5 space-y-8 font-sans">
           <div className="space-y-4">
             <span className="font-mono text-xs uppercase tracking-widest text-gray-400 font-bold block">
               Dostępne w Pracowni Artystycznej • {product.year}
@@ -173,7 +181,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
             <h1 className="font-display text-4.5xl leading-tight text-gray-950 font-normal">
               {product.title}
             </h1>
-            <div className="flex gap-4 items-baseline">
+            <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 items-start">
               <span className="text-3xl font-bold font-mono text-[#E0115F]">
                 {currentPrice} zł
               </span>
@@ -211,7 +219,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
               {product.isOriginalAvailable ? (
                 <label
                   onClick={() => { setSelectedType("original"); setQuantity(1); }}
-                  className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all ${
+                  className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-xl border cursor-pointer transition-all ${
                     selectedType === "original"
                       ? "border-magenta-accent bg-gray-50/40"
                       : "border-gray-200 bg-white hover:border-lime-accent hover:bg-gray-55"
@@ -221,22 +229,22 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                     <span className="font-semibold block text-gray-900 text-base">Oryginał ręcznie malowany • {product.originalPrice} zł</span>
                     <span className="text-sm text-gray-500 block mt-0.5">Autentyczne dzieło, tylko 1 sztuka</span>
                   </div>
-                  <span className="bg-[#E0115F] text-white text-xs font-mono px-2.5 py-1 rounded font-bold uppercase tracking-wider shrink-0 ml-2">Dostępny</span>
+                  <span className="bg-[#E0115F] text-white text-xs font-mono px-2.5 py-1 rounded font-bold uppercase tracking-wider shrink-0 self-start sm:self-auto">Dostępny</span>
                 </label>
               ) : (
-                <div className="flex items-center justify-between p-4 rounded-xl border border-gray-150 bg-gray-50 opacity-65">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-xl border border-gray-150 bg-gray-50 opacity-65">
                   <div>
                     <span className="font-semibold block text-gray-600 text-base">Oryginał ręcznie malowany</span>
                     <span className="text-sm text-gray-400 block mt-0.5">Sprzedany do kolekcji prywatnej</span>
                   </div>
-                  <span className="bg-gray-900 text-white text-xs font-mono px-2.5 py-1 rounded font-bold uppercase tracking-wider shrink-0 ml-2">Wyprzedany</span>
+                  <span className="bg-gray-900 text-white text-xs font-mono px-2.5 py-1 rounded font-bold uppercase tracking-wider shrink-0 self-start sm:self-auto">Wyprzedany</span>
                 </div>
               )}
 
               {product.printPrice && (
                 <label
                   onClick={() => { setSelectedType("print"); setQuantity(1); }}
-                  className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all ${
+                  className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-xl border cursor-pointer transition-all ${
                     selectedType === "print"
                       ? "border-magenta-accent bg-gray-50/40"
                       : "border-gray-200 bg-white hover:border-lime-accent hover:bg-gray-55"
@@ -246,7 +254,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                     <span className="font-semibold block text-gray-900 text-base">Wydruk kolekcjonerski • {product.printPrice} zł</span>
                     <span className="text-sm text-gray-500 block mt-0.5">Sygnowana reprodukcja fakturowa na papierze archiwalnym</span>
                   </div>
-                  <span className="bg-[#E0115F] text-white text-xs font-mono px-2.5 py-1 rounded font-bold uppercase tracking-wider shrink-0 ml-2">Dostępny</span>
+                  <span className="bg-[#E0115F] text-white text-xs font-mono px-2.5 py-1 rounded font-bold uppercase tracking-wider shrink-0 self-start sm:self-auto">Dostępny</span>
                 </label>
               )}
             </div>
@@ -300,30 +308,28 @@ export default function ProductDetail({ product }: ProductDetailProps) {
           </div>
 
           {/* Real technical parameters listed as raw prose/text to maintain the minimal aesthetic */}
-          <table className="w-full text-xs text-gray-600 border-t border-gray-100 pt-6">
-            <tbody>
-              <tr className="border-b border-gray-50">
-                <td className="py-2.5 font-semibold text-gray-900 w-1/3">Nośnik bazowy</td>
-                <td className="py-2.5">
-                  {product.category === "watercolor" 
-                    ? "Gruby papier bawełniany Arches 300g/m²" 
-                    : "Wysokiej jakości papier graficzny Canson 220g/m²"}
-                </td>
-              </tr>
-              <tr className="border-b border-gray-50">
-                <td className="py-2.5 font-semibold text-gray-900">Format fizyczny</td>
-                <td className="py-2.5">Standardowy 30x40 cm (możliwość zamówienia passe-partout)</td>
-              </tr>
-              <tr className="border-b border-gray-50">
-                <td className="py-2.5 font-semibold text-gray-900">Sygnatura</td>
-                <td className="py-2.5">Ręczny podpis autora ołówkiem u dołu pracy oraz pieczęć sucha lakowa</td>
-              </tr>
-              <tr>
-                <td className="py-2.5 font-semibold text-gray-900">Czas wysyłki</td>
-                <td className="py-2.5">Wysyłka w ciągu 2 dni roboczych</td>
-              </tr>
-            </tbody>
-          </table>
+          <div className="w-full text-xs text-gray-600 border-t border-gray-100 pt-6 space-y-3.5">
+            <div className="border-b border-gray-50 pb-2.5 flex flex-col sm:grid sm:grid-cols-12 sm:gap-4">
+              <span className="font-semibold text-gray-900 sm:col-span-4">Nośnik bazowy</span>
+              <span className="sm:col-span-8 mt-0.5 sm:mt-0">
+                {product.category === "watercolor" 
+                  ? "Gruby papier bawełniany Arches 300g/m²" 
+                  : "Wysokiej jakości papier graficzny Canson 220g/m²"}
+              </span>
+            </div>
+            <div className="border-b border-gray-50 pb-2.5 flex flex-col sm:grid sm:grid-cols-12 sm:gap-4">
+              <span className="font-semibold text-gray-900 sm:col-span-4">Format fizyczny</span>
+              <span className="sm:col-span-8 mt-0.5 sm:mt-0">Standardowy 30x40 cm (możliwość zamówienia passe-partout)</span>
+            </div>
+            <div className="border-b border-gray-50 pb-2.5 flex flex-col sm:grid sm:grid-cols-12 sm:gap-4">
+              <span className="font-semibold text-gray-900 sm:col-span-4">Sygnatura</span>
+              <span className="sm:col-span-8 mt-0.5 sm:mt-0">Ręczny podpis autora ołówkiem u dołu pracy oraz pieczęć sucha lakowa</span>
+            </div>
+            <div className="flex flex-col sm:grid sm:grid-cols-12 sm:gap-4">
+              <span className="font-semibold text-gray-900 sm:col-span-4">Czas wysyłki</span>
+              <span className="sm:col-span-8 mt-0.5 sm:mt-0">Wysyłka w ciągu 2 dni roboczych</span>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -743,7 +749,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
       {/* Lightbox Modal */}
       {isLightboxOpen && (
         <div 
-          className="fixed inset-0 bg-off-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4 cursor-zoom-out animate-fadeIn"
+          className="fixed inset-0 bg-off-black/90 backdrop-blur-md z-50 flex items-center justify-center p-2 md:p-4 cursor-zoom-out animate-fadeIn"
           onClick={() => setIsLightboxOpen(false)}
         >
           <button 
@@ -758,7 +764,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
             src={product.imageUrl}
             alt={product.title}
             referrerPolicy="no-referrer"
-            className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl select-none animate-scaleIn"
+            className="w-full xl:w-auto max-w-[98vw] md:max-w-[96vw] lg:max-w-[95vw] xl:max-w-[85vw] max-h-[95vh] md:max-h-[93vh] lg:max-h-[92vh] xl:max-h-[90vh] object-contain rounded-lg shadow-2xl select-none animate-scaleIn"
             onClick={(e) => e.stopPropagation()}
           />
         </div>

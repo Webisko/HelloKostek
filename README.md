@@ -23,7 +23,7 @@ Aplikacja podzielona jest na moduły funkcjonalne wspierające zarówno prezenta
 *   **Formularz Wyceny**: Zaawansowany formularz kontaktowy umożliwiający załączenie wielu zdjęć poglądowych, wybór typu podobrazia (prostokątne, owalne, inne) oraz opisanie wizji obrazu.
 
 ### 2. Sklep z Pracami Gotowymi (`/sklep`)
-*   **Katalog Produktów**: Selekcja fizycznie gotowych akwareli (np. z cyklu *"Więcej o obiekcie"*) oraz rysunków ołówkiem (*"Codzienność"*, *"Lęk"*, *"Ucieczka"*).
+*   **Katalog Produktów**: Selekcja fizycznie gotowych akwareli (np. z cyklu *"Obiekt"*) oraz rysunków ołówkiem (*"Codzienność"*, *"Lęk"*, *"Ucieczka"*).
 *   **Filtrowanie**: Wygodne przełączanie widoków (Wszystkie, Akwarele, Rysunki, Wydruki).
 *   **Wybór Wariantu**: Możliwość zakupu unikatowego fizycznego oryginału (jeśli jest dostępny) bądź certyfikowanego, tańszego wydruku kolekcjonerskiego na luksusowym papierze archiwalnym.
 *   **Karta Produktu (`/sklep/[id]`)**: Indywidualny opis artystyczny dzieła, szczegółowe dane techniczne oraz interaktywny panel zakupu.

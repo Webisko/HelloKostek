@@ -1,8 +1,51 @@
 import React, { useState, useEffect } from "react";
-import { BookOpen, Sparkles, FileEdit, CreditCard, Truck, RotateCcw, AlertTriangle, Copyright, Scale, Info, Mail, ArrowRight } from "lucide-react";
+import { createPortal } from "react-dom";
+import { BookOpen, Sparkles, FileEdit, CreditCard, Truck, RotateCcw, AlertTriangle, Copyright, Scale, Info, Mail, ArrowRight, X } from "lucide-react";
+
+const TERMS_SECTIONS = [
+  { id: "postanowienia-ogolne", label: "§ 1. Postanowienia ogólne" },
+  { id: "definicje", label: "§ 2. Definicje przedmiotów" },
+  { id: "skladanie-zamowien", label: "§ 3. Składanie zamówień" },
+  { id: "ceny-i-platnosci", label: "§ 4. Ceny i płatności" },
+  { id: "dostawa", label: "§ 5. Dostawa i wysyłka" },
+  { id: "zwroty-i-odstapienie", label: "§ 6. Prawo do zwrotu" },
+  { id: "reklamacje", label: "§ 7. Reklamacje" },
+  { id: "prawa-autorskie", label: "§ 8. Prawa autorskie" },
+  { id: "pozasadowe-rozwiazywanie-sporow", label: "§ 9. Rozpatrywanie sporów" },
+  { id: "postanowienia-koncowe", label: "§ 10. Postanowienia końcowe" }
+];
 
 export default function Terms() {
   const [activeSection, setActiveSection] = useState<string>("postanowienia-ogolne");
+  const [isMounted, setIsMounted] = useState(false);
+  const [isTocDrawerOpen, setIsTocDrawerOpen] = useState(false);
+
+  const handleScrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.history.pushState(null, "", `#${id}`);
+      setActiveSection(id);
+    }
+  };
+
+  useEffect(() => {
+    setIsMounted(true);
+    
+    // Przewijanie do kotwicy z adresu URL po załadowaniu
+    const hash = window.location.hash.replace("#", "");
+    if (hash) {
+      const timer = setTimeout(() => {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+          setActiveSection(hash);
+        }
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   useEffect(() => {
     const sections = document.querySelectorAll("section[id]");
@@ -28,7 +71,7 @@ export default function Terms() {
   }, []);
   
   return (
-    <div className="animate-fadeIn pt-12 md:pt-20 lg:pt-16 xl:pt-12 2xl:pt-20 pb-16 px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0 max-w-[1600px] mx-auto space-y-16">
+    <div className="animate-fadeIn pt-6 md:pt-8 xl:pt-12 2xl:pt-20 pb-16 px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0 max-w-[1600px] mx-auto space-y-8 xl:space-y-16">
       {/* Editorial Header */}
       <header className="border-b border-gray-100 pb-12 max-w-4xl">
         <span className="font-mono text-xs uppercase tracking-widest text-[#E0115F] font-semibold block mb-4">
@@ -41,6 +84,17 @@ export default function Terms() {
           Stan na: Czerwiec 2026 r.
         </p>
       </header>
+
+      {/* Mobile Table of Contents Trigger (Sticky, floating) */}
+      <div className="sticky top-[63px] md:top-[72px] lg:hidden z-30 flex justify-between items-center w-full py-3 pointer-events-none">
+        <button
+          onClick={() => setIsTocDrawerOpen(true)}
+          className="pointer-events-auto flex items-center gap-2 px-5 py-3 rounded-xl border border-gray-200 bg-white text-gray-800 text-xs font-semibold uppercase tracking-wider hover:bg-gray-55 hover:border-gray-300 transition-all cursor-pointer shadow-md active:scale-[0.98]"
+        >
+          <BookOpen className="w-4 h-4 text-[#E0115F]" />
+          Spis treści
+        </button>
+      </div>
 
       {/* Intro Text & Quick Navigation layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
@@ -276,140 +330,27 @@ export default function Terms() {
         </div>
 
         {/* Sidebar Navigation (Asymmetric) */}
-        <aside className="lg:col-span-4 lg:sticky lg:top-28 bg-gray-50 border border-gray-100 p-6 rounded-3xl space-y-6">
+        <aside className="hidden lg:block lg:col-span-4 lg:sticky lg:top-28 bg-gray-50 border border-gray-100 p-6 rounded-3xl space-y-6">
           <div>
             <h3 className="font-mono text-xs uppercase tracking-widest text-gray-400 font-semibold mb-2">Spis treści</h3>
             <nav className="flex flex-col gap-2.5 font-sans text-sm font-light">
-              <a 
-                href="#postanowienia-ogolne" 
-                className={`transition-all flex items-center gap-1.5 py-0.5 duration-300 ${
-                  activeSection === "postanowienia-ogolne" 
-                    ? "text-[#E0115F] font-semibold translate-x-1" 
-                    : "text-stone-500 hover:text-[#E0115F]"
-                }`}
-              >
-                <ArrowRight className={`w-3.5 h-3.5 transition-colors duration-300 ${
-                  activeSection === "postanowienia-ogolne" ? "text-[#E0115F]" : "text-stone-400"
-                }`} />
-                <span>§ 1. Postanowienia ogólne</span>
-              </a>
-              <a 
-                href="#definicje" 
-                className={`transition-all flex items-center gap-1.5 py-0.5 duration-300 ${
-                  activeSection === "definicje" 
-                    ? "text-[#E0115F] font-semibold translate-x-1" 
-                    : "text-stone-500 hover:text-[#E0115F]"
-                }`}
-              >
-                <ArrowRight className={`w-3.5 h-3.5 transition-colors duration-300 ${
-                  activeSection === "definicje" ? "text-[#E0115F]" : "text-stone-400"
-                }`} />
-                <span>§ 2. Definicje przedmiotów</span>
-              </a>
-              <a 
-                href="#skladanie-zamowien" 
-                className={`transition-all flex items-center gap-1.5 py-0.5 duration-300 ${
-                  activeSection === "skladanie-zamowien" 
-                    ? "text-[#E0115F] font-semibold translate-x-1" 
-                    : "text-stone-500 hover:text-[#E0115F]"
-                }`}
-              >
-                <ArrowRight className={`w-3.5 h-3.5 transition-colors duration-300 ${
-                  activeSection === "skladanie-zamowien" ? "text-[#E0115F]" : "text-stone-400"
-                }`} />
-                <span>§ 3. Składanie zamówień</span>
-              </a>
-              <a 
-                href="#ceny-i-platnosci" 
-                className={`transition-all flex items-center gap-1.5 py-0.5 duration-300 ${
-                  activeSection === "ceny-i-platnosci" 
-                    ? "text-[#E0115F] font-semibold translate-x-1" 
-                    : "text-stone-500 hover:text-[#E0115F]"
-                }`}
-              >
-                <ArrowRight className={`w-3.5 h-3.5 transition-colors duration-300 ${
-                  activeSection === "ceny-i-platnosci" ? "text-[#E0115F]" : "text-stone-400"
-                }`} />
-                <span>§ 4. Ceny i płatności</span>
-              </a>
-              <a 
-                href="#dostawa" 
-                className={`transition-all flex items-center gap-1.5 py-0.5 duration-300 ${
-                  activeSection === "dostawa" 
-                    ? "text-[#E0115F] font-semibold translate-x-1" 
-                    : "text-stone-500 hover:text-[#E0115F]"
-                }`}
-              >
-                <ArrowRight className={`w-3.5 h-3.5 transition-colors duration-300 ${
-                  activeSection === "dostawa" ? "text-[#E0115F]" : "text-stone-400"
-                }`} />
-                <span>§ 5. Dostawa i wysyłka</span>
-              </a>
-              <a 
-                href="#zwroty-i-odstapienie" 
-                className={`transition-all flex items-center gap-1.5 py-0.5 duration-300 ${
-                  activeSection === "zwroty-i-odstapienie" 
-                    ? "text-[#E0115F] font-semibold translate-x-1" 
-                    : "text-stone-500 hover:text-[#E0115F]"
-                }`}
-              >
-                <ArrowRight className={`w-3.5 h-3.5 transition-colors duration-300 ${
-                  activeSection === "zwroty-i-odstapienie" ? "text-[#E0115F]" : "text-stone-400"
-                }`} />
-                <span>§ 6. Prawo do zwrotu</span>
-              </a>
-              <a 
-                href="#reklamacje" 
-                className={`transition-all flex items-center gap-1.5 py-0.5 duration-300 ${
-                  activeSection === "reklamacje" 
-                    ? "text-[#E0115F] font-semibold translate-x-1" 
-                    : "text-stone-500 hover:text-[#E0115F]"
-                }`}
-              >
-                <ArrowRight className={`w-3.5 h-3.5 transition-colors duration-300 ${
-                  activeSection === "reklamacje" ? "text-[#E0115F]" : "text-stone-400"
-                }`} />
-                <span>§ 7. Reklamacje</span>
-              </a>
-              <a 
-                href="#prawa-autorskie" 
-                className={`transition-all flex items-center gap-1.5 py-0.5 duration-300 ${
-                  activeSection === "prawa-autorskie" 
-                    ? "text-[#E0115F] font-semibold translate-x-1" 
-                    : "text-stone-500 hover:text-[#E0115F]"
-                }`}
-              >
-                <ArrowRight className={`w-3.5 h-3.5 transition-colors duration-300 ${
-                  activeSection === "prawa-autorskie" ? "text-[#E0115F]" : "text-stone-400"
-                }`} />
-                <span>§ 8. Prawa autorskie</span>
-              </a>
-              <a 
-                href="#pozasadowe-rozwiazywanie-sporow" 
-                className={`transition-all flex items-center gap-1.5 py-0.5 duration-300 ${
-                  activeSection === "pozasadowe-rozwiazywanie-sporow" 
-                    ? "text-[#E0115F] font-semibold translate-x-1" 
-                    : "text-stone-500 hover:text-[#E0115F]"
-                }`}
-              >
-                <ArrowRight className={`w-3.5 h-3.5 transition-colors duration-300 ${
-                  activeSection === "pozasadowe-rozwiazywanie-sporow" ? "text-[#E0115F]" : "text-stone-400"
-                }`} />
-                <span>§ 9. Rozpatrywanie sporów</span>
-              </a>
-              <a 
-                href="#postanowienia-koncowe" 
-                className={`transition-all flex items-center gap-1.5 py-0.5 duration-300 ${
-                  activeSection === "postanowienia-koncowe" 
-                    ? "text-[#E0115F] font-semibold translate-x-1" 
-                    : "text-stone-500 hover:text-[#E0115F]"
-                }`}
-              >
-                <ArrowRight className={`w-3.5 h-3.5 transition-colors duration-300 ${
-                  activeSection === "postanowienia-koncowe" ? "text-[#E0115F]" : "text-stone-400"
-                }`} />
-                <span>§ 10. Postanowienia końcowe</span>
-              </a>
+              {TERMS_SECTIONS.map((sec) => (
+                <a 
+                  key={sec.id}
+                  href={`#${sec.id}`}
+                  onClick={(e) => handleScrollToSection(e, sec.id)}
+                  className={`transition-all flex items-center gap-1.5 py-0.5 duration-300 ${
+                    activeSection === sec.id 
+                      ? "text-[#E0115F] font-semibold translate-x-1" 
+                      : "text-stone-500 hover:text-[#E0115F]"
+                  }`}
+                >
+                  <ArrowRight className={`w-3.5 h-3.5 transition-colors duration-300 ${
+                    activeSection === sec.id ? "text-[#E0115F]" : "text-stone-400"
+                  }`} />
+                  <span>{sec.label}</span>
+                </a>
+              ))}
             </nav>
           </div>
 
@@ -435,6 +376,81 @@ export default function Terms() {
           </div>
         </aside>
       </div>
+
+      {/* Table of Contents Drawer (Off-Canvas Menu) */}
+      {isMounted && createPortal(
+        <div className={`fixed inset-0 z-50 overflow-hidden transition-all duration-300 ${isTocDrawerOpen ? "pointer-events-auto" : "pointer-events-none"}`}>
+          {/* Backdrop */}
+          <div 
+            className={`absolute inset-0 bg-black transition-opacity duration-300 ${
+              isTocDrawerOpen ? "opacity-50" : "opacity-0"
+            }`} 
+            onClick={() => setIsTocDrawerOpen(false)}
+          />
+          
+          {/* Sliding Panel */}
+          <div className="absolute inset-y-0 left-0 max-w-full flex">
+            <div className={`w-screen max-w-xs sm:max-w-sm bg-white text-gray-905 shadow-2xl flex flex-col justify-between h-full transform transition-transform duration-300 ease-in-out ${
+              isTocDrawerOpen ? "translate-x-0" : "-translate-x-full"
+            }`}>
+              {/* Header */}
+              <div className="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
+                <h2 className="text-lg font-display font-semibold text-gray-950">Spis treści</h2>
+                <button 
+                  onClick={() => setIsTocDrawerOpen(false)}
+                  className="p-2 -mr-2 text-gray-400 hover:text-gray-900 rounded-full hover:bg-gray-100 transition-colors cursor-pointer border-none bg-transparent"
+                  aria-label="Zamknij spis treści"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Content (Scrollable Navigation) */}
+              <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6">
+                <nav className="flex flex-col gap-3 font-sans text-sm font-light">
+                  {TERMS_SECTIONS.map((sec) => (
+                    <a 
+                      key={sec.id}
+                      href={`#${sec.id}`}
+                      onClick={(e) => { setIsTocDrawerOpen(false); handleScrollToSection(e, sec.id); }}
+                      className={`transition-all flex items-center gap-1.5 py-1 duration-300 ${
+                        activeSection === sec.id 
+                          ? "text-[#E0115F] font-semibold translate-x-1" 
+                          : "text-stone-500 hover:text-[#E0115F]"
+                      }`}
+                    >
+                      <ArrowRight className={`w-3.5 h-3.5 transition-colors duration-300 ${
+                        activeSection === sec.id ? "text-[#E0115F]" : "text-stone-400"
+                      }`} />
+                      <span>{sec.label}</span>
+                    </a>
+                  ))}
+                </nav>
+              </div>
+
+              {/* Footer */}
+              <div className="p-6 border-t border-gray-100 bg-gray-55">
+                <a 
+                  href="/hellokostek/kontakt?subject=other_question"
+                  onClick={() => setIsTocDrawerOpen(false)}
+                  className="button button--full button--sm cursor-pointer"
+                >
+                  <div className="button__blobs">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                  <div className="button__text">
+                    <Mail className="w-4 h-4" />
+                    <span>Napisz do mnie</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   );
 }
