@@ -151,7 +151,7 @@ export default function Contact() {
                     className="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 border border-gray-200 hover:border-[#C4F013] transition-all rounded-xl text-sm font-sans text-gray-800 hover:text-black font-medium"
                   >
                     <Instagram className="w-4 h-4 text-[#E0115F]" />
-                    <span>Instagram</span>
+                    <span className="hidden sm:inline">Instagram</span>
                   </a>
                   <a
                     href="https://www.facebook.com/hellokostek/"
@@ -160,7 +160,7 @@ export default function Contact() {
                     className="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 border border-gray-200 hover:border-[#C4F013] transition-all rounded-xl text-sm font-sans text-gray-800 hover:text-black font-medium"
                   >
                     <Facebook className="w-4 h-4 text-[#1877F2]" />
-                    <span>Facebook</span>
+                    <span className="hidden sm:inline">Facebook</span>
                   </a>
                   <a
                     href="https://www.tiktok.com/@hellokostek"
@@ -169,7 +169,7 @@ export default function Contact() {
                     className="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 border border-gray-200 hover:border-[#C4F013] transition-all rounded-xl text-sm font-sans text-gray-800 hover:text-black font-medium"
                   >
                     <TiktokIcon className="w-4 h-4 text-black" />
-                    <span>TikTok</span>
+                    <span className="hidden sm:inline">TikTok</span>
                   </a>
                   <a
                     href="https://www.youtube.com/@hellokostek"
@@ -178,7 +178,7 @@ export default function Contact() {
                     className="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 border border-gray-200 hover:border-[#C4F013] transition-all rounded-xl text-sm font-sans text-gray-800 hover:text-black font-medium"
                   >
                     <Youtube className="w-4 h-4 text-[#FF0000]" />
-                    <span>YouTube</span>
+                    <span className="hidden sm:inline">YouTube</span>
                   </a>
                 </div>
                 <span className="text-gray-500 block text-sm mt-2">Zobacz, jak powstają moje prace, i śledź moją codzienność na żywo.</span>

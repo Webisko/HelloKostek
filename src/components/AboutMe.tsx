@@ -56,8 +56,8 @@ export default function AboutMe() {
 
       {/* bottom CTA card */}
       <section className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-6 3xl:px-0 mt-20">
-        <div className="bg-stone-50 rounded-[32px] p-8 sm:p-12 border border-neutral-100 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="space-y-2 text-center md:text-left max-w-2xl">
+        <div className="bg-stone-50 rounded-[32px] p-8 sm:p-12 border border-neutral-100 flex flex-col lg:flex-row items-center justify-between gap-8">
+          <div className="space-y-2 text-center lg:text-left max-w-2xl">
             <h2 className="font-display text-3xl text-gray-900 font-normal">
               Podoba Ci się moja twórczość?
             </h2>
@@ -65,7 +65,7 @@ export default function AboutMe() {
               Zamów swój własny, unikalny portret ze zdjęcia lub zapoznaj się z gotowymi dziełami malarskimi dostępnymi w moim sklepie.
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-4 shrink-0 w-full sm:w-auto">
+          <div className="flex flex-col xl:flex-row gap-4 shrink-0 w-full sm:w-auto">
             <a
               href={`${basePath}/#kontakt-sekcja`}
               className="button shrink-0 text-center cursor-pointer"
