@@ -113,7 +113,7 @@ export default function Navbar({ currentPath }: NavbarProps) {
         </div>
 
         {/* Centered Logo (Daniel Arthury inspired) - Magnified and animated */}
-        <div className="flex justify-start md:justify-center items-center flex-none md:w-2/12 text-left md:text-center">
+        <div className="flex justify-start md:justify-center items-center flex-1 md:flex-none md:w-2/12 text-left md:text-center">
           <a
             href={`${basePath}/`}
             className="flex flex-col items-center md:items-center group focus:outline-none"
@@ -121,14 +121,14 @@ export default function Navbar({ currentPath }: NavbarProps) {
           >
             <div className={`flex items-center justify-start md:justify-center overflow-hidden transition-all duration-500 ease-in-out ${
               isScrolled 
-                ? "w-[120px] h-[36px] md:w-[200px] md:h-[60px]" 
-                : "w-[160px] h-[48px] md:w-[320px] md:h-[96px]"
+                ? "w-[180px] h-[54px] md:w-[260px] md:h-[78px]" 
+                : "w-[320px] h-[96px] md:w-[600px] md:h-[180px]"
             }`}>
               <img
                 src={`${basePath}/images/logo-animation-30fps-v-2.gif`}
                 alt="hellokostek logo"
-                width={320}
-                height={96}
+                width={600}
+                height={180}
                 referrerPolicy="no-referrer"
                 className="max-w-full max-h-full object-contain mix-blend-multiply transition-all duration-500"
               />
